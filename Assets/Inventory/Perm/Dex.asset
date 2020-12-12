@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d243d1881cf2a624e865b2e25982f22e, type: 3}
-  m_Name: Cash
+  m_Script: {fileID: 11500000, guid: c181bc9400aeda84d83fed04678f42a6, type: 3}
+  m_Name: Dex
   m_EditorClassIdentifier: 
-  name: Cash
-  prefab: {fileID: 6806629247593924559, guid: d87c44e06841c5344838dc2c830008e2, type: 3}
-  type: 1
+  prefab: {fileID: 2357846654185275542, guid: 2fedd18b821de574b9549524aab4672a, type: 3}
+  type: 2
   equipType: 0
-  stack: 1
+  stack: 0
   maxItemCount: 0
   description: 
-  buffs: []
+  buffs:
+  - attribute: 1
+    value: 10

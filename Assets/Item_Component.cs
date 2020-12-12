@@ -15,8 +15,12 @@ public class Item_Component : MonoBehaviour
 
     private void Start()
     {
-        amountText = gameObject.GetComponentInChildren<TextMeshPro>();
-        amountText.text = amount.ToString();
+        if (gameObject.GetComponentInChildren<TextMeshPro>())
+        {
+            amountText = gameObject.GetComponentInChildren<TextMeshPro>();
+            amountText.text = amount.ToString();
+        }
+       
     }
 
 }

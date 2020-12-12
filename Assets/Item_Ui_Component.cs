@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Attributes : MonoBehaviour
+public class Item_Ui_Component : MonoBehaviour
 {
-
-    public int[] attributes = {0, 0, 0, 0}; //0- strength, 1- dexterity, 2- agility, 3- inteligence
-
+    // Start is called before the first frame update
     void Start()
     {
         

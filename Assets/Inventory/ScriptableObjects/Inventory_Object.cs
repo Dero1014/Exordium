@@ -10,7 +10,6 @@ public class Inventory_Object : ScriptableObject
 
     public void AddItem(Item_Base_Object item, int amount)
     {
-
         if (item.stack == StackType.StackInf)
         {
 
@@ -78,6 +77,7 @@ public class Inventory_Slot
 {
 
     public Item_Base_Object item;
+    public EquipType[] allowedEquip;
     public int amount;
 
     public Inventory_Slot(Item_Base_Object itemType, int amountItem)

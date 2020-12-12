@@ -4,11 +4,17 @@ using UnityEngine;
 
 public enum ItemType //types of items
 {
-    Weapon,
-    Potion,
-    Armor,
+    Equipable,
     Default,
     Permanent,
+}
+
+public enum EquipType //types of items
+{
+    None,
+    Hands,
+    Head,
+    Chest,
 }
 
 public enum StackType
@@ -27,8 +33,11 @@ public enum Attributes
 
 public abstract class Item_Base_Object : ScriptableObject
 {
+    public string name;
+    [Space(10)]
     public GameObject prefab; //holds the graphic of the item
     public ItemType type;
+    public EquipType equipType;
     public StackType stack;
     public int maxItemCount;
     [TextArea(2, 15)]
