@@ -29,13 +29,15 @@ public class Inventory_Display : MonoBehaviour
     public Transform slotsParent;
     public Transform itemsParent;
 
-    public Dictionary<GameObject, Inventory_Slot> objToItems = new Dictionary<GameObject, Inventory_Slot>();
     //dictionary to keep the inventory slot to the gameobject
+    [Header("Im experimanting with this shit right now")]
+    public Dictionary<GameObject, Inventory_Slot> objToItems = new Dictionary<GameObject, Inventory_Slot>();
     public Dictionary<Inventory_Slot, GameObject> itemsDisplayed = new Dictionary<Inventory_Slot, GameObject>();
+    public List<Slot_Component> slotHolders = new List<Slot_Component>();
 
 
     private int k = 0;
-    void Start()
+    void Awake()
     {
         CreateDisplay();
         StartSlots();
@@ -44,7 +46,6 @@ public class Inventory_Display : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateSlots();
         UpdateDisplay();
     }
 
@@ -57,7 +58,7 @@ public class Inventory_Display : MonoBehaviour
         for (int i = 0; i < inventory.container.Count; i++)
         {
             var obj = Instantiate(inventory.container[i].item.prefab, Vector3.zero, Quaternion.identity, itemsParent); 
-            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            obj.GetComponent<RectTransform>().position = GetFreeSlotPosition();
             obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].amount.ToString();
             itemsDisplayed.Add(inventory.container[i], obj);
             objToItems.Add(obj, inventory.container[i]);
@@ -76,50 +77,69 @@ public class Inventory_Display : MonoBehaviour
             if (itemsDisplayed.ContainsKey(inventory.container[i]))
             {
                 itemsDisplayed[inventory.container[i]].GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].amount.ToString();
-                itemsDisplayed[inventory.container[i]].GetComponent<RectTransform>().localPosition = GetPosition(i);
             }
             else
             {
+                print("NEW ITEM1");
                 var obj = Instantiate(inventory.container[i].item.prefab, Vector3.zero, Quaternion.identity, itemsParent);
-                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                obj.GetComponent<RectTransform>().position = GetFreeSlotPosition();
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].amount.ToString("n0");
                 itemsDisplayed.Add(inventory.container[i], obj);
                 objToItems.Add(obj, inventory.container[i]);
+                
             }
         }
     }
 
     public void StartSlots()
     {
-
         for (int i = 0; i < startSlots; i++)
         {
+
             var obj = Instantiate(slots, Vector3.zero, Quaternion.identity, slotsParent);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            slotHolders.Add(obj.GetComponentInChildren<Slot_Component>());
         }
 
     }
 
-    public void UpdateSlots()
-    {
-        if (inventory.container.Count>maxSlots)
-        {
-            int upTo = maxSlots + addNumSlots;
+    //public void UpdateSlots()
+    //{
+    //    if (inventory.container.Count>maxSlots)
+    //    {
+    //        int upTo = maxSlots + addNumSlots;
 
-            for (int i = maxSlots; i < upTo; i++)
-            {
-                var obj = Instantiate(slots, Vector3.zero, Quaternion.identity, slotsParent);
-                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            }
+    //        for (int i = maxSlots; i < upTo; i++)
+    //        {
+    //            var obj = Instantiate(slots, Vector3.zero, Quaternion.identity, slotsParent);
+    //            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+    //        }
 
-            maxSlots += addNumSlots; 
-        }
-    }
+    //        maxSlots += addNumSlots; 
+    //    }
+    //}
 
     //gets the position needed to be in when the item is placed in inventory
     public Vector3 GetPosition(int i)
     {
-        return new Vector3(xStart + (xSpaceBetweenSlots * (i % numOfColumns)), yStart + (- ySpaceBetweenSlots * (i / numOfColumns)), 0);
+        return new Vector3(xStart + (xSpaceBetweenSlots * (i % numOfColumns)), yStart + (-ySpaceBetweenSlots * (i / numOfColumns)), 0);
+    }
+
+    public Vector3 GetFreeSlotPosition()
+    {
+
+        for (int i = 0; i < slotHolders.Count; i++)
+        {
+            if (!slotHolders[i].occupied)
+            {
+                slotHolders[i].occupied = true;
+                print(slotHolders[i].GetComponent<RectTransform>().position);
+                return slotHolders[i].GetComponent<RectTransform>().position;
+            }
+        }
+
+        return Vector3.zero;
+
     }
 
 }

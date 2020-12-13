@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d243d1881cf2a624e865b2e25982f22e, type: 3}
   m_Name: Cash
   m_EditorClassIdentifier: 
-  name: Cash
+  itemName: Cash
+  id: 0
   prefab: {fileID: 6806629247593924559, guid: d87c44e06841c5344838dc2c830008e2, type: 3}
   type: 1
   equipType: 0

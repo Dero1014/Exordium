@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -176.2, y: 117.2}
-  m_SizeDelta: {x: 61.5, y: 60.300003}
+  m_SizeDelta: {x: 42.03, y: 43.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2705765400237479337
 CanvasRenderer:
@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 2705765400288101715}
   - component: {fileID: 2705765400288101713}
   - component: {fileID: 2705765400288101712}
+  - component: {fileID: 340867819279403433}
   m_Layer: 5
   m_Name: ItemSlotTemplate
   m_TagString: Untagged
@@ -118,3 +119,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &340867819279403433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705765400288101714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa6edae29045e34c92a84e12a9fa537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

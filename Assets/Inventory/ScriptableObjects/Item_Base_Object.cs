@@ -34,7 +34,8 @@ public enum Attributes
 
 public abstract class Item_Base_Object : ScriptableObject
 {
-    public string name;
+    public string itemName;
+    public int id = 0;
     [Space(10)]
     public GameObject prefab; //holds the graphic of the item
     public ItemType type;

@@ -173,8 +173,16 @@ public class Inventory_Interaction : MonoBehaviour
 
                 if (objectToReplace != null)
                 {
-                    objectToDrag.position = objectToReplace.position;
-                    objectToReplace.position = originalPosition;
+                    if (!objectToReplace.GetComponent<Slot_Component>())
+                    {
+                        objectToDrag.position = objectToReplace.position;
+                        objectToReplace.position = originalPosition;
+                    }
+                    else
+                    {
+                        objectToDrag.position = objectToReplace.position;
+                    }
+                    
                 }
                 else
                 {
@@ -214,10 +222,22 @@ public class Inventory_Interaction : MonoBehaviour
 
         if (hitObjects.Count <= 0) return null;
 
+        if (dragging)
+        {
+            foreach (var hit in hitObjects)
+            {
+                if (hit.gameObject.GetComponent<Slot_Component>())
+                {
+                    return hit.gameObject;
+                }
+            }
+        }
+
         foreach (var hit in hitObjects)
         {
             if (hit.gameObject.GetComponent<Item_Ui_Component>())
             {
+                
                 return hit.gameObject;
             }
         }
