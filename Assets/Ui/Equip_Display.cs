@@ -39,6 +39,9 @@ public class Equip_Display : MonoBehaviour
                 {
                     if (!equipDisplay.ContainsKey(equipment.container[i]))
                     {
+                        print("This " + equipment.container[i].item.name);
+
+                        print("New");
                         var obj = Instantiate(equipment.container[i].item.prefab, Vector3.zero, Quaternion.identity, equipSlots[i]);
                         obj.GetComponent<RectTransform>().localPosition = Vector3.zero;
                         obj.GetComponentInChildren<TextMeshProUGUI>().text = equipment.container[i].amount.ToString("n0");

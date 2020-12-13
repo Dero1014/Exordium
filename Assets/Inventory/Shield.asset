@@ -19,4 +19,6 @@ MonoBehaviour:
   stack: 0
   maxItemCount: 1
   description: 
-  buffs: []
+  buffs:
+  - attribute: 1
+    value: 10

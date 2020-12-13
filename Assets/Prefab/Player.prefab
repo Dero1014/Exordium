@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 10c347e9376f0ea4dad0113ee3f5b661, type: 2}
+  equipment: {fileID: 11400000, guid: 710a63b311874a347983671482bd4af8, type: 2}
 --- !u!50 &8035245086614066682
 Rigidbody2D:
   serializedVersion: 4
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a0657061a447c4fb99fadaf89c6d93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributes: 
+  attributes: 00000000000000000000000000000000
 --- !u!1 &8035245086644710084
 GameObject:
   m_ObjectHideFlags: 0

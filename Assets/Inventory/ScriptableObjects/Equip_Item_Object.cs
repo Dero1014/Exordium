@@ -11,7 +11,6 @@ public class Equip_Item_Object : Item_Base_Object
         maxItemCount = 1;
         type = ItemType.Equipable;
         stack = StackType.StackMax;
-        equipType = EquipType.None;
     }
 
 }

@@ -32,26 +32,16 @@ public class Inventory_Interaction : MonoBehaviour
         {
             target = GetDraggableTransformUnderMouse();
             Inventory_Slot slot;
+
+            bool equiped = false; 
+
             if (target!=null)
             {
                 if (iDisplay.objToItems.ContainsKey(target.gameObject))
                 {
                     slot = iDisplay.objToItems[target.gameObject];
                     print("This is item " + slot + " and has " + slot.amount);
-                    for (int i = 0; i < eDisplay.equipment.container.Count; i++)
-                    {
-                        if (slot.item.equipType == eDisplay.equipment.container[i].allowedEquip[0])
-                        {
-                            iDisplay.inventory.AddItem(eDisplay.equipment.container[i].item, eDisplay.equipment.container[i].amount);
-                            Destroy(eDisplay.equipDisplay[eDisplay.equipment.container[i]]);
-                            eDisplay.equipDisplay.Clear();
-
-                            eDisplay.equipment.container[i].item = slot.item;
-                            eDisplay.equipment.container[i].amount = slot.amount;
-                            break;
-                        }
-                    }
-
+                    
                     //Move the item from inventory to equip
                     for (int i = 0; i < eDisplay.equipment.container.Count; i++)
                     {
@@ -61,11 +51,33 @@ public class Inventory_Interaction : MonoBehaviour
                             {
                                 eDisplay.equipment.container[i].item = slot.item;
                                 eDisplay.equipment.container[i].amount = slot.amount;
+                                equiped = true;
                                 break;
                             }
                         }
                     }
 
+                    if (!equiped)
+                    {
+                        for (int i = 0; i < eDisplay.equipment.container.Count; i++)
+                        {
+                            if (slot.item.equipType == eDisplay.equipment.container[i].allowedEquip[0])
+                            {
+                                if (eDisplay.equipment.container[i].item != null)
+                                {
+                                    print("Added");
+                                    iDisplay.inventory.AddItem(eDisplay.equipment.container[i].item, eDisplay.equipment.container[i].amount);
+                                    Destroy(eDisplay.equipDisplay[eDisplay.equipment.container[i]]);
+                                    eDisplay.equipDisplay.Clear();
+
+                                    eDisplay.equipment.container[i].item = slot.item;
+                                    eDisplay.equipment.container[i].amount = slot.amount;
+                                    break;
+                                }
+
+                            }
+                        }
+                    }
                     
 
                     //now remove that item from the inventory
@@ -79,6 +91,7 @@ public class Inventory_Interaction : MonoBehaviour
                 {
                     slot = eDisplay.objToEquipment[target.gameObject];
                     iDisplay.inventory.AddItem(slot.item, slot.amount);
+                    print("Removed");
 
                     //remove the fucker
                     eDisplay.objToEquipment.Remove(target.gameObject);
