@@ -7,15 +7,14 @@ public class Equip_Display : MonoBehaviour
 {
     public Inventory_Object equipment;
 
-    public Transform[] equipSlots;
+    public List<Transform> equipSlots = new List<Transform>();
 
     public Dictionary<GameObject, Inventory_Slot> objToEquipment = new Dictionary<GameObject, Inventory_Slot>();
     //dictionary to keep the inventory slot to the gameobject
     public Dictionary<Inventory_Slot, GameObject> equipDisplay = new Dictionary<Inventory_Slot, GameObject>();
-
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -50,6 +49,7 @@ public class Equip_Display : MonoBehaviour
                         var obj = Instantiate(equipment.container[i].item.prefab, Vector3.zero, Quaternion.identity, equipSlots[i]);
                         obj.GetComponent<RectTransform>().localPosition = Vector3.zero;
                         obj.GetComponentInChildren<TextMeshProUGUI>().text = equipment.container[i].amount.ToString("n0");
+
                         equipDisplay.Add(equipment.container[i], obj);
                         objToEquipment.Add(obj, equipment.container[i]);
                     }

@@ -22,6 +22,7 @@ public class Inventory_Interaction : MonoBehaviour
     private Image objectToDragImage;
 
     private Transform target;
+    private Slot_Component slotHolder;
 
     List<RaycastResult> hitObjects = new List<RaycastResult>(); //saves all of the raycast results under the mouse
 
@@ -29,6 +30,9 @@ public class Inventory_Interaction : MonoBehaviour
     {
         pAttributes = GameObject.FindObjectOfType<Player_Attributes>();
     }
+
+    bool itsOnInventory = false;
+    bool itsOnEquipment = false;
 
     void Update()
     {
@@ -81,7 +85,6 @@ public class Inventory_Interaction : MonoBehaviour
 
                                     iDisplay.inventory.AddItem(eDisplay.equipment.container[i].item, eDisplay.equipment.container[i].amount);
                                     Destroy(remember);
-                                    //eDisplay.equipDisplay.Clear();
 
                                     eDisplay.equipment.container[i].item = slot.item;
                                     eDisplay.equipment.container[i].amount = slot.amount;
@@ -153,6 +156,9 @@ public class Inventory_Interaction : MonoBehaviour
             objectToDrag = GetDraggableTransformUnderMouse();
             if (objectToDrag != null)
             {
+                itsOnInventory = OnInvDisplay();
+                itsOnEquipment = OnEquipDisplay();
+
                 dragging = true;
 
                 objectToDrag.SetAsLastSibling();
@@ -160,6 +166,7 @@ public class Inventory_Interaction : MonoBehaviour
                 originalPosition = objectToDrag.position;
                 objectToDragImage = objectToDrag.GetComponentInChildren<Image>();
                 objectToDragImage.raycastTarget = false;
+                slotHolder.occupied = false;
             }
         }
 
@@ -175,11 +182,103 @@ public class Inventory_Interaction : MonoBehaviour
                 {
                     if (!objectToReplace.GetComponent<Slot_Component>())
                     {
-                        objectToDrag.position = objectToReplace.position;
-                        objectToReplace.position = originalPosition;
+                        //when there is nothing inside
+                        itsOnEquipment = OnEquipDisplay();
+
+                        if (itsOnEquipment)
+                        {
+                            Inventory_Slot slot = iDisplay.objToItems[objectToDrag.gameObject];
+                            bool equiped = false;
+
+                            int numOfSlot = eDisplay.equipSlots.IndexOf(objectToReplace.GetComponentInParent<Slot_Component>().transform);
+                            print(objectToReplace.name);
+                            print(numOfSlot);
+
+                            if (slot.item.equipType == eDisplay.equipment.container[numOfSlot].allowedEquip[0])
+                            {
+                                if (eDisplay.equipment.container[numOfSlot].item != null)
+                                {
+                                    //remember the game object 
+                                    GameObject remember = eDisplay.equipDisplay[eDisplay.equipment.container[numOfSlot]];
+
+                                    eDisplay.equipDisplay.Remove(eDisplay.objToEquipment[eDisplay.equipDisplay[eDisplay.equipment.container[numOfSlot]]]);
+
+                                    iDisplay.inventory.AddItem(eDisplay.equipment.container[numOfSlot].item, eDisplay.equipment.container[numOfSlot].amount);
+                                    Destroy(remember);
+
+                                    eDisplay.equipment.container[numOfSlot].item = slot.item;
+                                    eDisplay.equipment.container[numOfSlot].amount = slot.amount;
+                                    equiped = true;
+                                }
+
+                            }
+
+                            //now remove that item from the inventory
+                            if (equiped)
+                            {
+                                iDisplay.objToItems.Remove(objectToDrag.gameObject);
+                                iDisplay.itemsDisplayed.Remove(slot);
+                                iDisplay.inventory.container.Remove(slot);
+                                Destroy(objectToDrag.gameObject);
+                            }
+                            else
+                            {
+                                Destroy(objectToDrag.gameObject);
+                            }
+
+
+                        }
+                        else
+                        {
+                            objectToDrag.position = objectToReplace.position;
+                            objectToReplace.position = originalPosition;
+                            slotHolder.occupied = true;
+                        }
                     }
                     else
                     {
+
+                        //when there is nothing inside
+
+                        itsOnEquipment = OnEquipDisplay();
+
+                        if (itsOnEquipment)
+                        {
+                            Inventory_Slot slot = iDisplay.objToItems[objectToDrag.gameObject];
+                            bool equiped = false;
+
+                            int numOfSlot = eDisplay.equipSlots.IndexOf(objectToReplace);
+                            print(objectToReplace.name);
+                            print(numOfSlot);
+
+                            if (slot.item.equipType == eDisplay.equipment.container[numOfSlot].allowedEquip[0])
+                            {
+                                if (eDisplay.equipment.container[numOfSlot].item == null)
+                                {
+                                    eDisplay.equipment.container[numOfSlot].item = slot.item;
+                                    eDisplay.equipment.container[numOfSlot].amount = slot.amount;
+                                    equiped = true;
+                                }
+                            }
+
+
+                            //now remove that item from the inventory
+                            if (equiped)
+                            {
+                                iDisplay.objToItems.Remove(objectToDrag.gameObject);
+                                iDisplay.itemsDisplayed.Remove(slot);
+                                iDisplay.inventory.container.Remove(slot);
+                                Destroy(objectToDrag.gameObject);
+                            }
+                            else
+                            {
+                                Destroy(objectToDrag.gameObject);
+                            }
+
+
+                        }
+
+                        objectToReplace.GetComponent<Slot_Component>().occupied = true;
                         objectToDrag.position = objectToReplace.position;
                     }
                     
@@ -187,6 +286,7 @@ public class Inventory_Interaction : MonoBehaviour
                 else
                 {
                     objectToDrag.position = originalPosition;
+                    slotHolder.occupied = true;
                 }
                
                 objectToDragImage.raycastTarget = true;
@@ -212,6 +312,50 @@ public class Inventory_Interaction : MonoBehaviour
     //    pAttributes.attributes[(int)slot.item.buffs[at].attribute] -= slot.item.buffs[at].value;
     //}
 
+    bool OnInvDisplay()
+    {
+
+        var pointer = new PointerEventData(EventSystem.current);
+
+        pointer.position = Input.mousePosition;
+
+        EventSystem.current.RaycastAll(pointer, hitObjects);
+
+        if (hitObjects.Count <= 0) return false;
+
+        foreach (var hit in hitObjects)
+        {
+            if (hit.gameObject.GetComponent<Inventory_Display>())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool OnEquipDisplay()
+    {
+        var pointer = new PointerEventData(EventSystem.current);
+
+        pointer.position = Input.mousePosition;
+
+        EventSystem.current.RaycastAll(pointer, hitObjects);
+
+        if (hitObjects.Count <= 0) return false;
+
+        foreach (var hit in hitObjects)
+        {
+            if (hit.gameObject.GetComponent<Equip_Display>())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     private GameObject GetObjectUnderMouse()
     {
         var pointer = new PointerEventData(EventSystem.current);
@@ -226,21 +370,35 @@ public class Inventory_Interaction : MonoBehaviour
         {
             foreach (var hit in hitObjects)
             {
+                if (hit.gameObject.GetComponent<Item_Ui_Component>())
+                {
+                    return hit.gameObject;
+                }
                 if (hit.gameObject.GetComponent<Slot_Component>())
                 {
                     return hit.gameObject;
                 }
             }
         }
-
-        foreach (var hit in hitObjects)
+        else
         {
-            if (hit.gameObject.GetComponent<Item_Ui_Component>())
+            foreach (var hit in hitObjects)
             {
-                
-                return hit.gameObject;
+                if (hit.gameObject.GetComponent<Item_Ui_Component>())
+                {
+                    foreach (var slotHold in hitObjects)
+                    {
+                        if (slotHold.gameObject.GetComponent<Slot_Component>())
+                        {
+                            slotHolder = slotHold.gameObject.GetComponent<Slot_Component>();
+                        }
+                    }
+                    return hit.gameObject;
+                }
             }
         }
+
+        
         return null;
     }
 

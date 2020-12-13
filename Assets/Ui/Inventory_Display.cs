@@ -80,7 +80,6 @@ public class Inventory_Display : MonoBehaviour
             }
             else
             {
-                print("NEW ITEM1");
                 var obj = Instantiate(inventory.container[i].item.prefab, Vector3.zero, Quaternion.identity, itemsParent);
                 obj.GetComponent<RectTransform>().position = GetFreeSlotPosition();
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].amount.ToString("n0");
@@ -99,10 +98,12 @@ public class Inventory_Display : MonoBehaviour
             var obj = Instantiate(slots, Vector3.zero, Quaternion.identity, slotsParent);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
             slotHolders.Add(obj.GetComponentInChildren<Slot_Component>());
+
         }
 
     }
 
+    
     //public void UpdateSlots()
     //{
     //    if (inventory.container.Count>maxSlots)
@@ -133,7 +134,7 @@ public class Inventory_Display : MonoBehaviour
             if (!slotHolders[i].occupied)
             {
                 slotHolders[i].occupied = true;
-                print(slotHolders[i].GetComponent<RectTransform>().position);
+
                 return slotHolders[i].GetComponent<RectTransform>().position;
             }
         }
