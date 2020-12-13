@@ -33,6 +33,7 @@ public class Inventory_Interaction : MonoBehaviour
 
     bool itsOnInventory = false;
     bool itsOnEquipment = false;
+    bool wasOnEquipment = false;
 
     void Update()
     {
@@ -156,6 +157,7 @@ public class Inventory_Interaction : MonoBehaviour
             objectToDrag = GetDraggableTransformUnderMouse();
             if (objectToDrag != null)
             {
+                wasOnEquipment = OnEquipDisplay();
                 itsOnInventory = OnInvDisplay();
                 itsOnEquipment = OnEquipDisplay();
 
@@ -212,6 +214,11 @@ public class Inventory_Interaction : MonoBehaviour
                                 }
 
                             }
+                            else
+                            {
+                                objectToDrag.position = originalPosition;
+                                slotHolder.occupied = true;
+                            }
 
                             //now remove that item from the inventory
                             if (equiped)
@@ -221,25 +228,22 @@ public class Inventory_Interaction : MonoBehaviour
                                 iDisplay.inventory.container.Remove(slot);
                                 Destroy(objectToDrag.gameObject);
                             }
-                            else
-                            {
-                                Destroy(objectToDrag.gameObject);
-                            }
+                           
 
 
                         }
                         else
-                        {
+                        {  
                             objectToDrag.position = objectToReplace.position;
                             objectToReplace.position = originalPosition;
                             slotHolder.occupied = true;
                         }
+
                     }
                     else
                     {
-
                         //when there is nothing inside
-
+                        itsOnInventory = OnInvDisplay();
                         itsOnEquipment = OnEquipDisplay();
 
                         if (itsOnEquipment)
@@ -260,6 +264,11 @@ public class Inventory_Interaction : MonoBehaviour
                                     equiped = true;
                                 }
                             }
+                            else
+                            {
+                                objectToDrag.position = originalPosition;
+                                slotHolder.occupied = true;
+                            }
 
 
                             //now remove that item from the inventory
@@ -269,17 +278,19 @@ public class Inventory_Interaction : MonoBehaviour
                                 iDisplay.itemsDisplayed.Remove(slot);
                                 iDisplay.inventory.container.Remove(slot);
                                 Destroy(objectToDrag.gameObject);
+                                objectToReplace.GetComponent<Slot_Component>().occupied = true;
+                                objectToDrag.position = objectToReplace.position;
                             }
-                            else
-                            {
-                                Destroy(objectToDrag.gameObject);
-                            }
-
 
                         }
+                        else
+                        {
+                            objectToDrag.position = objectToReplace.position;
+                            slotHolder.occupied = true;
+                        }
+                        
 
-                        objectToReplace.GetComponent<Slot_Component>().occupied = true;
-                        objectToDrag.position = objectToReplace.position;
+                        
                     }
                     
                 }
@@ -302,6 +313,8 @@ public class Inventory_Interaction : MonoBehaviour
         #endregion
 
     }
+
+
 
     //IEnumerator ApplyConsumable(Inventory_Slot slot, int at)
     //{
