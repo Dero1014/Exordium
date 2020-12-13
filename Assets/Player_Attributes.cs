@@ -60,12 +60,4 @@ public class Player_Attributes : MonoBehaviour
 
     }
 
-    public void UpdateAttributes()
-    {
-        print("Yes");
-        for (int i = 0; i < attributes.Length; i++)
-        {
-            attributesSaved[i] = attributes[i];
-        }
-    }
 }

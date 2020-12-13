@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392315c38b323594ab6e6820f028ae68, type: 3}
   m_Name: DumbItem
   m_EditorClassIdentifier: 
-  name: DumbItem
+  name: HealthPotion
   prefab: {fileID: 2370285054992508826, guid: d9899f6574255c74680cdc1c3797c6c9, type: 3}
   type: 1
   equipType: 0
   stack: 0
-  maxItemCount: 2
+  maxItemCount: 5
   description: 
-  buffs: []
+  buffs:
+  - attribute: 0
+    value: 5

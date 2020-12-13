@@ -15,13 +15,20 @@ public class Inventory_Interaction : MonoBehaviour
     private bool dragging = false;
     private bool clicked = false; //clicked is used to have the ability to click and pickup or place an item in inventory
 
+    private Player_Attributes pAttributes; //make a SO for attributes;
+
     private Vector2 originalPosition;
-    private Transform objectToDrag;
+    public Transform objectToDrag;
     private Image objectToDragImage;
 
     private Transform target;
 
     List<RaycastResult> hitObjects = new List<RaycastResult>(); //saves all of the raycast results under the mouse
+
+    private void Start()
+    {
+        pAttributes = GameObject.FindObjectOfType<Player_Attributes>();
+    }
 
     void Update()
     {
@@ -30,6 +37,8 @@ public class Inventory_Interaction : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1) && !dragging)
         {
+            //later try doing this with iDs
+
             target = GetDraggableTransformUnderMouse();
             Inventory_Slot slot;
 
@@ -40,7 +49,6 @@ public class Inventory_Interaction : MonoBehaviour
                 if (iDisplay.objToItems.ContainsKey(target.gameObject))
                 {
                     slot = iDisplay.objToItems[target.gameObject];
-                    print("This is item " + slot + " and has " + slot.amount);
                     
                     //Move the item from inventory to equip
                     for (int i = 0; i < eDisplay.equipment.container.Count; i++)
@@ -65,10 +73,15 @@ public class Inventory_Interaction : MonoBehaviour
                             {
                                 if (eDisplay.equipment.container[i].item != null)
                                 {
-                                    print("Added");
+
+                                    //remember the game object 
+                                    GameObject remember = eDisplay.equipDisplay[eDisplay.equipment.container[i]];
+
+                                    eDisplay.equipDisplay.Remove(eDisplay.objToEquipment[eDisplay.equipDisplay[eDisplay.equipment.container[i]]]);
+
                                     iDisplay.inventory.AddItem(eDisplay.equipment.container[i].item, eDisplay.equipment.container[i].amount);
-                                    Destroy(eDisplay.equipDisplay[eDisplay.equipment.container[i]]);
-                                    eDisplay.equipDisplay.Clear();
+                                    Destroy(remember);
+                                    //eDisplay.equipDisplay.Clear();
 
                                     eDisplay.equipment.container[i].item = slot.item;
                                     eDisplay.equipment.container[i].amount = slot.amount;
@@ -78,13 +91,15 @@ public class Inventory_Interaction : MonoBehaviour
                             }
                         }
                     }
-                    
 
                     //now remove that item from the inventory
-                    iDisplay.objToItems.Remove(target.gameObject);
-                    iDisplay.itemsDisplayed.Remove(slot);
-                    iDisplay.inventory.container.Remove(slot);
-                    Destroy(target.gameObject);
+                    if (slot.item.type == ItemType.Equipable)
+                    {
+                        iDisplay.objToItems.Remove(target.gameObject);
+                        iDisplay.itemsDisplayed.Remove(slot);
+                        iDisplay.inventory.container.Remove(slot);
+                        Destroy(target.gameObject);
+                    }
 
                 }
                 else if (eDisplay.objToEquipment.ContainsKey(target.gameObject))
@@ -108,11 +123,34 @@ public class Inventory_Interaction : MonoBehaviour
 
         #endregion
 
+        #region consumeeeeeeeeeeeee
+
+        if (Input.GetMouseButtonDown(3))
+        {
+            target = GetDraggableTransformUnderMouse();
+            Inventory_Slot slot;
+            slot = iDisplay.objToItems[target.gameObject];
+            print("Yis!");
+            if (slot.item.type == ItemType.Default && slot.item.buffs.Length > 0) 
+            {
+                Debug.Log("U used an item");
+                slot.amount--;
+            }
+
+        }
+
+        #endregion
+
         #region pick up and dragg
+        if (dragging)
+        {
+            objectToDrag.position = Input.mousePosition;
+            clicked = true;
+        }
+
         if (Input.GetMouseButtonDown(0) && !dragging)
         {
             objectToDrag = GetDraggableTransformUnderMouse();
-
             if (objectToDrag != null)
             {
                 dragging = true;
@@ -142,7 +180,6 @@ public class Inventory_Interaction : MonoBehaviour
                 {
                     objectToDrag.position = originalPosition;
                 }
-
                
                 objectToDragImage.raycastTarget = true;
                 objectToDrag = null;
@@ -152,15 +189,20 @@ public class Inventory_Interaction : MonoBehaviour
             clicked = false;
         }
 
-        if (dragging)
-        {
-            objectToDrag.position = Input.mousePosition;
-            clicked = true;
-        }
+    
 
         #endregion
 
     }
+
+    //IEnumerator ApplyConsumable(Inventory_Slot slot, int at)
+    //{
+    //    pAttributes.attributes[(int)slot.item.buffs[at].attribute] += slot.item.buffs[at].value;
+    //    print("start");
+    //    yield return new WaitForSeconds(5);
+    //    print("no");
+    //    pAttributes.attributes[(int)slot.item.buffs[at].attribute] -= slot.item.buffs[at].value;
+    //}
 
     private GameObject GetObjectUnderMouse()
     {

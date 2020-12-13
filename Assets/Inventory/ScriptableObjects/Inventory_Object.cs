@@ -79,6 +79,7 @@ public class Inventory_Slot
     public Item_Base_Object item;
     public EquipType[] allowedEquip;
     public int amount;
+    public bool dragged = false;
 
     public Inventory_Slot(Item_Base_Object itemType, int amountItem)
     {

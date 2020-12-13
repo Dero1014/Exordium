@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Shield
   prefab: {fileID: 4987733812923531002, guid: 0ba79264ee5a4424db7ef08499d0fc01, type: 3}
   type: 0
-  equipType: 1
+  equipType: 2
   stack: 0
   maxItemCount: 1
   description: 

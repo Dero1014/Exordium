@@ -13,6 +13,7 @@ public enum EquipType //types of items
 {
     None,
     Hands,
+    Shield,
     Head,
     Chest,
 }

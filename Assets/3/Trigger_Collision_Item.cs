@@ -28,8 +28,8 @@ public class Trigger_Collision_Item : MonoBehaviour
             for (int i = 0; i < item.itemType.buffs.Length; i++)
             {
                 //apply stats for permament
+                Debug.Log("U picked up " + item.itemType.name);
                 pAttributes.pickedUpItems.Add(item.itemType);
-                pAttributes.UpdateAttributes();
             }
 
         }

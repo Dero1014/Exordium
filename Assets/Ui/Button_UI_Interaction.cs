@@ -63,7 +63,6 @@ public class Button_UI_Interaction : MonoBehaviour
 
     public void OpenInventory()
     {
-        print("It works");
         inventoryUI.SetActive(true);
         inventoryButton.SetActive(false);
         inventoryOpen = true;

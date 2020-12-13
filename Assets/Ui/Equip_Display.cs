@@ -37,19 +37,24 @@ public class Equip_Display : MonoBehaviour
             {
                 if (equipment.container[i].item != null)
                 {
-                    if (!equipDisplay.ContainsKey(equipment.container[i]))
+                    if (equipDisplay.ContainsKey(equipment.container[i]))
                     {
-                        print("This " + equipment.container[i].item.name);
+                        equipDisplay[equipment.container[i]].GetComponentInChildren<TextMeshProUGUI>().text = equipment.container[i].amount.ToString();
+                        equipDisplay[equipment.container[i]].GetComponent<RectTransform>().localPosition = Vector3.zero;
+                    }
+                    else
+                    {
+                        //print("This " + equipment.container[i].item.name);
 
-                        print("New");
+                        //print("New");
                         var obj = Instantiate(equipment.container[i].item.prefab, Vector3.zero, Quaternion.identity, equipSlots[i]);
                         obj.GetComponent<RectTransform>().localPosition = Vector3.zero;
                         obj.GetComponentInChildren<TextMeshProUGUI>().text = equipment.container[i].amount.ToString("n0");
                         equipDisplay.Add(equipment.container[i], obj);
                         objToEquipment.Add(obj, equipment.container[i]);
                     }
-
                 }
+          
             }
            
         }
