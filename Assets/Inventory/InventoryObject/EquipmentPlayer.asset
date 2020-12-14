@@ -15,13 +15,17 @@ MonoBehaviour:
   container:
   - item: {fileID: 0}
     allowedEquip: 03000000
-    amount: 0
+    amount: 1
+    dragged: 0
   - item: {fileID: 0}
     allowedEquip: 01000000
     amount: 1
+    dragged: 0
   - item: {fileID: 0}
     allowedEquip: 02000000
     amount: 1
+    dragged: 0
   - item: {fileID: 0}
-    allowedEquip: 03000000
-    amount: 0
+    allowedEquip: 04000000
+    amount: 1
+    dragged: 0

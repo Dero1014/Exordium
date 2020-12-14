@@ -8,7 +8,6 @@ public class Maxed_Item_Object : Item_Base_Object
 
     private void Awake()
     {
-        maxItemCount = 1;
         type = ItemType.Default;
         stack = StackType.StackMax;
     }

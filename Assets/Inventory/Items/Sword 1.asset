@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04302ff9170ac7c4aa3aee26192c72a5, type: 3}
-  m_Name: Shield
+  m_Name: Sword 1
   m_EditorClassIdentifier: 
-  itemName: Shield
-  id: 2
-  prefab: {fileID: 4987733812923531002, guid: 0ba79264ee5a4424db7ef08499d0fc01, type: 3}
+  itemName: Sword 1
+  id: 0
+  prefab: {fileID: 863662276024113046, guid: a2ac2fb81245aa4478c9e55c2c2687c3, type: 3}
+  sprite: {fileID: 7073572992877385368, guid: e041b464539813644b00790606d9358a, type: 3}
   type: 0
-  equipType: 2
+  equipType: 1
   stack: 0
   maxItemCount: 1
   description: 
   buffs:
-  - attribute: 1
-    value: 10
+  - attribute: 0
+    value: 25

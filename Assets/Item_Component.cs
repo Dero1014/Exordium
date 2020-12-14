@@ -11,10 +11,15 @@ public class Item_Component : MonoBehaviour
 
     //private
     private TextMeshPro amountText;
+    private SpriteRenderer sprite;
 
 
     private void Start()
     {
+        sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
+
+        sprite.sprite = itemType.sprite;
+
         if (gameObject.GetComponentInChildren<TextMeshPro>())
         {
             amountText = gameObject.GetComponentInChildren<TextMeshPro>();

@@ -38,6 +38,7 @@ public abstract class Item_Base_Object : ScriptableObject
     public int id = 0;
     [Space(10)]
     public GameObject prefab; //holds the graphic of the item
+    public Sprite sprite;
     public ItemType type;
     public EquipType equipType;
     public StackType stack;

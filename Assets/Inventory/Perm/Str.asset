@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c181bc9400aeda84d83fed04678f42a6, type: 3}
   m_Name: Str
   m_EditorClassIdentifier: 
+  itemName: 
+  id: 0
   prefab: {fileID: 3410364124583247844, guid: 94dbaac3c91a34c4e8298a47867397a4, type: 3}
+  sprite: {fileID: -319862700543992521, guid: e041b464539813644b00790606d9358a, type: 3}
   type: 2
   equipType: 0
   stack: 0

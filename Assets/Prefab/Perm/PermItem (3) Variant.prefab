@@ -70,17 +70,17 @@ PrefabInstance:
     - target: {fileID: 3410364124583247844, guid: 94dbaac3c91a34c4e8298a47867397a4,
         type: 3}
       propertyPath: m_Name
-      value: PermItem (3)
+      value: PermItem (3) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3410364125450590305, guid: 94dbaac3c91a34c4e8298a47867397a4,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.16470587
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3410364125450590305, guid: 94dbaac3c91a34c4e8298a47867397a4,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.2974188
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3410364125450590305, guid: 94dbaac3c91a34c4e8298a47867397a4,
         type: 3}
