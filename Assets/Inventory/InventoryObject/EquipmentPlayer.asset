@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdefb358c9833f34197192c4e9db6504, type: 3}
   m_Name: EquipmentPlayer
   m_EditorClassIdentifier: 
+  capacity: 5
   container:
   - item: {fileID: 0}
     allowedEquip: 03000000
@@ -22,11 +23,10 @@ MonoBehaviour:
     amount: 1
     dragged: 0
   - item: {fileID: 0}
-    allowedEquip: 02000000
+    allowedEquip: 01000000
     amount: 1
     dragged: 0
   - item: {fileID: 0}
     allowedEquip: 04000000
     amount: 1
     dragged: 0
-  capacity: 4

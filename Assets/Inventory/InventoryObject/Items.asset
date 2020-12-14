@@ -7,11 +7,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdefb358c9833f34197192c4e9db6504, type: 3}
   m_Name: Items
   m_EditorClassIdentifier: 
+  capacity: 0
   container:
   - item: {fileID: 11400000, guid: 1b9009ebfae125240bd1ce0198502840, type: 2}
     allowedEquip: 
@@ -77,4 +78,3 @@ MonoBehaviour:
     allowedEquip: 
     amount: 0
     dragged: 0
-  capacity: 0

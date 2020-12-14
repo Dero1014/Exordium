@@ -16,6 +16,13 @@ public class Prox_Direction_ItemPicker : MonoBehaviour
 
     private Vector2 directionInput;
 
+    private Player_PickUp pickUp;
+
+    void Start()
+    {
+        pickUp = GameObject.FindObjectOfType<Player_PickUp>();
+    }
+
     void Update()
     {
 
@@ -37,7 +44,9 @@ public class Prox_Direction_ItemPicker : MonoBehaviour
                 {
                     //here we update to inventory Ui
 
-                    Destroy(c.gameObject);
+                    Item_Component item = c.transform.gameObject.GetComponent<Item_Component>();
+                    pickUp.PickedUp(item);
+
                 }
 
             }

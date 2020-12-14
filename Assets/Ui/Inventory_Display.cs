@@ -18,19 +18,16 @@ public class Inventory_Display : MonoBehaviour
 
     public int xStart; //where the items start 
     public int yStart;
-    [Header("This is to put in more rows of the back templates of items but for now no")]
     public int xSpaceBetweenSlots;
     public int numOfColumns; 
     public int ySpaceBetweenSlots;
 
-    [Header("Im gonna have to figure this out later")]
     //these are use to place slots and items into game objects so they don't clutter the inventory panel
     //PS They always need to be in the middle
     public Transform slotsParent;
     public Transform itemsParent;
 
     //dictionary to keep the inventory slot to the gameobject
-    [Header("Im experimanting with this shit right now")]
     public Dictionary<GameObject, Inventory_Slot> objToItems = new Dictionary<GameObject, Inventory_Slot>();
     public Dictionary<Inventory_Slot, GameObject> itemsDisplayed = new Dictionary<Inventory_Slot, GameObject>();
     public List<Slot_Component> slotHolders = new List<Slot_Component>();
@@ -76,6 +73,14 @@ public class Inventory_Display : MonoBehaviour
             if (itemsDisplayed.ContainsKey(inventory.container[i]))
             {
                 itemsDisplayed[inventory.container[i]].GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].amount.ToString();
+                if (inventory.container[i].amount<= 0)
+                {
+                    GameObject remember = itemsDisplayed[inventory.container[i]];
+                    objToItems.Remove(itemsDisplayed[inventory.container[i]]);
+                    itemsDisplayed.Remove(inventory.container[i]);
+                    Destroy(remember);
+                    inventory.container.Remove(inventory.container[i]);
+                }
             }
             else
             {
@@ -101,24 +106,7 @@ public class Inventory_Display : MonoBehaviour
         }
 
     }
-
     
-    //public void UpdateSlots()
-    //{
-    //    if (inventory.container.Count>maxSlots)
-    //    {
-    //        int upTo = maxSlots + addNumSlots;
-
-    //        for (int i = maxSlots; i < upTo; i++)
-    //        {
-    //            var obj = Instantiate(slots, Vector3.zero, Quaternion.identity, slotsParent);
-    //            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-    //        }
-
-    //        maxSlots += addNumSlots; 
-    //    }
-    //}
-
     //gets the position needed to be in when the item is placed in inventory
     public Vector3 GetPosition(int i)
     {

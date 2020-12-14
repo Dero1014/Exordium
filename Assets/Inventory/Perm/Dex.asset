@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c181bc9400aeda84d83fed04678f42a6, type: 3}
   m_Name: Dex
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Dexterity Power Up
   id: 0
   prefab: {fileID: 2357846654185275542, guid: 2fedd18b821de574b9549524aab4672a, type: 3}
   sprite: {fileID: -7805572020948263271, guid: e041b464539813644b00790606d9358a, type: 3}

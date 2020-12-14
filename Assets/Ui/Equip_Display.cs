@@ -39,7 +39,6 @@ public class Equip_Display : MonoBehaviour
                     if (equipDisplay.ContainsKey(equipment.container[i]))
                     {
                         equipDisplay[equipment.container[i]].GetComponentInChildren<TextMeshProUGUI>().text = equipment.container[i].amount.ToString();
-                        equipDisplay[equipment.container[i]].GetComponent<RectTransform>().localPosition = Vector3.zero;
                     }
                     else
                     {

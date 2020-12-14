@@ -14,14 +14,11 @@ public class Proxy_ItemPicker : MonoBehaviour
 
     //private
 
+    private Player_PickUp pickUp;
+
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        pickUp = GameObject.FindObjectOfType<Player_PickUp>();
     }
 
 
@@ -34,8 +31,9 @@ public class Proxy_ItemPicker : MonoBehaviour
             if (c.GetComponent<Item_Component>())
             {
                 //here we update to inventory Ui
+                Item_Component item = c.transform.gameObject.GetComponent<Item_Component>();
+                pickUp.PickedUp(item);
 
-                Destroy(c.gameObject);
             }
         } 
 

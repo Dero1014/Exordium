@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c181bc9400aeda84d83fed04678f42a6, type: 3}
   m_Name: Agil
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Agility Power Up
   id: 0
   prefab: {fileID: 692476697284940760, guid: d6f90a635b558cf4587db6667a67518f, type: 3}
   sprite: {fileID: 8948807650805991641, guid: e041b464539813644b00790606d9358a, type: 3}

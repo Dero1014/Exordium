@@ -12,6 +12,14 @@ public class Predefined_Spatial_Proximity : MonoBehaviour
     private Vector2 mousePosition;
     private Vector2 distanceFromClick;
 
+    private Player_PickUp pickUp;
+
+    void Start()
+    {
+        pickUp = GameObject.FindObjectOfType<Player_PickUp>();
+    }
+
+
     void Update()
     {
 
@@ -42,9 +50,9 @@ public class Predefined_Spatial_Proximity : MonoBehaviour
                 
                 if (distanceFromClick.magnitude < maxDistance)
                 {
-                    //here we update to inventory Ui
+                    Item_Component item = hit.transform.gameObject.GetComponent<Item_Component>();
+                    pickUp.PickedUp(item);
 
-                    Destroy(hit.transform.gameObject);
                 }
             }
         }
