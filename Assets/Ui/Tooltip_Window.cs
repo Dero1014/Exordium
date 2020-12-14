@@ -23,29 +23,31 @@ public class Tooltip_Window : MonoBehaviour
     {
         panel.transform.GetComponent<RectTransform>().position = Input.mousePosition + new Vector3(0, - 30, 0);
 
-        if (slot!=null)
+        if (slot!=null && panel.activeSelf)
         {
             if (slot.item != null)
             {
+                nameText.text = slot.item.itemName;
+
+                for (int i = 0; i < typeTexts.Length; i++)
+                {
+                    type.text = typeTexts[(int)slot.item.type];
+                }
+
+                if (slot.item.buffs.Length > 0)
+                {
+                    buffs.text = null;
+
+                    buffs.text = buffTexts[(int)slot.item.buffs[0].attribute] + " " + slot.item.buffs[0].value.ToString() + "\n";
+                    for (int i = 0; i < slot.item.buffs.Length; i++)
+                    {
+
+                        buffs.text += buffTexts[(int)slot.item.buffs[i].attribute] + " " + slot.item.buffs[i].value.ToString() + "\n";
+                    }
+                }
 
                 if (!oneShot)
                 {
-                    nameText.text = slot.item.itemName;
-
-                    for (int i = 0; i < typeTexts.Length; i++)
-                    {
-                        type.text = typeTexts[(int)slot.item.type];
-                    }
-
-                    if (slot.item.buffs.Length > 0)
-                    {
-                        buffs.text = buffTexts[(int)slot.item.buffs[0].attribute] + " " + slot.item.buffs[0].value.ToString() + "\n";
-                        for (int i = 0; i < slot.item.buffs.Length; i++)
-                        {
-
-                            buffs.text += buffTexts[(int)slot.item.buffs[i].attribute] + " " + slot.item.buffs[i].value.ToString() + "\n";
-                        }
-                    }
 
                     oneShot = true;
                 }

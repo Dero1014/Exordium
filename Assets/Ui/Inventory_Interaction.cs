@@ -40,7 +40,6 @@ public class Inventory_Interaction : MonoBehaviour
 
     bool itsOnInventory = false;
     bool itsOnEquipment = false;
-    bool wasOnEquipment = false;
 
     void Update()
     {
@@ -103,6 +102,10 @@ public class Inventory_Interaction : MonoBehaviour
                 {
                     toolTip.slot = null;
                 }
+            }
+            else
+            {
+                toolTip.slot = null;
             }
         }
         else
@@ -242,7 +245,6 @@ public class Inventory_Interaction : MonoBehaviour
 
             if (objectToDrag != null)
             {
-                wasOnEquipment = OnEquipDisplay();
                 itsOnInventory = OnInvDisplay();
                 itsOnEquipment = OnEquipDisplay();
 
@@ -475,14 +477,7 @@ public class Inventory_Interaction : MonoBehaviour
 
     }
 
-    //IEnumerator ApplyConsumable(Inventory_Slot slot, int at)
-    //{
-    //    pAttributes.attributes[(int)slot.item.buffs[at].attribute] += slot.item.buffs[at].value;
-    //    print("start");
-    //    yield return new WaitForSeconds(5);
-    //    print("no");
-    //    pAttributes.attributes[(int)slot.item.buffs[at].attribute] -= slot.item.buffs[at].value;
-    //}
+  
 
     bool OnInvDisplay()
     {
