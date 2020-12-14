@@ -29,3 +29,4 @@ MonoBehaviour:
     allowedEquip: 04000000
     amount: 1
     dragged: 0
+  capacity: 4

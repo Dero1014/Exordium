@@ -30,18 +30,20 @@ public class Trigger_Collision_Item : MonoBehaviour
                 //apply stats for permament
                 Debug.Log("U picked up " + item.itemType.itemName);
                 pAttributes.pickedUpItems.Add(item.itemType);
+                Destroy(item.gameObject);
+
             }
 
         }
 
-        if (item && inventory.container.Count < 32 && item.itemType.type != ItemType.Permanent) //apply the permanent object
+        if (item && inventory.container.Count < inventory.capacity && item.itemType.type != ItemType.Permanent) //apply the permanent object
         {
             //here we update to inventory Ui
             print("Collected item");
             inventory.AddItem(item.itemType, item.amount);
+            Destroy(item.gameObject);
         }
 
-        Destroy(item.gameObject);
 
     }
 

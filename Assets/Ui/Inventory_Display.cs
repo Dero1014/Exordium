@@ -36,7 +36,6 @@ public class Inventory_Display : MonoBehaviour
     public List<Slot_Component> slotHolders = new List<Slot_Component>();
 
 
-    private int k = 0;
     void Awake()
     {
         CreateDisplay();

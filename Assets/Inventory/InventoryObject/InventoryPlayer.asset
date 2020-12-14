@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: InventoryPlayer
   m_EditorClassIdentifier: 
   container: []
+  capacity: 32

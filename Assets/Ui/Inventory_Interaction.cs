@@ -22,7 +22,7 @@ public class Inventory_Interaction : MonoBehaviour
     private Image objectToDragImage;
 
     private Transform target;
-    private Slot_Component slotHolder;
+    private Slot_Component slotOfTheObjHolder;
 
     List<RaycastResult> hitObjects = new List<RaycastResult>(); //saves all of the raycast results under the mouse
 
@@ -155,6 +155,7 @@ public class Inventory_Interaction : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !dragging)
         {
             objectToDrag = GetDraggableTransformUnderMouse();
+
             if (objectToDrag != null)
             {
                 wasOnEquipment = OnEquipDisplay();
@@ -168,7 +169,7 @@ public class Inventory_Interaction : MonoBehaviour
                 originalPosition = objectToDrag.position;
                 objectToDragImage = objectToDrag.GetComponentInChildren<Image>();
                 objectToDragImage.raycastTarget = false;
-                slotHolder.occupied = false;
+                slotOfTheObjHolder.occupied = false;
             }
         }
 
@@ -179,15 +180,16 @@ public class Inventory_Interaction : MonoBehaviour
             if (objectToDrag != null)
             {
                 var objectToReplace = GetDraggableTransformUnderMouse();
-
+                //Found an object
                 if (objectToReplace != null)
                 {
+
                     if (!objectToReplace.GetComponent<Slot_Component>())
                     {
-                        //when there is nothing inside
+                        //when there is an object inside
                         itsOnEquipment = OnEquipDisplay();
 
-                        if (itsOnEquipment)
+                        if (itsOnEquipment) //check if its hovering over equip panel
                         {
                             Inventory_Slot slot = iDisplay.objToItems[objectToDrag.gameObject];
                             bool equiped = false;
@@ -217,7 +219,7 @@ public class Inventory_Interaction : MonoBehaviour
                             else
                             {
                                 objectToDrag.position = originalPosition;
-                                slotHolder.occupied = true;
+                                slotOfTheObjHolder.occupied = true;
                             }
 
                             //now remove that item from the inventory
@@ -236,11 +238,11 @@ public class Inventory_Interaction : MonoBehaviour
                         {  
                             objectToDrag.position = objectToReplace.position;
                             objectToReplace.position = originalPosition;
-                            slotHolder.occupied = true;
+                            slotOfTheObjHolder.occupied = true;
                         }
 
                     }
-                    else
+                    else //when there is an empty slot
                     {
                         //when there is nothing inside
                         itsOnInventory = OnInvDisplay();
@@ -267,7 +269,7 @@ public class Inventory_Interaction : MonoBehaviour
                             else
                             {
                                 objectToDrag.position = originalPosition;
-                                slotHolder.occupied = true;
+                                slotOfTheObjHolder.occupied = true;
                             }
 
 
@@ -286,7 +288,8 @@ public class Inventory_Interaction : MonoBehaviour
                         else
                         {
                             objectToDrag.position = objectToReplace.position;
-                            slotHolder.occupied = true;
+                            objectToReplace.GetComponent<Slot_Component>().occupied = true;
+                            slotOfTheObjHolder.occupied = false;
                         }
                         
 
@@ -297,7 +300,7 @@ public class Inventory_Interaction : MonoBehaviour
                 else
                 {
                     objectToDrag.position = originalPosition;
-                    slotHolder.occupied = true;
+                    slotOfTheObjHolder.occupied = true;
                 }
                
                 objectToDragImage.raycastTarget = true;
@@ -403,7 +406,7 @@ public class Inventory_Interaction : MonoBehaviour
                     {
                         if (slotHold.gameObject.GetComponent<Slot_Component>())
                         {
-                            slotHolder = slotHold.gameObject.GetComponent<Slot_Component>();
+                            slotOfTheObjHolder = slotHold.gameObject.GetComponent<Slot_Component>();
                         }
                     }
                     return hit.gameObject;

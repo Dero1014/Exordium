@@ -5,8 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Inventory", menuName = "InventorySystems/Inventory")]
 public class Inventory_Object : ScriptableObject
 {
-
+    public int capacity;
+    [Space(10)]
     public List<Inventory_Slot> container = new List<Inventory_Slot>();
+
+    public void Awake()
+    {
+        container.Capacity = capacity;
+    }
 
     public void AddItem(Item_Base_Object item, int amount)
     {
