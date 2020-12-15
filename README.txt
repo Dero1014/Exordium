@@ -39,3 +39,5 @@ Inventory_Interaction - manipulates the graphics side of things as well as some 
 Item_Ui_Component - used to identify some items in equipment and inventory (7.1.)       
 Slot_Component - used to identify slots in equipment and inventory (7.1.1.)
 Tooltip_Window - display the tooltip for 7.9.
+
+Link to the repository https://github.com/Dero1014/Exordium I have sent exordium.sandbox1@gmail.com an invite
