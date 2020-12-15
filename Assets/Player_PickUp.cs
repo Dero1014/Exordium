@@ -24,16 +24,17 @@ public class Player_PickUp : MonoBehaviour
     {
         if (Input.GetKeyDown("1"))
         {
-            trig.enabled = true;
-            psp.enabled = false;
+            
+            trig.enabled = false;
+            psp.enabled = true;
             proxy.enabled = false;
             prox.enabled = false;
         }
 
         if (Input.GetKeyDown("2"))
         {
-            trig.enabled = false;
-            psp.enabled = true;
+            trig.enabled = true;
+            psp.enabled = false;
             proxy.enabled = false;
             prox.enabled = false;
         }
