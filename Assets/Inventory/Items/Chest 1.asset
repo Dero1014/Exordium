@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04302ff9170ac7c4aa3aee26192c72a5, type: 3}
   m_Name: Chest 1
   m_EditorClassIdentifier: 
-  itemName: Chest 1
-  id: 0
-  prefab: {fileID: 3765163207813402232, guid: 1ffb94792f1041947b8d9c749e33d656, type: 3}
-  sprite: {fileID: 5011894087249560131, guid: e041b464539813644b00790606d9358a, type: 3}
-  type: 0
-  equipType: 4
-  stack: 0
-  maxItemCount: 1
-  description: 
-  buffs:
-  - attribute: 0
-    value: 15
-  - attribute: 1
-    value: 5
-  - attribute: 2
-    value: 5
+  ItemName: Chest1
+  Prefab: {fileID: 3765163207813402232, guid: 1ffb94792f1041947b8d9c749e33d656, type: 3}
+  Sprite: {fileID: 5011894087249560131, guid: e041b464539813644b00790606d9358a, type: 3}
+  Type: 0
+  EquipTypes: 4
+  Stack: 0
+  MaxItemCount: 1
+  Description: 
+  Buffs:
+  - Attribute: 0
+    Value: 10
+  - Attribute: 1
+    Value: 10
+  - Attribute: 2
+    Value: 10

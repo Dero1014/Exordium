@@ -49,7 +49,7 @@ public class InventoryInteraction : MonoBehaviour
     {
         //!!!!!! set somewhere in the code equipment over inventory and inventory over equipment when selected !!!!!!
 
-        print("So whats the child index " + InvDisplay.gameObject.transform.GetSiblingIndex());
+        //print("So whats the child index " + InvDisplay.gameObject.transform.GetSiblingIndex());
 
         if (!UIs[0].activeSelf && !UIs[1].activeSelf)
         {

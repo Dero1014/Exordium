@@ -11,15 +11,15 @@ public class PlayerAttributes : MonoBehaviour
 
     private int[] AttributesSaved = { 0, 0, 0, 0 };
     
-    public int[] MyVar
-    {
-        get { return AttributesSaved; }
-        set
-        {
+    //public int[] MyVar
+    //{
+    //    get { return AttributesSaved; }
+    //    set
+    //    {
 
-        }
+    //    }
 
-    }
+    //}
 
     void Start()
     {
@@ -29,6 +29,8 @@ public class PlayerAttributes : MonoBehaviour
         }
     }
 
+    //changing the script to function with OnChangeTrigger
+    //this will happen whenever something has been equiped or dequiped as well as change from perm items
 
     void Update()
     {

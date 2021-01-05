@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04302ff9170ac7c4aa3aee26192c72a5, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  itemName: Sword
-  id: 3
-  prefab: {fileID: 4659548271417120982, guid: e1ed18b47cfb04c40873dd7078641d0b, type: 3}
-  sprite: {fileID: 341733201157852922, guid: e041b464539813644b00790606d9358a, type: 3}
-  type: 0
-  equipType: 1
-  stack: 0
-  maxItemCount: 1
-  description: 
-  buffs:
-  - attribute: 0
-    value: 20
-  - attribute: 2
-    value: 5
+  ItemName: Sword
+  Prefab: {fileID: 4659548271417120982, guid: e1ed18b47cfb04c40873dd7078641d0b, type: 3}
+  Sprite: {fileID: -4184117239326914467, guid: e041b464539813644b00790606d9358a, type: 3}
+  Type: 0
+  EquipTypes: 1
+  Stack: 0
+  MaxItemCount: 1
+  Description: 
+  Buffs:
+  - Attribute: 0
+    Value: 10
+  - Attribute: 1
+    Value: 5

@@ -115,13 +115,13 @@ PrefabInstance:
     - target: {fileID: 4987733812923531002, guid: 0ba79264ee5a4424db7ef08499d0fc01,
         type: 3}
       propertyPath: m_Name
-      value: ItemContainer Variant 1
+      value: Sword1
       objectReference: {fileID: 0}
     - target: {fileID: 5783590068751922591, guid: 0ba79264ee5a4424db7ef08499d0fc01,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 341733201157852922, guid: e041b464539813644b00790606d9358a,
+      objectReference: {fileID: -4184117239326914467, guid: e041b464539813644b00790606d9358a,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ba79264ee5a4424db7ef08499d0fc01, type: 3}

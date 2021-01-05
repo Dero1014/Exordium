@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04302ff9170ac7c4aa3aee26192c72a5, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  itemName: Shield
-  id: 2
-  prefab: {fileID: 4987733812923531002, guid: 0ba79264ee5a4424db7ef08499d0fc01, type: 3}
-  sprite: {fileID: -7624529004083634969, guid: e041b464539813644b00790606d9358a, type: 3}
-  type: 0
-  equipType: 2
-  stack: 0
-  maxItemCount: 1
-  description: 
-  buffs:
-  - attribute: 2
-    value: 10
+  ItemName: Shield
+  Prefab: {fileID: 5727210448495319478, guid: 3500ecf4dbdad314a9fc06aca7dfa337, type: 3}
+  Sprite: {fileID: 4621404988872541734, guid: e041b464539813644b00790606d9358a, type: 3}
+  Type: 0
+  EquipTypes: 2
+  Stack: 0
+  MaxItemCount: 1
+  Description: 
+  Buffs:
+  - Attribute: 1
+    Value: 10
+  - Attribute: 0
+    Value: 5

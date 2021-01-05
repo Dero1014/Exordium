@@ -9,20 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdefb358c9833f34197192c4e9db6504, type: 3}
+  m_Script: {fileID: 11500000, guid: 018286d0d7d9e7141bc0d6b139c75e54, type: 3}
   m_Name: EquipmentPlayer
   m_EditorClassIdentifier: 
-  capacity: 5
-  container:
-  - item: {fileID: 0}
-    allowedEquip: 03000000
-    amount: 1
-  - item: {fileID: 0}
-    allowedEquip: 01000000
-    amount: 1
-  - item: {fileID: 0}
-    allowedEquip: 02000000
-    amount: 1
-  - item: {fileID: 0}
-    allowedEquip: 04000000
-    amount: 1
+  Capacity: 4
+  Container:
+  - Item: {fileID: 0}
+    AllowedEquip: 03000000
+    Amount: 0
+  - Item: {fileID: 0}
+    AllowedEquip: 01000000
+    Amount: 0
+  - Item: {fileID: 0}
+    AllowedEquip: 02000000
+    Amount: 0
+  - Item: {fileID: 0}
+    AllowedEquip: 04000000
+    Amount: 0

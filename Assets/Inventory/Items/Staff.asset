@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04302ff9170ac7c4aa3aee26192c72a5, type: 3}
   m_Name: Staff
   m_EditorClassIdentifier: 
-  itemName: Staff
-  id: 0
-  prefab: {fileID: 8845085365407489371, guid: 0d29b5324fd597d4c8b64cb552575bc0, type: 3}
-  sprite: {fileID: 7294954860710672295, guid: e041b464539813644b00790606d9358a, type: 3}
-  type: 0
-  equipType: 1
-  stack: 0
-  maxItemCount: 1
-  description: 
-  buffs:
-  - attribute: 3
-    value: 20
+  ItemName: Stag
+  Prefab: {fileID: 8845085365407489371, guid: 0d29b5324fd597d4c8b64cb552575bc0, type: 3}
+  Sprite: {fileID: 7294954860710672295, guid: e041b464539813644b00790606d9358a, type: 3}
+  Type: 0
+  EquipTypes: 1
+  Stack: 0
+  MaxItemCount: 1
+  Description: 
+  Buffs:
+  - Attribute: 3
+    Value: 10
+  - Attribute: 1
+    Value: 5
