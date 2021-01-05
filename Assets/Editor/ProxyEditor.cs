@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Proxy_ItemPicker))]
+[CustomEditor(typeof(ProxyItemPicker))]
 public class ProxyEditor : Editor
 {
     private void OnSceneGUI()
     {
-        Proxy_ItemPicker proxi = (Proxy_ItemPicker)target;
+        ProxyItemPicker proxi = (ProxyItemPicker)target;
 
         Handles.color = Color.blue;
 
-        Handles.DrawWireDisc(proxi.transform.position, Vector3.forward, proxi.pickUpRadius);
+        Handles.DrawWireDisc(proxi.transform.position, Vector3.forward, proxi.PickUpRadius);
 
     }
 }
