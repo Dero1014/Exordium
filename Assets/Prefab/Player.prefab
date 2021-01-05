@@ -46,6 +46,10 @@ GameObject:
   - component: {fileID: 8035245086614066682}
   - component: {fileID: 8035245086614066681}
   - component: {fileID: 8035245086614066679}
+  - component: {fileID: 1880760634}
+  - component: {fileID: 1880760640}
+  - component: {fileID: 1880760642}
+  - component: {fileID: 1880760643}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -81,6 +85,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphics: {fileID: 8035245086207591209}
+  humanAnimator: {fileID: 8035245086644710082}
+  directionsSprites:
+  - {fileID: 21300000, guid: 6e0f6681ae027eb499dd283ca6d49e0a, type: 3}
+  - {fileID: 21300000, guid: ee75cbb1658949d44aeaf1257729bc50, type: 3}
+  - {fileID: 21300000, guid: d8e901db05fcd9343b7b5a7d6a1b8d60, type: 3}
+  - {fileID: 21300000, guid: 934d810a1b7ef644388451d70c2e8cb6, type: 3}
+  - {fileID: 21300000, guid: 291d34d3de3a7a44f9bc8018ea2182fc, type: 3}
+  sRenderer: {fileID: 8035245086644710081}
 --- !u!114 &8035245086614066685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,8 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219c362a5f3173248b1dee71fd8977bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: 10c347e9376f0ea4dad0113ee3f5b661, type: 2}
-  equipment: {fileID: 11400000, guid: 710a63b311874a347983671482bd4af8, type: 2}
 --- !u!50 &8035245086614066682
 Rigidbody2D:
   serializedVersion: 4
@@ -142,7 +152,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.11113155}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -153,7 +163,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.327031}
   m_EdgeRadius: 0
 --- !u!114 &8035245086614066679
 MonoBehaviour:
@@ -167,7 +177,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a0657061a447c4fb99fadaf89c6d93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipment: {fileID: 11400000, guid: 710a63b311874a347983671482bd4af8, type: 2}
+  pickedUpItems: []
   attributes: 00000000000000000000000000000000
+--- !u!114 &1880760634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035245086614066686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e782ea9f10a763f4c925d90c82d6c17a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: 10c347e9376f0ea4dad0113ee3f5b661, type: 2}
+  equipment: {fileID: 11400000, guid: 710a63b311874a347983671482bd4af8, type: 2}
+  trig: {fileID: 8035245086614066680}
+  psp: {fileID: 1880760640}
+  proxy: {fileID: 1880760642}
+  prox: {fileID: 1880760643}
+  text: {fileID: 0}
+  pAttributes: {fileID: 0}
+--- !u!114 &1880760640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035245086614066686}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6bfa3a0940ca84fa95de56a956c9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 1
+  maxDistance: 3
+--- !u!114 &1880760642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035245086614066686}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabea294074893545bd59b6b24250120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 1
+  pickUpRadius: 0.5
+  distance: 1
+  posInDirection: {x: 0, y: 0}
+--- !u!114 &1880760643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035245086614066686}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9edd4a70115c0641a4549d5da646be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 1
+  pickUpRadius: 2
 --- !u!1 &8035245086644710084
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +262,7 @@ GameObject:
   - component: {fileID: 8035245086644710081}
   - component: {fileID: 8035245086644710082}
   m_Layer: 0
-  m_Name: goblin_idle_anim_f0
+  m_Name: human
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,7 +320,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 731da66704beb9d4e9ae216fed85ebca, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8e901db05fcd9343b7b5a7d6a1b8d60, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -259,7 +341,7 @@ Animator:
   m_GameObject: {fileID: 8035245086644710084}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1d115d3674e55ef458d8e0e318d86832, type: 2}
+  m_Controller: {fileID: 9100000, guid: ca14f7de757e4a041a7889174dc00da4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
