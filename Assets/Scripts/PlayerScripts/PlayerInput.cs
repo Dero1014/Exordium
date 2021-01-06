@@ -8,7 +8,6 @@ public class PlayerInput : MonoBehaviour
     public Transform Graphics;
     public Animator HumanAnimator;
 
-    public Sprite[] DirectionsSprites;
     public SpriteRenderer SRenderer;
 
     //private

@@ -79,6 +79,7 @@ public class PlayerPickUp : MonoBehaviour
         if (item && Inventory.Container.Count < Inventory.Capacity && item.ItemType.Type != ItemType.Permanent) //apply the permanent object
         {
             //here we update to inventory Ui
+            Debug.Log("You picked up " + item.ItemType.ItemName);
             Inventory.AddItem(item.ItemType, item.Amount);
             Destroy(item.gameObject);
         }

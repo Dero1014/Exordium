@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c181bc9400aeda84d83fed04678f42a6, type: 3}
   m_Name: Agil
   m_EditorClassIdentifier: 
-  itemName: Agility Power Up
-  id: 0
-  prefab: {fileID: 692476697284940760, guid: d6f90a635b558cf4587db6667a67518f, type: 3}
-  sprite: {fileID: 8948807650805991641, guid: e041b464539813644b00790606d9358a, type: 3}
-  type: 2
-  equipType: 0
-  stack: 0
-  maxItemCount: 0
-  description: 
-  buffs:
-  - attribute: 2
-    value: 10
+  ItemName: Agility Power Up
+  Prefab: {fileID: 692476697284940760, guid: d6f90a635b558cf4587db6667a67518f, type: 3}
+  Sprite: {fileID: 8227552562717936877, guid: e041b464539813644b00790606d9358a, type: 3}
+  Type: 2
+  EquipTypes: 0
+  Stack: 0
+  MaxItemCount: 1
+  Description: 
+  Buffs:
+  - Attribute: 2
+    Value: 5

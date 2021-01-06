@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 1880760635}
   - component: {fileID: 1880760636}
   - component: {fileID: 1880760637}
+  - component: {fileID: 1880760638}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -83,9 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752056f0c01f003498584c1492dd53d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Graphics: {fileID: 8035245086614066683}
+  Graphics: {fileID: 8035245086207591209}
   HumanAnimator: {fileID: 8035245086644710082}
-  DirectionsSprites: []
   SRenderer: {fileID: 8035245086644710081}
 --- !u!114 &8035245086614066685
 MonoBehaviour:
@@ -177,7 +177,7 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 1
-  PickUpRadius: 0
+  PickUpRadius: 2
 --- !u!114 &1880760635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,8 +193,8 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 1
-  PickUpRadius: 0
-  Distance: 0
+  PickUpRadius: 0.5
+  Distance: 1
   PosInDirection: {x: 0, y: 0}
 --- !u!114 &1880760636
 MonoBehaviour:
@@ -211,7 +211,7 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 1
-  MaxDistance: 0
+  MaxDistance: 3
 --- !u!114 &1880760637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +224,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ee0697650fa0e4e9fbccc800729be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1880760638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035245086614066686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6954857f6f4cb14429183deb0c739d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inventory: {fileID: 11400000, guid: 10c347e9376f0ea4dad0113ee3f5b661, type: 2}
+  Equipment: {fileID: 11400000, guid: 710a63b311874a347983671482bd4af8, type: 2}
+  Trigger: {fileID: 1880760637}
+  Psp: {fileID: 1880760636}
+  ProxyDirection: {fileID: 1880760635}
+  Prox: {fileID: 1880760634}
+  Text: {fileID: 0}
+  PAttributes: {fileID: 8035245086614066679}
 --- !u!1 &8035245086644710084
 GameObject:
   m_ObjectHideFlags: 0

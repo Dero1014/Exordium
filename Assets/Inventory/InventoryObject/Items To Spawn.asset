@@ -12,5 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018286d0d7d9e7141bc0d6b139c75e54, type: 3}
   m_Name: Items To Spawn
   m_EditorClassIdentifier: 
-  Capacity: 16
-  Container: []
+  Capacity: 17
+  Container:
+  - Item: {fileID: 11400000, guid: 1b9009ebfae125240bd1ce0198502840, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 0a0681faf38db474c82be99a6498af3f, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 0660528fdde7a3b4fa22bdff9be4c244, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 2ebd6c2bbd8e9d04aac592571f66e909, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 0ace79c6e20e1534ca285cc6d7b71dd2, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: c7dea53bbb0530941b366cfd00a25713, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 40055a2a146404042ba9b015cc0bc512, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 3e4bf0c54ae98474fbebd85afda509d7, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: ecda49025c0d46543aa02a0abdfe0648, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 9cb051e373cd28848971e990b490cf77, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: d9ead23302a0082429d5222fcfa34fdf, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: a8ca8069667d14e4a8147db95dc7f391, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 7b4f0ca883825fe4abab6945938aad2e, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 4b27afbac44ecb04980b490e1cd9bb14, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 2b63572554f4a374e834701329f5d21c, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: bfec29283a3e3ba4c9e356cc8eb066ec, type: 2}
+    AllowedEquip: 
+    Amount: 0

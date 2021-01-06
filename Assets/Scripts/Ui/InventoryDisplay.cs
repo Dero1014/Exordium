@@ -9,28 +9,28 @@ using TMPro;
 //display on the ui without needing to specificly check what has the player collected
 public class InventoryDisplay : MonoBehaviour
 {
-    public InventoryObject inventory; //since we are using a scriptable object we can just call the SO instead of calling it off another script
+    public InventoryObject Inventory; //since we are using a scriptable object we can just call the SO instead of calling it off another script
    
-    public GameObject slots;
-    public int startSlots;
-    public int maxSlots;
-    public int addNumSlots;
+    public GameObject Slots;
+    public int StartNumSlots;
+    public int MaxSlots;
+    public int AddNumSlots;
 
-    public int xStart; //where the items start 
-    public int yStart;
-    public int xSpaceBetweenSlots;
-    public int numOfColumns; 
-    public int ySpaceBetweenSlots;
+    public int XStart; //where the items start 
+    public int YStart;
+    public int XSpaceBetweenSlots;
+    public int NumOfColumns; 
+    public int YSpaceBetweenSlots;
 
     //these are use to place slots and items into game objects so they don't clutter the inventory panel
     //PS They always need to be in the middle
-    public Transform slotsParent;
-    public Transform itemsParent;
+    public Transform SlotsParent;
+    public Transform ItemsParent;
 
     //dictionary to keep the inventory slot to the gameobject
-    public Dictionary<GameObject, Inventory_Slot> objToItems = new Dictionary<GameObject, Inventory_Slot>();
-    public Dictionary<Inventory_Slot, GameObject> itemsDisplayed = new Dictionary<Inventory_Slot, GameObject>();
-    public List<SlotComponent> slotHolders = new List<SlotComponent>();
+    public Dictionary<GameObject, Inventory_Slot> ObjToItems = new Dictionary<GameObject, Inventory_Slot>();
+    public Dictionary<Inventory_Slot, GameObject> ItemsDisplayed = new Dictionary<Inventory_Slot, GameObject>();
+    public List<SlotComponent> SlotHolders = new List<SlotComponent>();
 
 
     void Awake()
@@ -51,13 +51,13 @@ public class InventoryDisplay : MonoBehaviour
         //and sets them to their proper position and adds them into the
         //dictionary
 
-        for (int i = 0; i < inventory.Container.Count; i++)
+        for (int i = 0; i < Inventory.Container.Count; i++)
         {
-            var obj = Instantiate(inventory.Container[i].Item.Prefab, Vector3.zero, Quaternion.identity, itemsParent); 
+            var obj = Instantiate(Inventory.Container[i].Item.Prefab, Vector3.zero, Quaternion.identity, ItemsParent); 
             obj.GetComponent<RectTransform>().position = GetFreeSlotPosition();
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].Amount.ToString();
-            itemsDisplayed.Add(inventory.Container[i], obj);
-            objToItems.Add(obj, inventory.Container[i]);
+            obj.GetComponentInChildren<TextMeshProUGUI>().text = Inventory.Container[i].Amount.ToString();
+            ItemsDisplayed.Add(Inventory.Container[i], obj);
+            ObjToItems.Add(obj, Inventory.Container[i]);
         }
     }
 
@@ -68,40 +68,41 @@ public class InventoryDisplay : MonoBehaviour
         //and if it exists it will just update its value
         //otherwise it creates a new object
 
-        for (int i = 0; i < inventory.Container.Count; i++)
+        for (int i = 0; i < Inventory.Container.Count; i++)
         {
-            if (itemsDisplayed.ContainsKey(inventory.Container[i]))
+            if (ItemsDisplayed.ContainsKey(Inventory.Container[i]))
             {
-                itemsDisplayed[inventory.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].Amount.ToString();
-                if (inventory.Container[i].Amount<= 0)
+                ItemsDisplayed[Inventory.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = Inventory.Container[i].Amount.ToString();
+                if (Inventory.Container[i].Amount<= 0)
                 {
-                    GameObject remember = itemsDisplayed[inventory.Container[i]];
-                    objToItems.Remove(itemsDisplayed[inventory.Container[i]]);
-                    itemsDisplayed.Remove(inventory.Container[i]);
+                    GameObject remember = ItemsDisplayed[Inventory.Container[i]];
+                    ObjToItems.Remove(ItemsDisplayed[Inventory.Container[i]]);
+                    ItemsDisplayed.Remove(Inventory.Container[i]);
                     Destroy(remember);
-                    inventory.Container.Remove(inventory.Container[i]);
+                    Inventory.Container.Remove(Inventory.Container[i]);
                 }
             }
             else
             {
-                var obj = Instantiate(inventory.Container[i].Item.Prefab, Vector3.zero, Quaternion.identity, itemsParent);
+                var obj = Instantiate(Inventory.Container[i].Item.Prefab, Vector3.zero, Quaternion.identity, ItemsParent);
                 obj.GetComponent<RectTransform>().position = GetFreeSlotPosition();
-                obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].Amount.ToString("n0");
-                itemsDisplayed.Add(inventory.Container[i], obj);
-                objToItems.Add(obj, inventory.Container[i]);
-                
+                obj.GetComponentInChildren<TextMeshProUGUI>().text = Inventory.Container[i].Amount.ToString("n0");
+                ItemsDisplayed.Add(Inventory.Container[i], obj);
+                ObjToItems.Add(obj, Inventory.Container[i]);
+                print(ObjToItems.Count);
+                print("Added");
             }
         }
     }
 
     public void StartSlots()
     {
-        for (int i = 0; i < startSlots; i++)
+        for (int i = 0; i < StartNumSlots; i++)
         {
 
-            var obj = Instantiate(slots, Vector3.zero, Quaternion.identity, slotsParent);
+            var obj = Instantiate(Slots, Vector3.zero, Quaternion.identity, SlotsParent);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            slotHolders.Add(obj.GetComponentInChildren<SlotComponent>());
+            SlotHolders.Add(obj.GetComponentInChildren<SlotComponent>());
 
         }
 
@@ -110,19 +111,19 @@ public class InventoryDisplay : MonoBehaviour
     //gets the position needed to be in when the item is placed in inventory
     public Vector3 GetPosition(int i)
     {
-        return new Vector3(xStart + (xSpaceBetweenSlots * (i % numOfColumns)), yStart + (-ySpaceBetweenSlots * (i / numOfColumns)), 0);
+        return new Vector3(XStart + (XSpaceBetweenSlots * (i % NumOfColumns)), YStart + (-YSpaceBetweenSlots * (i / NumOfColumns)), 0);
     }
 
     public Vector3 GetFreeSlotPosition()
     {
 
-        for (int i = 0; i < slotHolders.Count; i++)
+        for (int i = 0; i < SlotHolders.Count; i++)
         {
-            if (!slotHolders[i]._occupied)
+            if (!SlotHolders[i]._occupied)
             {
-                slotHolders[i]._occupied = true;
+                SlotHolders[i]._occupied = true;
 
-                return slotHolders[i].GetComponent<RectTransform>().position;
+                return SlotHolders[i].GetComponent<RectTransform>().position;
             }
         }
 

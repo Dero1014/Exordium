@@ -4,8 +4,9 @@ using UnityEngine;
 using TMPro;
 public class TooltipWindow : MonoBehaviour
 {
+    //public
     public GameObject Panel;
-    public Inventory_Slot Slot;
+    [HideInInspector]public Inventory_Slot Slot;
 
     public TextMeshProUGUI NameText;
     public TextMeshProUGUI Type;
@@ -34,12 +35,14 @@ public class TooltipWindow : MonoBehaviour
                 {
                     Buffs.text = null;
 
-                    Buffs.text = BuffTexts[(int)Slot.Item.Buffs[0].Attribute] + " " + Slot.Item.Buffs[0].Value.ToString() + "\n";
                     for (int i = 0; i < Slot.Item.Buffs.Length; i++)
                     {
-
                         Buffs.text += BuffTexts[(int)Slot.Item.Buffs[i].Attribute] + " " + Slot.Item.Buffs[i].Value.ToString() + "\n";
                     }
+                }
+                else
+                {
+                    Buffs.text = "None";
                 }
             }
             else

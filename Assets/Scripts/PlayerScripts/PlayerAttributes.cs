@@ -10,16 +10,6 @@ public class PlayerAttributes : MonoBehaviour
     public int[] Attributes = {0, 0, 0, 0}; //0- strength, 1- dexterity, 2- agility, 3- inteligence
 
     private int[] AttributesSaved = { 0, 0, 0, 0 };
-    
-    //public int[] MyVar
-    //{
-    //    get { return AttributesSaved; }
-    //    set
-    //    {
-
-    //    }
-
-    //}
 
     void Start()
     {
@@ -67,6 +57,10 @@ public class PlayerAttributes : MonoBehaviour
             Attributes[i] = atrNums[i];
         }
 
+        CustomEvents.current.StrValue = atrNums[0];
+        CustomEvents.current.DexValue = atrNums[1];
+        CustomEvents.current.AgiValue = atrNums[2];
+        CustomEvents.current.IntValue = atrNums[3];
     }
 
 }
