@@ -22,11 +22,11 @@ public class PlayerAttributes : MonoBehaviour
     //changing the script to function with OnChangeTrigger
     //this will happen whenever something has been equiped or dequiped as well as change from perm items
 
-    void Update()
+    public void UpdateAttributes()
     {
         //apply the stats from equipment to the attributes
         //add them with existing values of that attribute
-
+        print("Updated attr");
         int[] atrNums = { 0, 0, 0, 0 };
         
 

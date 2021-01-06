@@ -7,10 +7,15 @@ public class CustomEvents : MonoBehaviour
 {
     public static CustomEvents current;
 
-    private int _strValue = 0;
-    private int _dexValue = 0;
-    private int _agiValue = 0;
-    private int _intValue = 0;
+   
+    private void Awake()
+    {
+        current = this;
+    }
+
+
+
+    #region change in value
 
     public delegate void ChangeInValues(int newValues);
     public event ChangeInValues OnValueChangeStr;
@@ -18,10 +23,10 @@ public class CustomEvents : MonoBehaviour
     public event ChangeInValues OnValueChangeAgi;
     public event ChangeInValues OnValueChangeInt;
 
-    private void Awake()
-    {
-        current = this;
-    }
+    private int _strValue = 0;
+    private int _dexValue = 0;
+    private int _agiValue = 0;
+    private int _intValue = 0;
 
     public int StrValue
     {
@@ -82,5 +87,7 @@ public class CustomEvents : MonoBehaviour
             }
         }
     }
+
+    #endregion
 
 }

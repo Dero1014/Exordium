@@ -24,7 +24,7 @@ public enum StackType
     StackInf,
 }
 
-public enum Attributes
+public enum AttributesType
 {
     Strength,
     Dexterity,
@@ -51,7 +51,7 @@ public abstract class ItemBaseObject : ScriptableObject
 public class ItemBuff
 {
 
-    public Attributes Attribute;
+    public AttributesType Attribute;
     public int Value;
     
     public ItemBuff(int _value)

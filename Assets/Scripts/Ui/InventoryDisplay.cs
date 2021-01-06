@@ -67,7 +67,6 @@ public class InventoryDisplay : MonoBehaviour
         //the if function checks the Dictionary for what is located in the inventory
         //and if it exists it will just update its value
         //otherwise it creates a new object
-
         for (int i = 0; i < Inventory.Container.Count; i++)
         {
             if (ItemsDisplayed.ContainsKey(Inventory.Container[i]))
@@ -89,8 +88,8 @@ public class InventoryDisplay : MonoBehaviour
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = Inventory.Container[i].Amount.ToString("n0");
                 ItemsDisplayed.Add(Inventory.Container[i], obj);
                 ObjToItems.Add(obj, Inventory.Container[i]);
-                print(ObjToItems.Count);
-                print("Added");
+
+
             }
         }
     }

@@ -7,17 +7,25 @@ public class PlayerPickUp : MonoBehaviour
     public InventoryObject Inventory;
     public InventoryObject Equipment;
     [Space(10)]
-    public TriggerCollisionItem Trigger;
-    public PredefinedSpatialProximity Psp;
-    public ProxDirectionItemPicker ProxyDirection;
-    public ProxyItemPicker Prox;
+    public TriggerCollisionItem TriggerPickUp;
+    public PredefinedSpatialProximity MouseClickPickUp;
+    public ProxDirectionItemPicker ProxyDirectionPickUp;
+    public ProxyItemPicker ProximityPickup;
     [Space(10)]
     public GameObject Text;
-    public PlayerAttributes PAttributes;
+
+    //private
+    private delegate void UpdateAttribute();
+
+    private UpdateAttribute _updateAttributeValues;
+
+    private PlayerAttributes _pAttributes;
+
 
     void Start()
     {
-        PAttributes = GameObject.FindObjectOfType<PlayerAttributes>();
+        _pAttributes = GameObject.FindObjectOfType<PlayerAttributes>();
+        _updateAttributeValues = _pAttributes.UpdateAttributes;
     }
 
     public void Update()
@@ -25,34 +33,22 @@ public class PlayerPickUp : MonoBehaviour
         //pick type of pick up system
         if (Input.GetKeyDown("1"))
         {
-            Trigger.enabled = false;
-            Psp.enabled = true;
-            ProxyDirection.enabled = false;
-            Prox.enabled = false;
+            SetPickUp(true, false, false, false);
         }
 
         if (Input.GetKeyDown("2"))
         {
-            Trigger.enabled = true;
-            Psp.enabled = false;
-            ProxyDirection.enabled = false;
-            Prox.enabled = false;
+            SetPickUp(false, true, false, false);
         }
 
         if (Input.GetKeyDown("3"))
         {
-            Trigger.enabled = false;
-            Psp.enabled = false;
-            ProxyDirection.enabled = true;
-            Prox.enabled = false;
+            SetPickUp(false, false, true, false);
         }
 
         if (Input.GetKeyDown("4"))
         {
-            Trigger.enabled = false;
-            Psp.enabled = false;
-            ProxyDirection.enabled = false;
-            Prox.enabled = true;
+            SetPickUp(false, false, false, true);
         }
 
         if (Inventory.Container.Count >= Inventory.Capacity)
@@ -62,6 +58,15 @@ public class PlayerPickUp : MonoBehaviour
 
     }
 
+    void SetPickUp(bool trigger, bool mouse, bool proxyDirection, bool proxyPickUp)
+    {
+        TriggerPickUp.enabled = trigger;
+        MouseClickPickUp.enabled = mouse;
+        ProxyDirectionPickUp.enabled = proxyDirection;
+        ProximityPickup.enabled = proxyPickUp;
+    }
+
+
     public void PickedUp(ItemComponent item) //every pick up system calls this to decide what to do with it and destroy it
     {
         if (item.ItemType.Type == ItemType.Permanent) //apply the permanent object
@@ -70,7 +75,8 @@ public class PlayerPickUp : MonoBehaviour
             {
                 //apply stats for permament
                 Debug.Log("You picked up " + item.ItemType.ItemName);
-                PAttributes.PickedUpItems.Add(item.ItemType);
+                _pAttributes.PickedUpItems.Add(item.ItemType);
+                _updateAttributeValues();
                 Destroy(item.gameObject);
             }
 
@@ -93,7 +99,7 @@ public class PlayerPickUp : MonoBehaviour
     {
         //control equipment size
         Inventory.Container.Clear();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             Equipment.Container[i].Item = null;
         }

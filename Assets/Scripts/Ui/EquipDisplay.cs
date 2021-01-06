@@ -12,15 +12,15 @@ public class EquipDisplay : MonoBehaviour
     public Dictionary<GameObject, Inventory_Slot> ObjToEquipment = new Dictionary<GameObject, Inventory_Slot>();
     //dictionary to keep the inventory slot to the gameobject
     public Dictionary<Inventory_Slot, GameObject> EquipDisplayStorage = new Dictionary<Inventory_Slot, GameObject>();
+
+
     void Start()
     {
-       
+        UpdateDisplay();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        UpdateDisplay();
     }
 
     public void UpdateDisplay()
@@ -29,7 +29,7 @@ public class EquipDisplay : MonoBehaviour
         //the if function checks the Dictionary for what is located in the inventory
         //and if it exists it will just update its value
         //otherwise it creates a new object
-
+        print("Updated equip");
         for (int i = 0; i < Equipment.Container.Count; i++)
         {
             if (Equipment.Container[i] != null)

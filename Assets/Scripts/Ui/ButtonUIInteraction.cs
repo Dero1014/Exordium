@@ -1,6 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
+
+class Window
+{
+    private GameObject _window;
+
+    public GameObject WindowUI
+    {
+        get
+        {
+            return _window;
+        }set
+        {
+            _window = value;
+        }
+
+    }
+    public void OpenClose()
+    {
+        _window.SetActive(!_window.activeSelf);
+    }
+
+}
 
 public class ButtonUIInteraction : MonoBehaviour
 {
@@ -15,86 +39,57 @@ public class ButtonUIInteraction : MonoBehaviour
     public GameObject AttributeButton;
 
     //private
+    private Window _inventory = new Window();
+    private Window _equip = new Window();
+    private Window _attributes = new Window();
 
-    private bool _inventoryOpen = false; //check condition for inventory
-    private bool _equipOpen = false; //check condition for equip
-    private bool _attributeOpen = false; //check condition for equip
-
-    void Start()
+    private void Start()
     {
-        
+        _inventory.WindowUI = InventoryUI;
+        _equip.WindowUI = EquipUI;
+        _attributes.WindowUI = AttributeUI;
     }
 
     void Update()
     {
         if (Input.GetKeyDown("i")) //input for inventory
         {
-            if (_inventoryOpen)
-                CloseInventory();
-            else
-                OpenInventory();
+            InventoryWindow();
         }
 
         if (Input.GetKeyDown("e")) //input for equip
         {
-            if (_equipOpen)
-                CloseEquip();
-            else
-                OpenEquip();
+            EquipWindow();
         }
 
         if (Input.GetKeyDown("c")) //input for equip
         {
-            if (_attributeOpen)
-                CloseAttr();
-            else
-                OpenAttr();
+            AttributeWindow();
         }
+
+
     }
 
     //actions to control opening and closing ui elements
     #region button actions 
 
-    public void OpenInventory()
+    public void InventoryWindow()
     {
-        InventoryUI.SetActive(true);
-        InventoryButton.SetActive(false);
-        _inventoryOpen = true;
+        _inventory.OpenClose();
+        InventoryButton.SetActive(!InventoryButton.activeSelf);
     }
 
-    public void CloseInventory()
+    public void EquipWindow()
     {
-        InventoryUI.SetActive(false);
-        InventoryButton.SetActive(true);
-        _inventoryOpen = false;
+        _equip.OpenClose();
+        EquipButton.SetActive(!EquipButton.activeSelf);
     }
 
-    public void OpenEquip()
-    {
-        EquipUI.SetActive(true);
-        EquipButton.SetActive(false);
-        _equipOpen = true;
-    }
 
-    public void CloseEquip()
+    public void AttributeWindow()
     {
-        EquipUI.SetActive(false);
-        EquipButton.SetActive(true);
-        _equipOpen = false;
-    }
-
-    public void OpenAttr()
-    {
-        AttributeUI.SetActive(true);
-        AttributeButton.SetActive(false);
-        _attributeOpen = true;
-    }
-
-    public void CloseAttr()
-    {
-        AttributeUI.SetActive(false);
-        AttributeButton.SetActive(true);
-        _attributeOpen = false;
+        _attributes.OpenClose();
+        AttributeButton.SetActive(!AttributeButton.activeSelf);
     }
 
     #endregion

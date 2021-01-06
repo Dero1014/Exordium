@@ -15,29 +15,39 @@ public class TooltipWindow : MonoBehaviour
     public string[] TypeTexts;
     public string[] BuffTexts;
 
-   
+    private RectTransform _panelRectTransform;
+    private ItemBaseObject _slotItem;
+    private ItemBuff[] _slotItemBuffs;
+
+    private void Start()
+    {
+        _panelRectTransform = Panel.transform.GetComponent<RectTransform>();
+        _slotItem = Slot.Item;
+        _slotItemBuffs = _slotItem.Buffs;
+    }
+
     void Update()
     {
-        Panel.transform.GetComponent<RectTransform>().position = Input.mousePosition + new Vector3(0, - 30, 0);
+        _panelRectTransform.position = Input.mousePosition + new Vector3(0, - 30, 0);
 
         if (Slot!=null && Panel.activeSelf)
         {
             if (Slot.Item != null)
             {
-                NameText.text = Slot.Item.ItemName;
+                NameText.text = _slotItem.ItemName;
 
                 for (int i = 0; i < TypeTexts.Length; i++)
                 {
-                    Type.text = TypeTexts[(int)Slot.Item.Type];
+                    Type.text = TypeTexts[(int)_slotItem.Type];
                 }
 
-                if (Slot.Item.Buffs.Length > 0)
+                if (_slotItemBuffs.Length > 0)
                 {
                     Buffs.text = null;
 
-                    for (int i = 0; i < Slot.Item.Buffs.Length; i++)
+                    for (int i = 0; i < _slotItemBuffs.Length; i++)
                     {
-                        Buffs.text += BuffTexts[(int)Slot.Item.Buffs[i].Attribute] + " " + Slot.Item.Buffs[i].Value.ToString() + "\n";
+                        Buffs.text += BuffTexts[(int)_slotItemBuffs[i].Attribute] + " " + _slotItemBuffs[i].Value.ToString() + "\n";
                     }
                 }
                 else
