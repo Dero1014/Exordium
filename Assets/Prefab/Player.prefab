@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 1880760636}
   - component: {fileID: 1880760637}
   - component: {fileID: 1880760638}
+  - component: {fileID: 1048263421}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -84,9 +85,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752056f0c01f003498584c1492dd53d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Graphics: {fileID: 8035245086207591209}
-  HumanAnimator: {fileID: 8035245086644710082}
-  SRenderer: {fileID: 8035245086644710081}
 --- !u!114 &8035245086614066685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,12 +236,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Inventory: {fileID: 11400000, guid: 10c347e9376f0ea4dad0113ee3f5b661, type: 2}
   Equipment: {fileID: 11400000, guid: 710a63b311874a347983671482bd4af8, type: 2}
-  Trigger: {fileID: 1880760637}
-  Psp: {fileID: 1880760636}
-  ProxyDirection: {fileID: 1880760635}
-  Prox: {fileID: 1880760634}
+  TriggerPickUp: {fileID: 1880760637}
+  MouseClickPickUp: {fileID: 1880760636}
+  ProxyDirectionPickUp: {fileID: 1880760635}
+  ProximityPickup: {fileID: 1880760634}
   Text: {fileID: 0}
-  PAttributes: {fileID: 8035245086614066679}
+--- !u!114 &1048263421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035245086614066686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0dfd62fba03921438e2d9ce404254a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Graphics: {fileID: 8035245086207591209}
+  HumanAnimator: {fileID: 0}
 --- !u!1 &8035245086644710084
 GameObject:
   m_ObjectHideFlags: 0

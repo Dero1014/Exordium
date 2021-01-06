@@ -16,6 +16,8 @@ public enum EquipType //types of items
     Shield,
     Head,
     Chest,
+    Boots,
+    Ring
 }
 
 public enum StackType

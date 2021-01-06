@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018286d0d7d9e7141bc0d6b139c75e54, type: 3}
   m_Name: Items To Spawn
   m_EditorClassIdentifier: 
-  Capacity: 17
+  Capacity: 23
   Container:
   - Item: {fileID: 11400000, guid: 1b9009ebfae125240bd1ce0198502840, type: 2}
     AllowedEquip: 
@@ -60,5 +60,20 @@ MonoBehaviour:
     AllowedEquip: 
     Amount: 0
   - Item: {fileID: 11400000, guid: bfec29283a3e3ba4c9e356cc8eb066ec, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 729c00a4b4a816f4bbe05166f38c1f01, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: e724d7b97f3062842a748654d5c34baa, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: da55f7afb1612d749bb10fb9684e211f, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: 47b6fec0be07bee44a5ecbaea7878bf2, type: 2}
+    AllowedEquip: 
+    Amount: 0
+  - Item: {fileID: 11400000, guid: dd728e57476d5414fabdd435121dddf8, type: 2}
     AllowedEquip: 
     Amount: 0

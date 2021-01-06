@@ -29,7 +29,7 @@ public class EquipDisplay : MonoBehaviour
         //the if function checks the Dictionary for what is located in the inventory
         //and if it exists it will just update its value
         //otherwise it creates a new object
-        print("Updated equip");
+
         for (int i = 0; i < Equipment.Container.Count; i++)
         {
             if (Equipment.Container[i] != null)

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04302ff9170ac7c4aa3aee26192c72a5, type: 3}
-  m_Name: Shield 1
+  m_Name: Boots1
   m_EditorClassIdentifier: 
-  ItemName: Shield1
-  Prefab: {fileID: 4987733812923531002, guid: 0ba79264ee5a4424db7ef08499d0fc01, type: 3}
-  Sprite: {fileID: -7624529004083634969, guid: e041b464539813644b00790606d9358a, type: 3}
+  ItemName: Boots1
+  Prefab: {fileID: 1638632530722897674, guid: 13c3ee8d2805c7c4a94316b121152a1d, type: 3}
+  Sprite: {fileID: 5767837667700256361, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
-  EquipTypes: 2
+  EquipTypes: 5
   Stack: 0
-  MaxItemCount: 0
+  MaxItemCount: 1
   Description: 
   Buffs:
   - Attribute: 0
-    Value: 10
-  - Attribute: 1
+    Value: 5
+  - Attribute: 3
     Value: 5

@@ -26,7 +26,11 @@ public class PlayerAnimator : MonoBehaviour
     void Update()
     {
         AnimatorControler();
-        _directionKeys = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    }
+
+    public void SetDirection(Vector2 dir)
+    {
+        _directionKeys = dir;
     }
 
     bool _right;

@@ -99,7 +99,7 @@ public class PlayerPickUp : MonoBehaviour
     {
         //control equipment size
         Inventory.Container.Clear();
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 7; i++)
         {
             Equipment.Container[i].Item = null;
         }

@@ -18,7 +18,11 @@ public class TriggerCollisionItem : MonoBehaviour
         {
             ItemComponent item = col.GetComponent<ItemComponent>();
 
-            _pickUp.PickedUp(item);
+            if (item!=null)
+            {
+                _pickUp.PickedUp(item);
+            }
+
         }
         
     }

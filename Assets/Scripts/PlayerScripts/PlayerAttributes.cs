@@ -26,7 +26,7 @@ public class PlayerAttributes : MonoBehaviour
     {
         //apply the stats from equipment to the attributes
         //add them with existing values of that attribute
-        print("Updated attr");
+
         int[] atrNums = { 0, 0, 0, 0 };
         
 
