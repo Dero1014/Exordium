@@ -10,7 +10,7 @@ public class SplitStackWindow : MonoBehaviour
     public InventoryObject inventory;
     [Space(10)]
     public GameObject Panel;
-    [HideInInspector] public Inventory_Slot Slot;
+    [HideInInspector] public InventorySlot Slot;
 
     public TMP_InputField AmountText;
     public TextMeshProUGUI NameText;

@@ -9,9 +9,9 @@ public class EquipDisplay : MonoBehaviour
 
     public List<Transform> EquipSlots = new List<Transform>();
 
-    public Dictionary<GameObject, Inventory_Slot> ObjToEquipment = new Dictionary<GameObject, Inventory_Slot>();
+    public Dictionary<GameObject, InventorySlot> ObjToEquipment = new Dictionary<GameObject, InventorySlot>();
     //dictionary to keep the inventory slot to the gameobject
-    public Dictionary<Inventory_Slot, GameObject> EquipDisplayStorage = new Dictionary<Inventory_Slot, GameObject>();
+    public Dictionary<InventorySlot, GameObject> EquipDisplayStorage = new Dictionary<InventorySlot, GameObject>();
 
     [Space(10)]
     public int _degradeAmount;

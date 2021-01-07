@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 1048263421}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752056f0c01f003498584c1492dd53d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InputOn: 1
 --- !u!114 &8035245086614066685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,8 +112,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Equipment: {fileID: 11400000, guid: 710a63b311874a347983671482bd4af8, type: 2}
+  Slot:
+    Item: {fileID: 0}
+    AllowedEquip: 
+    Amount: 0
+    Durrability: 0
+  HpSlider: {fileID: 0}
+  ManaSlider: {fileID: 0}
   PickedUpItems: []
-  Attributes: 00000000000000000000000000000000
+  Buffs: 0000000000000000000000000000000000000000
+  Attributes: 0000000000000000000000000000000000000000
+  Health: 100
+  Mana: 50
+  buffApplied: 0
 --- !u!50 &8035245086614066682
 Rigidbody2D:
   serializedVersion: 4

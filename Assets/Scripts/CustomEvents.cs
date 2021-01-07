@@ -13,8 +13,6 @@ public class CustomEvents : MonoBehaviour
         current = this;
     }
 
-
-
     #region change in value
 
     public delegate void ChangeInValues(int newValues);
@@ -23,12 +21,14 @@ public class CustomEvents : MonoBehaviour
     public event ChangeInValues OnValueChangeAgi;
     public event ChangeInValues OnValueChangeInt;
     public event ChangeInValues OnValueChangeLck;
+ 
 
     private int _strValue = 0;
     private int _dexValue = 0;
     private int _agiValue = 0;
     private int _intValue = 0;
     private int _lckValue = 0;
+  
 
     public int StrValue
     {

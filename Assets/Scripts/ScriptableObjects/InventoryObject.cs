@@ -7,7 +7,7 @@ public class InventoryObject : ScriptableObject
 {
     public int Capacity;
     [Space(10)]
-    public List<Inventory_Slot> Container = new List<Inventory_Slot>();
+    public List<InventorySlot> Container = new List<InventorySlot>();
 
     public void Awake()
     {
@@ -28,7 +28,7 @@ public class InventoryObject : ScriptableObject
                 }
             }
 
-            Container.Add(new Inventory_Slot(item, amount, durrability));
+            Container.Add(new InventorySlot(item, amount, durrability));
 
         }
         else if (item.Stack == StackType.StackMax)
@@ -59,35 +59,35 @@ public class InventoryObject : ScriptableObject
 
             if (amount <= item.MaxItemCount)
             {
-                Container.Add(new Inventory_Slot(item, amount, durrability));
+                Container.Add(new InventorySlot(item, amount, durrability));
             }
             else
             {
                 while (amount > item.MaxItemCount)
                 {
-                    Container.Add(new Inventory_Slot(item, item.MaxItemCount, durrability));
+                    Container.Add(new InventorySlot(item, item.MaxItemCount, durrability));
                     amount -= item.MaxItemCount;
                 }
 
-                Container.Add(new Inventory_Slot(item, amount, durrability));
+                Container.Add(new InventorySlot(item, amount, durrability));
             }
 
 
         }
     }
 
-    public void SplitItems(Inventory_Slot containerIndex, int splitAmount, int durrability)
+    public void SplitItems(InventorySlot containerIndex, int splitAmount, int durrability)
     {
         ItemBaseObject item = containerIndex.Item;
         Container[Container.IndexOf(containerIndex)].Amount -= splitAmount;
 
-        Container.Add(new Inventory_Slot(item, splitAmount, durrability));
+        Container.Add(new InventorySlot(item, splitAmount, durrability));
 
     }
 }
 
 [System.Serializable]
-public class Inventory_Slot
+public class InventorySlot
 {
 
     public ItemBaseObject Item;
@@ -95,7 +95,7 @@ public class Inventory_Slot
     public int Amount;
     public int Durrability;
 
-    public Inventory_Slot(ItemBaseObject itemType, int amountItem, int durrabilityItem)
+    public InventorySlot(ItemBaseObject itemType, int amountItem, int durrabilityItem)
     {
         Amount = amountItem;
         Item = itemType;

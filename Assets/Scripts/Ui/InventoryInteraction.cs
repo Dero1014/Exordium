@@ -84,11 +84,11 @@ public class InventoryInteraction : MonoBehaviour
         if (GetDraggableTransformUnderMouse())
         {
             _target = GetDraggableTransformUnderMouse();
-            Inventory_Slot slot;
+            InventorySlot slot;
 
             if (Input.GetKeyDown(KeyCode.Delete))
             {
-                Inventory_Slot slotRemovedFromInventory = InvDisplay.ObjToItems[_target.gameObject];
+                InventorySlot slotRemovedFromInventory = InvDisplay.ObjToItems[_target.gameObject];
 
                 GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
                 var itemComponent = clone.GetComponent<ItemComponent>();
@@ -160,7 +160,7 @@ public class InventoryInteraction : MonoBehaviour
             //later try doing this with iDs
             
             _target = GetDraggableTransformUnderMouse();
-            Inventory_Slot slot;
+            InventorySlot slot;
 
 
             if (_target != null)
@@ -251,12 +251,14 @@ public class InventoryInteraction : MonoBehaviour
             _target = GetDraggableTransformUnderMouse();
             if (_target != null)
             {
-                Inventory_Slot slot;
+                InventorySlot slot;
                 slot = InvDisplay.ObjToItems[_target.gameObject];
 
-                if (slot.Item.Type == ItemType.Default && slot.Item.Buffs.Length > 0)
+                if (slot.Item.Type == ItemType.Default && slot.Item.Buffs.Length > 0 && !PlayerAttributes.current.buffApplied)
                 {
                     slot.Amount--;
+                    PlayerAttributes.current.Slot = slot;
+                    PlayerAttributes.current.ApplyBuff();
                     if (slot.Amount <= 0) _slotOfTheObjHolder._occupied = false;
 
                 }
@@ -312,7 +314,7 @@ public class InventoryInteraction : MonoBehaviour
                     if (EDisplay.ObjToEquipment.ContainsKey(_indexObject))
                     {
                         
-                        Inventory_Slot slot = EDisplay.ObjToEquipment[_indexObject];
+                        InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
 
                         GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
                         var itemComponent = clone.GetComponent<ItemComponent>();
@@ -330,7 +332,7 @@ public class InventoryInteraction : MonoBehaviour
                     }
                     else
                     {
-                        Inventory_Slot slot = InvDisplay.ObjToItems[_indexObject];
+                        InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
 
                         GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
                         var itemComponent = clone.GetComponent<ItemComponent>();
@@ -404,7 +406,7 @@ public class InventoryInteraction : MonoBehaviour
                     int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
 
                     //then compare it with the equip type
-                    Inventory_Slot slot = InvDisplay.ObjToItems[_indexObject];
+                    InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
 
                     DragItemInEquipSlot(slot, numOfSlot);
 
@@ -416,7 +418,7 @@ public class InventoryInteraction : MonoBehaviour
                     print(numOfSlot);
 
                     //then compare it with the equip type
-                    Inventory_Slot slot = InvDisplay.ObjToItems[_indexObject];
+                    InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
 
                     DragItemInEquipSlot(slot, numOfSlot);
                 }
@@ -434,7 +436,7 @@ public class InventoryInteraction : MonoBehaviour
             if (_itsOnInventory)
             {
                 int numOfSlot = EDisplay.EquipSlots.IndexOf(_objectToDrag.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
-                Inventory_Slot slot = EDisplay.ObjToEquipment[_indexObject];
+                InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
                 var equipSlot = EDisplay.Equipment.Container[numOfSlot];
 
                 InvDisplay.Inventory.AddItem(equipSlot.Item, equipSlot.Amount, equipSlot.Durrability);
@@ -457,7 +459,7 @@ public class InventoryInteraction : MonoBehaviour
                     int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
 
                     //then compare it with the equip type
-                    Inventory_Slot slot = EDisplay.ObjToEquipment[_indexObject];
+                    InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
 
                     DragItemInEquipSlot(slot, numOfSlot);
 
@@ -469,7 +471,7 @@ public class InventoryInteraction : MonoBehaviour
                     print(numOfSlot);
 
                     //then compare it with the equip type
-                    Inventory_Slot slot = EDisplay.ObjToEquipment[_indexObject];
+                    InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
 
                     DragItemInEquipSlot(slot, numOfSlot);
                 }
@@ -478,7 +480,7 @@ public class InventoryInteraction : MonoBehaviour
 
     }
 
-    void DragItemInEquipSlot(Inventory_Slot slot, int numOfSlot) //here is where we check what to do with the lot we are placing on
+    void DragItemInEquipSlot(InventorySlot slot, int numOfSlot) //here is where we check what to do with the lot we are placing on
     {
         var containerSlot = EDisplay.Equipment.Container[numOfSlot];
 

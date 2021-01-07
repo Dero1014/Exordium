@@ -6,7 +6,7 @@ public class TooltipWindow : MonoBehaviour
 {
     //public
     public GameObject Panel;
-    [HideInInspector]public Inventory_Slot Slot;
+    [HideInInspector]public InventorySlot Slot;
 
     public TextMeshProUGUI NameText;
     public TextMeshProUGUI Type;

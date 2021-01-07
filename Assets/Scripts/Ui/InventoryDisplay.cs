@@ -28,8 +28,8 @@ public class InventoryDisplay : MonoBehaviour
     public Transform ItemsParent;
 
     //dictionary to keep the inventory slot to the gameobject
-    public Dictionary<GameObject, Inventory_Slot> ObjToItems = new Dictionary<GameObject, Inventory_Slot>();
-    public Dictionary<Inventory_Slot, GameObject> ItemsDisplayed = new Dictionary<Inventory_Slot, GameObject>();
+    public Dictionary<GameObject, InventorySlot> ObjToItems = new Dictionary<GameObject, InventorySlot>();
+    public Dictionary<InventorySlot, GameObject> ItemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     public List<SlotComponent> SlotHolders = new List<SlotComponent>();
 
 
