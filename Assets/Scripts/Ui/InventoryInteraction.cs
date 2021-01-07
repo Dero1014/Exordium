@@ -13,6 +13,8 @@ public class InventoryInteraction : MonoBehaviour
 
     [Space(10)]
     public TooltipWindow ToolTip;
+    public SplitStackWindow SplitStack; 
+
     public GameObject Prefab;
 
     [Space(10)]
@@ -81,6 +83,8 @@ public class InventoryInteraction : MonoBehaviour
         if (GetDraggableTransformUnderMouse())
         {
             _target = GetDraggableTransformUnderMouse();
+            Inventory_Slot slot;
+
             if (Input.GetKeyDown(KeyCode.Delete))
             {
                 Inventory_Slot newSlot = InvDisplay.ObjToItems[_target.gameObject];
@@ -98,9 +102,8 @@ public class InventoryInteraction : MonoBehaviour
                 _slotOfTheObjHolder._occupied = false;
             }
 
-
+            //TOOLTIP
             ToolTip.Panel.SetActive(true);
-            Inventory_Slot slot;
 
             if (InvDisplay.ObjToItems.ContainsKey(_target.gameObject))
             {
@@ -116,7 +119,27 @@ public class InventoryInteraction : MonoBehaviour
             {
                 ToolTip.Slot = null;
             }
-            
+
+            //SPLIT STACK
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                SplitStack.Panel.SetActive(true);
+                SplitStack.PositionWindow();
+                if (InvDisplay.ObjToItems.ContainsKey(_target.gameObject))
+                {
+                    slot = InvDisplay.ObjToItems[_target.gameObject];
+                    SplitStack.Slot = slot;
+                    SplitStack.AssignText();
+                }
+                else
+                {
+                    SplitStack.Slot = null;
+                }
+
+            }
+           
+
+
         }
         else
         {

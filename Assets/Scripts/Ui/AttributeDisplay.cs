@@ -10,10 +10,16 @@ public class AttributeDisplay : MonoBehaviour
 
     void Start()
     {
+        for (int i = 0; i < Attributes.Length; i++)
+        {
+            Attributes[i].text = "0";
+        }
+
         CustomEvents.current.OnValueChangeStr += UpdateTextStr;
         CustomEvents.current.OnValueChangeDex += UpdateTextDex;
         CustomEvents.current.OnValueChangeAgi += UpdateTextAgi;
         CustomEvents.current.OnValueChangeInt += UpdateTextInt;
+        CustomEvents.current.OnValueChangeLck += UpdateTextLck;
         _pAttributes = GameObject.FindObjectOfType<PlayerAttributes>();
     }
 
@@ -34,15 +40,11 @@ public class AttributeDisplay : MonoBehaviour
         Attributes[3].text = newValues.ToString();
     }
 
-
-    // Update is called once per frame
-    void Update()
+    void UpdateTextLck(int newValues)
     {
-        for (int i = 0; i < Attributes.Length; i++)
-        {
-            Attributes[i].text = _pAttributes.Attributes[i].ToString();
-        }
+        Attributes[4].text = newValues.ToString();
     }
+
 
     
 }

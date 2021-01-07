@@ -31,22 +31,22 @@ public class PlayerPickUp : MonoBehaviour
     public void Update()
     {
         //pick type of pick up system
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             SetPickUp(true, false, false, false);
         }
 
-        if (Input.GetKeyDown("2"))
+        if (Input.GetKeyDown(KeyCode.F2))
         {
             SetPickUp(false, true, false, false);
         }
 
-        if (Input.GetKeyDown("3"))
+        if (Input.GetKeyDown(KeyCode.F3))
         {
             SetPickUp(false, false, true, false);
         }
 
-        if (Input.GetKeyDown("4"))
+        if (Input.GetKeyDown(KeyCode.F4))
         {
             SetPickUp(false, false, false, true);
         }

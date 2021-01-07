@@ -15,6 +15,7 @@ public class TooltipWindow : MonoBehaviour
     public string[] TypeTexts;
     public string[] BuffTexts;
 
+    //private
     private RectTransform _panelRectTransform;
 
     private void Start()

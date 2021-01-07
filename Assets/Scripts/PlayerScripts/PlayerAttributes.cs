@@ -7,9 +7,9 @@ public class PlayerAttributes : MonoBehaviour
 
     public InventoryObject Equipment;
     [HideInInspector]public List<ItemBaseObject> PickedUpItems = new List<ItemBaseObject>();
-    public int[] Attributes = {0, 0, 0, 0}; //0- strength, 1- dexterity, 2- agility, 3- inteligence
+    public int[] Attributes = {0, 0, 0, 0, 0}; //0- strength, 1- dexterity, 2- agility, 3- inteligence
 
-    private int[] AttributesSaved = { 0, 0, 0, 0 };
+    private int[] AttributesSaved = { 0, 0, 0, 0, 0 };
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class PlayerAttributes : MonoBehaviour
         //apply the stats from equipment to the attributes
         //add them with existing values of that attribute
 
-        int[] atrNums = { 0, 0, 0, 0 };
+        int[] atrNums = { 0, 0, 0, 0, 0 };
         
 
         for (int i = 0; i < Equipment.Container.Count; i++)
@@ -61,6 +61,7 @@ public class PlayerAttributes : MonoBehaviour
         CustomEvents.current.DexValue = atrNums[1];
         CustomEvents.current.AgiValue = atrNums[2];
         CustomEvents.current.IntValue = atrNums[3];
+        CustomEvents.current.LckValue = atrNums[4];
     }
 
 }

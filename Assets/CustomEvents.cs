@@ -22,11 +22,13 @@ public class CustomEvents : MonoBehaviour
     public event ChangeInValues OnValueChangeDex;
     public event ChangeInValues OnValueChangeAgi;
     public event ChangeInValues OnValueChangeInt;
+    public event ChangeInValues OnValueChangeLck;
 
     private int _strValue = 0;
     private int _dexValue = 0;
     private int _agiValue = 0;
     private int _intValue = 0;
+    private int _lckValue = 0;
 
     public int StrValue
     {
@@ -84,6 +86,21 @@ public class CustomEvents : MonoBehaviour
             if (OnValueChangeInt != null)
             {
                 OnValueChangeInt(_intValue);
+            }
+        }
+    }
+
+    public int LckValue
+    {
+        get { return _lckValue; }
+        set
+        {
+            if (_lckValue == value) return;
+            _lckValue = value;
+
+            if (OnValueChangeLck != null)
+            {
+                OnValueChangeLck(_lckValue);
             }
         }
     }

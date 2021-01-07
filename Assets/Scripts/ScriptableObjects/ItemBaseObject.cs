@@ -32,6 +32,7 @@ public enum AttributesType
     Dexterity,
     Agility,
     Inteligence,
+    Luck
 }
 
 public abstract class ItemBaseObject : ScriptableObject

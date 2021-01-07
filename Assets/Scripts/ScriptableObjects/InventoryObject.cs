@@ -76,6 +76,14 @@ public class InventoryObject : ScriptableObject
         }
     }
 
+    public void SplitItems(Inventory_Slot containerIndex, int splitAmount)
+    {
+        ItemBaseObject item = containerIndex.Item;
+        Container[Container.IndexOf(containerIndex)].Amount -= splitAmount;
+
+        Container.Add(new Inventory_Slot(item, splitAmount));
+
+    }
 }
 
 [System.Serializable]
