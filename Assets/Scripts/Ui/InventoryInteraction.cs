@@ -67,6 +67,7 @@ public class InventoryInteraction : MonoBehaviour
         //!!!!!! set somewhere in the code equipment over inventory and inventory over equipment when selected !!!!!!
         equiped = false;
 
+        //when all uis shutdown
         if (!UIs[0].activeSelf && !UIs[1].activeSelf && _objectToDrag != null)
         {
             _objectToDrag.position = _originalPosition;
@@ -87,17 +88,20 @@ public class InventoryInteraction : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Delete))
             {
-                Inventory_Slot newSlot = InvDisplay.ObjToItems[_target.gameObject];
+                Inventory_Slot slotRemovedFromInventory = InvDisplay.ObjToItems[_target.gameObject];
 
                 GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
-                clone.GetComponent<ItemComponent>().ItemType = InvDisplay.ObjToItems[_target.gameObject].Item;
-                clone.GetComponent<ItemComponent>().Amount = InvDisplay.ObjToItems[_target.gameObject].Amount;
+                var itemComponent = clone.GetComponent<ItemComponent>();
+
+                itemComponent.ItemObject = slotRemovedFromInventory.Item;
+                itemComponent.Amount = slotRemovedFromInventory.Amount;
+                itemComponent.Durrability = slotRemovedFromInventory.Durrability;
 
                 GameObject objToRemember = _target.gameObject;
-                InvDisplay.ObjToItems.Remove(_target.gameObject);
-                InvDisplay.ItemsDisplayed.Remove(newSlot);
+                InvDisplay.ObjToItems.Remove(objToRemember);
+                InvDisplay.ItemsDisplayed.Remove(slotRemovedFromInventory);
                 Destroy(objToRemember);
-                InvDisplay.Inventory.Container.Remove(newSlot);
+                InvDisplay.Inventory.Container.Remove(slotRemovedFromInventory);
 
                 _slotOfTheObjHolder._occupied = false;
             }
@@ -177,6 +181,7 @@ public class InventoryInteraction : MonoBehaviour
                             {
                                 EDisplay.Equipment.Container[i].Item = slot.Item;
                                 EDisplay.Equipment.Container[i].Amount = slot.Amount;
+                                EDisplay.Equipment.Container[i].Durrability = slot.Durrability;
                                 equiped = true;
 
                                 break;
@@ -191,11 +196,12 @@ public class InventoryInteraction : MonoBehaviour
 
                                 EDisplay.EquipDisplayStorage.Remove(EDisplay.ObjToEquipment[objToRemember]);
 
-                                InvDisplay.Inventory.AddItem(EDisplay.Equipment.Container[i].Item, EDisplay.Equipment.Container[i].Amount);
+                                InvDisplay.Inventory.AddItem(EDisplay.Equipment.Container[i].Item, EDisplay.Equipment.Container[i].Amount, EDisplay.Equipment.Container[i].Durrability);
                                 Destroy(objToRemember);
 
                                 EDisplay.Equipment.Container[i].Item = slot.Item;
                                 EDisplay.Equipment.Container[i].Amount = slot.Amount;
+                                EDisplay.Equipment.Container[i].Durrability = slot.Durrability;
                                 break;
                             }
 
@@ -219,7 +225,7 @@ public class InventoryInteraction : MonoBehaviour
                     slot = EDisplay.ObjToEquipment[_target.gameObject];
                     var containerSlot = EDisplay.Equipment.Container.IndexOf(slot);
 
-                    InvDisplay.Inventory.AddItem(slot.Item, slot.Amount);
+                    InvDisplay.Inventory.AddItem(slot.Item, slot.Amount, slot.Durrability);
 
                     //remove the fucker
                     EDisplay.ObjToEquipment.Remove(_target.gameObject);
@@ -309,10 +315,13 @@ public class InventoryInteraction : MonoBehaviour
                         Inventory_Slot slot = EDisplay.ObjToEquipment[_indexObject];
 
                         GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
-                        clone.GetComponent<ItemComponent>().ItemType = EDisplay.ObjToEquipment[_indexObject].Item;
-                        clone.GetComponent<ItemComponent>().Amount = EDisplay.ObjToEquipment[_indexObject].Amount;
+                        var itemComponent = clone.GetComponent<ItemComponent>();
 
-                 
+                        itemComponent.ItemObject = EDisplay.ObjToEquipment[_indexObject].Item;
+                        itemComponent.Amount = EDisplay.ObjToEquipment[_indexObject].Amount;
+                        itemComponent.Durrability = EDisplay.ObjToEquipment[_indexObject].Durrability;
+
+
                         EDisplay.ObjToEquipment.Remove(_indexObject);
                         EDisplay.EquipDisplayStorage.Remove(slot);
                         Destroy(_indexObject);
@@ -324,10 +333,11 @@ public class InventoryInteraction : MonoBehaviour
                         Inventory_Slot slot = InvDisplay.ObjToItems[_indexObject];
 
                         GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
-                        clone.GetComponent<ItemComponent>().ItemType = InvDisplay.ObjToItems[_indexObject].Item;
-                        clone.GetComponent<ItemComponent>().Amount = InvDisplay.ObjToItems[_indexObject].Amount;
+                        var itemComponent = clone.GetComponent<ItemComponent>();
+                        itemComponent.ItemObject = InvDisplay.ObjToItems[_indexObject].Item;
+                        itemComponent.Amount = InvDisplay.ObjToItems[_indexObject].Amount;
+                        itemComponent.Durrability = InvDisplay.ObjToItems[_indexObject].Durrability;
 
-           
                         InvDisplay.ObjToItems.Remove(_indexObject);
                         InvDisplay.ItemsDisplayed.Remove(slot);
                         Destroy(_indexObject);
@@ -356,6 +366,8 @@ public class InventoryInteraction : MonoBehaviour
 
 
     }
+
+   
 
     void OrganizeItem(Transform objToReplace)
     {
@@ -423,7 +435,9 @@ public class InventoryInteraction : MonoBehaviour
             {
                 int numOfSlot = EDisplay.EquipSlots.IndexOf(_objectToDrag.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
                 Inventory_Slot slot = EDisplay.ObjToEquipment[_indexObject];
-                InvDisplay.Inventory.AddItem(EDisplay.Equipment.Container[numOfSlot].Item, EDisplay.Equipment.Container[numOfSlot].Amount);
+                var equipSlot = EDisplay.Equipment.Container[numOfSlot];
+
+                InvDisplay.Inventory.AddItem(equipSlot.Item, equipSlot.Amount, equipSlot.Durrability);
                 EDisplay.Equipment.Container[numOfSlot].Item = null;
 
                 EDisplay.ObjToEquipment.Remove(_indexObject);
@@ -474,6 +488,7 @@ public class InventoryInteraction : MonoBehaviour
             {
                 containerSlot.Item = slot.Item; //fill the equipment slot
                 containerSlot.Amount = slot.Amount;
+                containerSlot.Durrability = slot.Durrability;
             }
             else
             {
@@ -482,11 +497,12 @@ public class InventoryInteraction : MonoBehaviour
 
                 EDisplay.EquipDisplayStorage.Remove(EDisplay.ObjToEquipment[EDisplay.EquipDisplayStorage[containerSlot]]); //remove the current from the display
 
-                InvDisplay.Inventory.AddItem(containerSlot.Item, containerSlot.Amount); //and the one we replaced back to the inventory
+                InvDisplay.Inventory.AddItem(containerSlot.Item, containerSlot.Amount, containerSlot.Durrability); //and the one we replaced back to the inventory
                 Destroy(objToRemember); //destroy the object we are replacing
 
                 containerSlot.Item = slot.Item; //fill the equipment slot 
                 containerSlot.Amount = slot.Amount;
+                containerSlot.Durrability = slot.Durrability;
             }
             equiped = true;
 

@@ -23,9 +23,9 @@ public class SpawnItem : MonoBehaviour
             GameObject clone = Instantiate(Obj, mosPos, Quaternion.identity);
             ItemComponent item = clone.GetComponent<ItemComponent>();
 
-            item.ItemType = Items.Container[Random.Range(0,Items.Container.Count)].Item;
+            item.ItemObject = Items.Container[Random.Range(0,Items.Container.Count)].Item;
 
-            if (item.ItemType.Type != ItemType.Equipable && item.ItemType.Type != ItemType.Permanent)
+            if (item.ItemObject.Type != ItemType.Equipable && item.ItemObject.Type != ItemType.Permanent)
             {
                 item.Amount = Random.Range(1, 10);
             }

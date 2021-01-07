@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Shield 1
   m_EditorClassIdentifier: 
   ItemName: Shield1
-  Prefab: {fileID: 4987733812923531002, guid: 0ba79264ee5a4424db7ef08499d0fc01, type: 3}
+  Prefab: {fileID: 9000240194616257817, guid: d9a7a180d57ed1b4f90d9a669c3b6cb1, type: 3}
   Sprite: {fileID: -7624529004083634969, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
   EquipTypes: 2
   Stack: 0
   MaxItemCount: 1
+  MaxDurrability: 100
   Description: 
   Buffs:
   - Attribute: 0

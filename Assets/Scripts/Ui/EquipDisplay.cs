@@ -13,15 +13,16 @@ public class EquipDisplay : MonoBehaviour
     //dictionary to keep the inventory slot to the gameobject
     public Dictionary<Inventory_Slot, GameObject> EquipDisplayStorage = new Dictionary<Inventory_Slot, GameObject>();
 
+    [Space(10)]
+    public int _degradeAmount;
+    public float _degradeSpeed;
 
     void Start()
     {
+        PlayerInput.current.OnInputChange += EquipmentDegrade;
         UpdateDisplay();
     }
 
-    private void Update()
-    {
-    }
 
     public void UpdateDisplay()
     {
@@ -38,13 +39,13 @@ public class EquipDisplay : MonoBehaviour
                 {
                     if (EquipDisplayStorage.ContainsKey(Equipment.Container[i]))
                     {
-                        EquipDisplayStorage[Equipment.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = Equipment.Container[i].Amount.ToString();
+                        EquipDisplayStorage[Equipment.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = Equipment.Container[i].Durrability.ToString();
                     }
                     else
                     {
                         var obj = Instantiate(Equipment.Container[i].Item.Prefab, Vector3.zero, Quaternion.identity, EquipSlots[i]);
                         obj.GetComponent<RectTransform>().localPosition = Vector3.zero;
-                        obj.GetComponentInChildren<TextMeshProUGUI>().text = Equipment.Container[i].Amount.ToString("n0");
+                        obj.GetComponentInChildren<TextMeshProUGUI>().text = Equipment.Container[i].Durrability.ToString();
 
                         EquipDisplayStorage.Add(Equipment.Container[i], obj);
                         ObjToEquipment.Add(obj, Equipment.Container[i]);
@@ -54,6 +55,46 @@ public class EquipDisplay : MonoBehaviour
             }
            
         }
+    }
+
+    float _time = 0;
+    void EquipmentDegrade()
+    {
+       
+        if (_time < _degradeSpeed)
+        {
+            _time += Time.deltaTime;
+        }
+        else
+        {
+            _time = 0;
+
+            for (int i = 0; i < Equipment.Container.Count; i++)
+            {
+                if (Equipment.Container[i].Item!=null)
+                {
+                    Equipment.Container[i].Durrability -= _degradeAmount;
+                    if (Equipment.Container[i].Durrability <= 0)
+                    {
+                        var slot = Equipment.Container[i];
+                        var obj = EquipDisplayStorage[slot];
+
+                        EquipDisplayStorage.Remove(slot);
+                        Equipment.Container[i].Item = null;
+                        Equipment.Container[i].Durrability = 0;
+                        ObjToEquipment.Remove(obj);
+                        Destroy(obj);
+                        print("destroyed");
+
+
+                    }
+                }
+            }
+            UpdateDisplay();
+        }
+
+        
+
     }
 
 }

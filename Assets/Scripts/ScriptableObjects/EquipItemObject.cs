@@ -8,6 +8,7 @@ public class EquipItemObject : ItemBaseObject
 
     private void Awake()
     {
+        MaxDurrability = 100;
         MaxItemCount = 1;
         Type = ItemType.Equipable;
         Stack = StackType.StackMax;

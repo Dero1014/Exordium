@@ -55,7 +55,18 @@ public class InventoryDisplay : MonoBehaviour
         {
             var obj = Instantiate(Inventory.Container[i].Item.Prefab, Vector3.zero, Quaternion.identity, ItemsParent); 
             obj.GetComponent<RectTransform>().position = GetFreeSlotPosition();
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = Inventory.Container[i].Amount.ToString();
+            var objText = obj.GetComponentInChildren<TextMeshProUGUI>();
+
+            if (Inventory.Container[i].Item.Type == ItemType.Equipable)
+            {
+                //show durability
+                objText.text = Inventory.Container[i].Durrability.ToString();
+            }
+            else
+            {
+                objText.text = Inventory.Container[i].Amount.ToString();
+            }
+
             ItemsDisplayed.Add(Inventory.Container[i], obj);
             ObjToItems.Add(obj, Inventory.Container[i]);
         }
@@ -71,13 +82,19 @@ public class InventoryDisplay : MonoBehaviour
         {
             if (ItemsDisplayed.ContainsKey(Inventory.Container[i]))
             {
-                ItemsDisplayed[Inventory.Container[i]].GetComponentInChildren<TextMeshProUGUI>().text = Inventory.Container[i].Amount.ToString();
-                if (Inventory.Container[i].Amount<= 0)
+                var objText = ItemsDisplayed[Inventory.Container[i]].GetComponentInChildren<TextMeshProUGUI>();
+
+                if (Inventory.Container[i].Item.Type == ItemType.Equipable)
+                    objText.text = Inventory.Container[i].Durrability.ToString();
+                else
+                    objText.text = Inventory.Container[i].Amount.ToString();
+
+                if (Inventory.Container[i].Amount<= 0)// destroy obj
                 {
-                    GameObject remember = ItemsDisplayed[Inventory.Container[i]];
+                    GameObject objToRemember = ItemsDisplayed[Inventory.Container[i]];
                     ObjToItems.Remove(ItemsDisplayed[Inventory.Container[i]]);
                     ItemsDisplayed.Remove(Inventory.Container[i]);
-                    Destroy(remember);
+                    Destroy(objToRemember);
                     Inventory.Container.Remove(Inventory.Container[i]);
                 }
             }
@@ -85,7 +102,13 @@ public class InventoryDisplay : MonoBehaviour
             {
                 var obj = Instantiate(Inventory.Container[i].Item.Prefab, Vector3.zero, Quaternion.identity, ItemsParent);
                 obj.GetComponent<RectTransform>().position = GetFreeSlotPosition();
-                obj.GetComponentInChildren<TextMeshProUGUI>().text = Inventory.Container[i].Amount.ToString("n0");
+                var objText = obj.GetComponentInChildren<TextMeshProUGUI>();
+
+                if (Inventory.Container[i].Item.Type == ItemType.Equipable)
+                    objText.text = Inventory.Container[i].Durrability.ToString();
+                else
+                    objText.text = Inventory.Container[i].Amount.ToString();
+
                 ItemsDisplayed.Add(Inventory.Container[i], obj);
                 ObjToItems.Add(obj, Inventory.Container[i]);
 

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Staff
   m_EditorClassIdentifier: 
   ItemName: Stag
-  Prefab: {fileID: 8845085365407489371, guid: 0d29b5324fd597d4c8b64cb552575bc0, type: 3}
+  Prefab: {fileID: 3494541660847678148, guid: 058a9d6f93c6ac844924ff17c8a5b7fa, type: 3}
   Sprite: {fileID: 7294954860710672295, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
   EquipTypes: 1
   Stack: 0
   MaxItemCount: 1
+  MaxDurrability: 100
   Description: 
   Buffs:
   - Attribute: 3

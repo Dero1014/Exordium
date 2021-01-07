@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Luck
   m_EditorClassIdentifier: 
   ItemName: Luck
-  Prefab: {fileID: 3131253167867184862, guid: b199c367e0fd6074c825fb6382e53d61, type: 3}
+  Prefab: {fileID: 5887699256108576216, guid: 7062457a89f2af84bb3d3c54892aad70, type: 3}
   Sprite: {fileID: 7326601240900920557, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
   EquipTypes: 2
   Stack: 0
   MaxItemCount: 1
+  MaxDurrability: 100
   Description: 
   Buffs:
   - Attribute: 4

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Helmet
   m_EditorClassIdentifier: 
   ItemName: Helmet
-  Prefab: {fileID: 6326983153119413021, guid: 81fdd31f0fa2f5d4fb4acc07802260a4, type: 3}
+  Prefab: {fileID: 6768811225492520060, guid: 09539ed0f4c51fa4abe9ba4c1aaaa954, type: 3}
   Sprite: {fileID: -4816295971151624872, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
   EquipTypes: 3
   Stack: 0
   MaxItemCount: 1
+  MaxDurrability: 100
   Description: 
   Buffs:
   - Attribute: 1

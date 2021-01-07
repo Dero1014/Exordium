@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   ItemName: Chest
-  Prefab: {fileID: 6049006140148232753, guid: d13b5cf180cee11429968976757e2930, type: 3}
+  Prefab: {fileID: 2370285054992508826, guid: 6de5991073ee7944c9b2679aa26bee3e, type: 3}
   Sprite: {fileID: -2974297893697859306, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
   EquipTypes: 4
   Stack: 0
   MaxItemCount: 1
+  MaxDurrability: 100
   Description: 
   Buffs:
   - Attribute: 0

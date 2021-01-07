@@ -69,27 +69,27 @@ public class PlayerPickUp : MonoBehaviour
 
     public void PickedUp(ItemComponent item) //every pick up system calls this to decide what to do with it and destroy it
     {
-        if (item.ItemType.Type == ItemType.Permanent) //apply the permanent object
+        if (item.ItemObject.Type == ItemType.Permanent) //apply the permanent object
         {
-            for (int i = 0; i < item.ItemType.Buffs.Length; i++)
+            for (int i = 0; i < item.ItemObject.Buffs.Length; i++)
             {
                 //apply stats for permament
-                Debug.Log("You picked up " + item.ItemType.ItemName);
-                _pAttributes.PickedUpItems.Add(item.ItemType);
+                Debug.Log("You picked up " + item.ItemObject.ItemName);
+                _pAttributes.PickedUpItems.Add(item.ItemObject);
                 _updateAttributeValues();
                 Destroy(item.gameObject);
             }
 
         }
 
-        if (item && Inventory.Container.Count < Inventory.Capacity && item.ItemType.Type != ItemType.Permanent) //apply the permanent object
+        if (item && Inventory.Container.Count < Inventory.Capacity && item.ItemObject.Type != ItemType.Permanent) //apply the permanent object
         {
             //here we update to inventory Ui
-            Debug.Log("You picked up " + item.ItemType.ItemName);
-            Inventory.AddItem(item.ItemType, item.Amount);
+            Debug.Log("You picked up " + item.ItemObject.ItemName);
+            Inventory.AddItem(item.ItemObject, item.Amount, item.Durrability);
             Destroy(item.gameObject);
         }
-        else if (item && Inventory.Container.Count >= Inventory.Capacity && item.ItemType.Type != ItemType.Permanent)
+        else if (item && Inventory.Container.Count >= Inventory.Capacity && item.ItemObject.Type != ItemType.Permanent)
         {
             print("You are full");
         }

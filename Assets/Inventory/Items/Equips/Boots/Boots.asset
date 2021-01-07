@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Boots
   m_EditorClassIdentifier: 
   ItemName: Boots
-  Prefab: {fileID: 5574286528975348131, guid: 15d7eaa58ab2b4e4e88d57243b7634dc, type: 3}
+  Prefab: {fileID: 1938232510942147015, guid: 4e246362370f8ce42b5f9922ac16fdd8, type: 3}
   Sprite: {fileID: -3894112613718088472, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
   EquipTypes: 5
   Stack: 0
   MaxItemCount: 1
+  MaxDurrability: 100
   Description: 
   Buffs:
   - Attribute: 1

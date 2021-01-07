@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Ring 2
   m_EditorClassIdentifier: 
   ItemName: Ring2
-  Prefab: {fileID: 7546864049722384941, guid: 9c11405a3837718478f55d38401fa193, type: 3}
+  Prefab: {fileID: 6858298716477844230, guid: d9ec2cba42515d34a9e63e9b5b75a1f2, type: 3}
   Sprite: {fileID: 7622277309764017006, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
   EquipTypes: 6
   Stack: 0
   MaxItemCount: 1
+  MaxDurrability: 100
   Description: 
   Buffs:
   - Attribute: 2

@@ -6,8 +6,9 @@ using TMPro;
 public class ItemComponent : MonoBehaviour
 {
 
-    public ItemBaseObject ItemType;
+    public ItemBaseObject ItemObject;
     public int Amount = 1;
+    public int Durrability = 0;
 
     //private
     private TextMeshPro _amountText;
@@ -18,12 +19,13 @@ public class ItemComponent : MonoBehaviour
     {
         _sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
 
-        _sprite.sprite = ItemType.Sprite;
+        _sprite.sprite = ItemObject.Sprite;
 
         if (gameObject.GetComponentInChildren<TextMeshPro>())
         {
             _amountText = gameObject.GetComponentInChildren<TextMeshPro>();
             _amountText.text = Amount.ToString();
+            
         }
        
     }

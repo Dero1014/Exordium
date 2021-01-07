@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerInput : MonoBehaviour
 {
+    public static PlayerInput current;
+
     public bool InputOn=true;
 
     //private
@@ -12,6 +15,13 @@ public class PlayerInput : MonoBehaviour
 
     private Vector2 _directionKeys; // captures input
 
+    private void Awake()
+    {
+        current = this;
+    }
+
+    public delegate void InputChange();
+    public event InputChange OnInputChange;
 
     void Start()
     {
@@ -25,6 +35,11 @@ public class PlayerInput : MonoBehaviour
             _directionKeys = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         else
             _directionKeys = Vector2.zero;
+
+        if (_directionKeys!=Vector2.zero)
+        {
+            OnInputChange();
+        }
 
         _pAnimator.SetDirection(_directionKeys);
     }

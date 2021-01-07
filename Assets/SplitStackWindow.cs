@@ -95,7 +95,7 @@ public class SplitStackWindow : MonoBehaviour
 
     public void OK()
     {
-        inventory.SplitItems(Slot, _splitAmount);
+        inventory.SplitItems(Slot, _splitAmount, Slot.Durrability);
 
     }
 

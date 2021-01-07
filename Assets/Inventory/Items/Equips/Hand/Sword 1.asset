@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Sword 1
   m_EditorClassIdentifier: 
   ItemName: Sword2
-  Prefab: {fileID: 863662276024113046, guid: a2ac2fb81245aa4478c9e55c2c2687c3, type: 3}
+  Prefab: {fileID: 7422096794759162649, guid: 40b9ae26fb290c1468e880af5d171f6f, type: 3}
   Sprite: {fileID: -7245610558870393668, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 0
   EquipTypes: 1
   Stack: 0
   MaxItemCount: 1
+  MaxDurrability: 100
   Description: 
   Buffs:
   - Attribute: 0

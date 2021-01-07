@@ -14,7 +14,7 @@ public class InventoryObject : ScriptableObject
         Container.Capacity = Capacity;
     }
 
-    public void AddItem(ItemBaseObject item, int amount)
+    public void AddItem(ItemBaseObject item, int amount, int durrability)
     {
         if (item.Stack == StackType.StackInf)
         {
@@ -28,7 +28,7 @@ public class InventoryObject : ScriptableObject
                 }
             }
 
-            Container.Add(new Inventory_Slot(item, amount));
+            Container.Add(new Inventory_Slot(item, amount, durrability));
 
         }
         else if (item.Stack == StackType.StackMax)
@@ -59,29 +59,29 @@ public class InventoryObject : ScriptableObject
 
             if (amount <= item.MaxItemCount)
             {
-                Container.Add(new Inventory_Slot(item, amount));
+                Container.Add(new Inventory_Slot(item, amount, durrability));
             }
             else
             {
                 while (amount > item.MaxItemCount)
                 {
-                    Container.Add(new Inventory_Slot(item, item.MaxItemCount));
+                    Container.Add(new Inventory_Slot(item, item.MaxItemCount, durrability));
                     amount -= item.MaxItemCount;
                 }
 
-                Container.Add(new Inventory_Slot(item, amount));
+                Container.Add(new Inventory_Slot(item, amount, durrability));
             }
 
 
         }
     }
 
-    public void SplitItems(Inventory_Slot containerIndex, int splitAmount)
+    public void SplitItems(Inventory_Slot containerIndex, int splitAmount, int durrability)
     {
         ItemBaseObject item = containerIndex.Item;
         Container[Container.IndexOf(containerIndex)].Amount -= splitAmount;
 
-        Container.Add(new Inventory_Slot(item, splitAmount));
+        Container.Add(new Inventory_Slot(item, splitAmount, durrability));
 
     }
 }
@@ -93,11 +93,13 @@ public class Inventory_Slot
     public ItemBaseObject Item;
     public EquipType[] AllowedEquip;
     public int Amount;
+    public int Durrability;
 
-    public Inventory_Slot(ItemBaseObject itemType, int amountItem)
+    public Inventory_Slot(ItemBaseObject itemType, int amountItem, int durrabilityItem)
     {
         Amount = amountItem;
         Item = itemType;
+        Durrability = durrabilityItem;
     }
 
     public void AddAmount(int value)
