@@ -10,6 +10,7 @@ public class TooltipWindow : MonoBehaviour
 
     public TextMeshProUGUI NameText;
     public TextMeshProUGUI Type;
+    public TextMeshProUGUI Durrability;
     public TextMeshProUGUI Buffs;
 
     public string[] TypeTexts;
@@ -32,6 +33,7 @@ public class TooltipWindow : MonoBehaviour
             if (Slot.Item != null)
             {
                 NameText.text = Slot.Item.ItemName;
+                Durrability.text = Slot.Durrability.ToString();
 
                 for (int i = 0; i < TypeTexts.Length; i++)
                 {

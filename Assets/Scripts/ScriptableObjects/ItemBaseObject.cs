@@ -32,7 +32,9 @@ public enum AttributesType
     Dexterity,
     Agility,
     Inteligence,
-    Luck
+    Luck,
+    Health,
+    Mana
 }
 
 public abstract class ItemBaseObject : ScriptableObject
@@ -45,7 +47,6 @@ public abstract class ItemBaseObject : ScriptableObject
     public EquipType EquipTypes;
     public StackType Stack;
     public int MaxItemCount;
-    public int MaxDurrability;
     [TextArea(2, 15)]
     public string Description;
     public ItemBuff[] Buffs;
