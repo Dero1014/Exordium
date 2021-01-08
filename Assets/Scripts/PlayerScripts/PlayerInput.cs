@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
 {
     public static PlayerInput current;
 
-    public Joystick PJoystick;
+    public JoystickScript PJoystick;
 
     public bool InputOn=true;
 
@@ -37,7 +37,8 @@ public class PlayerInput : MonoBehaviour
         {
             if (PJoystick != null)
             {
-                _directionKeys = new Vector2(PJoystick.Horizontal, PJoystick.Vertical);
+                _directionKeys = new Vector2(PJoystick.HorizontalValue, PJoystick.VerticalValue);
+
             }
             else
             {

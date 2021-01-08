@@ -111,7 +111,7 @@ public class InventoryInteractionMobile : MonoBehaviour
 
                 //TOOLTIP
                 ToolTip.Panel.SetActive(true);
-
+                ToolTip.Reposition();
                 if (InvDisplay.ObjToItems.ContainsKey(_target.gameObject))
                 {
                     slot = InvDisplay.ObjToItems[_target.gameObject];
@@ -281,7 +281,7 @@ public class InventoryInteractionMobile : MonoBehaviour
 
         if (Input.GetMouseButton(0) && !_dragging && !_waitForSecond)
         {
-            print("I Passed");
+
             _objectToDrag = GetDraggableTransformUnderMouse();
 
             if (_objectToDrag != null)
@@ -640,7 +640,7 @@ public class InventoryInteractionMobile : MonoBehaviour
     bool IsDoubleTap()
     {
         bool result = false;
-        float maxWaitTime = 0.5f;
+        float maxWaitTime = 0.2f;
 
         if (_tap == 1 && _doubleTime<maxWaitTime)
         {
