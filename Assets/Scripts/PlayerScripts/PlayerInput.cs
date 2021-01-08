@@ -7,6 +7,8 @@ public class PlayerInput : MonoBehaviour
 {
     public static PlayerInput current;
 
+    public Joystick PJoystick;
+
     public bool InputOn=true;
 
     //private
@@ -32,7 +34,16 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         if (InputOn)
-            _directionKeys = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        {
+            if (PJoystick != null)
+            {
+                _directionKeys = new Vector2(PJoystick.Horizontal, PJoystick.Vertical);
+            }
+            else
+            {
+                _directionKeys = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            }
+        }
         else
             _directionKeys = Vector2.zero;
 

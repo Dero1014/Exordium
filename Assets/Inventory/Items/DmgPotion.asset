@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 392315c38b323594ab6e6820f028ae68, type: 3}
-  m_Name: HealthPotion 1
+  m_Name: DmgPotion
   m_EditorClassIdentifier: 
   ItemName: HealthPotion
   Prefab: {fileID: 2370285054992508826, guid: d9899f6574255c74680cdc1c3797c6c9, type: 3}

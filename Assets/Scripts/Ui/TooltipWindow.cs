@@ -16,6 +16,8 @@ public class TooltipWindow : MonoBehaviour
     public string[] TypeTexts;
     public string[] BuffTexts;
 
+    public bool Mobile = false;
+
     //private
     private RectTransform _panelRectTransform;
 
@@ -26,7 +28,7 @@ public class TooltipWindow : MonoBehaviour
 
     void Update()
     {
-        _panelRectTransform.position = Input.mousePosition + new Vector3(0, - 30, 0);
+        _panelRectTransform.position = Input.mousePosition + new Vector3(0, -30, 0);
 
         if (Slot != null && Panel.activeSelf)
         {
@@ -63,4 +65,5 @@ public class TooltipWindow : MonoBehaviour
         }
         
     }
+
 }
