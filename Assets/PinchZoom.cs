@@ -37,13 +37,9 @@ public class PinchZoom : MonoBehaviour
             CM.m_Lens.OrthographicSize += (distance - _oldDistance) * ZoomDamp;
 
             if (CM.m_Lens.OrthographicSize>MaxZoom)
-            {
                 CM.m_Lens.OrthographicSize = MaxZoom;
-            }
             else if (CM.m_Lens.OrthographicSize < MinZoom)
-            {
                 CM.m_Lens.OrthographicSize = MinZoom;
-            }
 
             _oldDistance = distance;
         }

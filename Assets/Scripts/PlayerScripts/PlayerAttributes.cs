@@ -147,14 +147,14 @@ public class PlayerAttributes : MonoBehaviour
     IEnumerator HoldValue(float timeSet, int buff, AttributesType type)
     {
         buffApplied = true;
-        Buffs[(int)type] = buff;
+        Buffs[(int)type] += buff;
 
         UpdateAttributes();
         _ramp = false;
 
         yield return new WaitForSeconds(timeSet);
 
-        Buffs[(int)type] = 0;
+        Buffs[(int)type] -= buff;
         buffApplied = false;
 
         UpdateAttributes();
@@ -162,19 +162,47 @@ public class PlayerAttributes : MonoBehaviour
     }
 
     float _timeRamp;
+    int _buffSave;
+    bool _oneShot = false;
     void RampValue(float holdTime, float timeSet, int buff, AttributesType type)
     {
         if (_timeRamp < timeSet)
         {
+            if (!_oneShot)
+            {
+                _buffSave = Buffs[(int)type];
+                _oneShot = true;
+            }
+
+           
+
             _timeRamp += Time.deltaTime;
             float value = (buff) * (_timeRamp / timeSet); 
-            Buffs[(int)type] = (int) value;
+            Buffs[(int)type] = _buffSave + (int) value;
         }
         else
         {
-            StartCoroutine(HoldValue(holdTime, buff, type));
+            StartCoroutine(HoldValueRamp(holdTime, buff, type));
             _timeRamp = 0;
+            _oneShot = false;
         }
+
+    }
+
+    IEnumerator HoldValueRamp(float timeSet, int buff, AttributesType type)
+    {
+        buffApplied = true;
+        Buffs[(int)type] += buff;
+
+        UpdateAttributes();
+        _ramp = false;
+
+        yield return new WaitForSeconds(timeSet);
+
+        Buffs[(int)type] -= buff;
+        buffApplied = false;
+
+        UpdateAttributes();
 
     }
 
