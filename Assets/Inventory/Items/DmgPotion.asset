@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392315c38b323594ab6e6820f028ae68, type: 3}
+  m_Name: HealthPotion 1
+  m_EditorClassIdentifier: 
+  ItemName: HealthPotion
+  Prefab: {fileID: 2370285054992508826, guid: d9899f6574255c74680cdc1c3797c6c9, type: 3}
+  Sprite: {fileID: 3994805371664618572, guid: e041b464539813644b00790606d9358a, type: 3}
+  Type: 1
+  EquipTypes: 0
+  Stack: 0
+  MaxItemCount: 5
+  Description: 
+  Buffs:
+  - Attribute: 5
+    Value: 10
+  HoldValue: 0
+  HoldTime: 5
+  RampValue: 0
+  rampItUpTime: 2
+  ValueOverTime: 1
+  addValueOverTime: -10

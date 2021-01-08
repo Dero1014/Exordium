@@ -21,14 +21,18 @@ public class CustomEvents : MonoBehaviour
     public event ChangeInValues OnValueChangeAgi;
     public event ChangeInValues OnValueChangeInt;
     public event ChangeInValues OnValueChangeLck;
- 
+    public event ChangeInValues OnValueChangeHp;
+    public event ChangeInValues OnValueChangeMna;
+
 
     private int _strValue = 0;
     private int _dexValue = 0;
     private int _agiValue = 0;
     private int _intValue = 0;
     private int _lckValue = 0;
-  
+    private int _hpValue = 0;
+    private int _mnaValue = 0;
+
 
     public int StrValue
     {
@@ -101,6 +105,36 @@ public class CustomEvents : MonoBehaviour
             if (OnValueChangeLck != null)
             {
                 OnValueChangeLck(_lckValue);
+            }
+        }
+    }
+
+    public int HpValue
+    {
+        get { return _hpValue; }
+        set
+        {
+            if (_hpValue == value) return;
+            _hpValue = value;
+
+            if (OnValueChangeHp != null)
+            {
+                OnValueChangeHp(_hpValue);
+            }
+        }
+    }
+
+    public int ManaValue
+    {
+        get { return _mnaValue; }
+        set
+        {
+            if (_mnaValue == value) return;
+            _mnaValue = value;
+
+            if (OnValueChangeMna != null)
+            {
+                OnValueChangeMna(_mnaValue);
             }
         }
     }

@@ -7066,9 +7066,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 62.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1051441282, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
+      propertyPath: Mana
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051441282, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
+      propertyPath: Health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051441282, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
+      propertyPath: HpSlider
+      value: 
+      objectReference: {fileID: 551078368}
+    - target: {fileID: 1051441282, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
+      propertyPath: ManaSlider
+      value: 
+      objectReference: {fileID: 301473864}
     - target: {fileID: 1151515131, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
       propertyPath: BuffTexts.Array.size
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1151515131, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
       propertyPath: BuffTexts.Array.data[4]
@@ -7078,6 +7094,14 @@ PrefabInstance:
       propertyPath: Durrability
       value: 
       objectReference: {fileID: 628010259}
+    - target: {fileID: 1151515131, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
+      propertyPath: BuffTexts.Array.data[5]
+      value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151515131, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
+      propertyPath: BuffTexts.Array.data[6]
+      value: Mana
+      objectReference: {fileID: 0}
     - target: {fileID: 1294004649, guid: 29d3442a8fdda2c44a2f3f75397ecf05, type: 3}
       propertyPath: m_IsActive
       value: 1

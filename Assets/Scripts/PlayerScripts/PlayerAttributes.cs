@@ -28,7 +28,6 @@ public class PlayerAttributes : MonoBehaviour
     public int Mana;
 
     //private
-    private int[] AttributesSaved = { 0, 0, 0, 0, 0, 0, 0 };
 
     private int _maxMana;
     private int _maxHp;
@@ -37,11 +36,7 @@ public class PlayerAttributes : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < Attributes.Length; i++)
-        {
-            AttributesSaved[i] = Attributes[i];
-        }
-
+     
         _maxHp = Health;
         _maxMana = Mana;
 
@@ -89,7 +84,7 @@ public class PlayerAttributes : MonoBehaviour
         //apply the stats from equipment to the attributes
         //add them with existing values of that attribute
 
-        int[] atrNums = { 0, 0, 0, 0, 0 };
+        int[] atrNums = { 0, 0, 0, 0, 0, 0, 0 };
         
 
         for (int i = 0; i < Equipment.Container.Count; i++)
@@ -119,11 +114,16 @@ public class PlayerAttributes : MonoBehaviour
             Attributes[i] = atrNums[i];
         }
 
+        //health mana
+
+
         CustomEvents.current.StrValue = atrNums[0] + Buffs[0];
         CustomEvents.current.DexValue = atrNums[1] + Buffs[1];
         CustomEvents.current.AgiValue = atrNums[2] + Buffs[2];
         CustomEvents.current.IntValue = atrNums[3] + Buffs[3];
         CustomEvents.current.LckValue = atrNums[4] + Buffs[4];
+
+        
     }
 
     public void ApplyBuff()
@@ -194,7 +194,6 @@ public class PlayerAttributes : MonoBehaviour
         }
         else
         {
-            Buffs[(int)type] = 0;
             _overTime = false;
         }
        
