@@ -62,6 +62,10 @@ CustomEvents - holds events for variable change on attributes used to update att
 FocusObject - on the upper right and left are trigger where it will trigger focus on an object an unable player input during that time
 SplitStackWindow - controlls the amount to split
 
+InventoryInteractionMobile - mobilna verzija InventoryInteraction skripte sa touch kontrolama
+JoystickScript - za upravljanjem joysticka za inpute PlayerInput skripte
+PinchZoom - za zoomiranje na mobitelu
+
 For analyitics:
 AnalyticsCollisionTracker - sends out an event when a player colided with something, once it collides with something it has 5 seconds until it will send out event again
 AnalyticsMovementTracker - tracks movement for 10 units it will only repeat 5 times in a single build
