@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class PlayerPickUp : MonoBehaviour
 {
@@ -73,10 +74,11 @@ public class PlayerPickUp : MonoBehaviour
         {
             for (int i = 0; i < item.ItemObject.Buffs.Length; i++)
             {
-                //apply stats for permament
+                //apply stats for permament types
                 Debug.Log("You picked up " + item.ItemObject.ItemName);
                 _pAttributes.PickedUpItems.Add(item.ItemObject);
                 _updateAttributeValues();
+                AnalyticsOnPickUp(item.ItemObject);
                 Destroy(item.gameObject);
             }
 
@@ -87,6 +89,7 @@ public class PlayerPickUp : MonoBehaviour
             //here we update to inventory Ui
             Debug.Log("You picked up " + item.ItemObject.ItemName);
             Inventory.AddItem(item.ItemObject, item.Amount, item.Durrability);
+            AnalyticsOnPickUp(item.ItemObject);
             Destroy(item.gameObject);
         }
         else if (item && Inventory.Container.Count >= Inventory.Capacity && item.ItemObject.Type != ItemType.Permanent)
@@ -99,9 +102,55 @@ public class PlayerPickUp : MonoBehaviour
     {
         //control equipment size
         Inventory.Container.Clear();
-        for (int i = 0; i < 7; i++)
-        {
-            Equipment.Container[i].Item = null;
-        }
+
+
+        Equipment.Container[0].Item = null;
+        Equipment.Container[0].Amount = 1;
+        Equipment.Container[0].Durrability = 0;
+        Equipment.Container[0].AllowedEquip = EquipType.Head;
+
+        Equipment.Container[1].Item = null;
+        Equipment.Container[1].Amount = 1;
+        Equipment.Container[1].Durrability = 0;
+        Equipment.Container[1].AllowedEquip = EquipType.Hands;
+
+        Equipment.Container[2].Item = null;
+        Equipment.Container[2].Amount = 1;
+        Equipment.Container[2].Durrability = 0;
+        Equipment.Container[2].AllowedEquip = EquipType.Shield;
+
+
+        Equipment.Container[3].Item = null;
+        Equipment.Container[3].Amount = 1;
+        Equipment.Container[3].Durrability = 0;
+        Equipment.Container[3].AllowedEquip = EquipType.Boots;
+
+        Equipment.Container[4].Item = null;
+        Equipment.Container[4].Amount = 1;
+        Equipment.Container[4].Durrability = 0;
+        Equipment.Container[4].AllowedEquip = EquipType.Ring;
+
+        Equipment.Container[5].Item = null;
+        Equipment.Container[5].Amount = 1;
+        Equipment.Container[5].Durrability = 0;
+        Equipment.Container[5].AllowedEquip = EquipType.Ring;
+
+        Equipment.Container[6].Item = null;
+        Equipment.Container[6].Amount = 1;
+        Equipment.Container[6].Durrability = 0;
+        Equipment.Container[6].AllowedEquip = EquipType.Chest;
+
+       
     }
+
+    void AnalyticsOnPickUp(ItemBaseObject item)
+    {
+        AnalyticsResult result = Analytics.CustomEvent("Items Picked Up", new Dictionary<string, object>
+        {
+            { "Item Name", item.ItemName },
+            { "Item Type", item.Type }
+        });
+
+    }
+
 }

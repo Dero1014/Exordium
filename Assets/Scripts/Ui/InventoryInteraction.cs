@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
 
 public class InventoryInteraction : MonoBehaviour
 {
@@ -30,7 +31,11 @@ public class InventoryInteraction : MonoBehaviour
     private PlayerAttributes _pAttributes; //make a SO for attributes;
     private SlotComponent _slotOfTheObjHolder;
 
+    private GameObject _indexObject;
+
     private Image _objectToDragImage;
+
+    private Transform _playerPosition;
 
     private Transform _objectToDrag;
     private Transform _target;
@@ -42,11 +47,11 @@ public class InventoryInteraction : MonoBehaviour
     private bool _dragging = false;
     private bool _clicked = false; //clicked is used to have the ability to click and pickup or place an item in inventory
 
-    private Transform _playerPosition;
-    private GameObject _indexObject;
+
     private void Awake()
     {
         _playerPosition = GameObject.FindObjectOfType<PlayerInput>().gameObject.transform;
+
     }
 
     private void Start()
@@ -173,12 +178,14 @@ public class InventoryInteraction : MonoBehaviour
                     //Move the item from inventory to equip
                     for (int i = 0; i < equipContainerCount; i++)
                     {
-                        var allowedType = EDisplay.Equipment.Container[i].AllowedEquip[0];
+                        var allowedType = EDisplay.Equipment.Container[i].AllowedEquip;
 
                         if (slot.Item.EquipTypes == allowedType)
                         {
                             if (EDisplay.Equipment.Container[i].Item == null)
                             {
+                                //equip item
+
                                 EDisplay.Equipment.Container[i].Item = slot.Item;
                                 EDisplay.Equipment.Container[i].Amount = slot.Amount;
                                 EDisplay.Equipment.Container[i].Durrability = slot.Durrability;
@@ -189,7 +196,8 @@ public class InventoryInteraction : MonoBehaviour
 
                             if (EDisplay.Equipment.Container[i].Item != null)
                             {
-
+                                //equip item
+                            
                                 //remember the game object 
                                 var containerSlot = EDisplay.Equipment.Container[i];
                                 var objToRemember = EDisplay.EquipDisplayStorage[containerSlot];
@@ -206,6 +214,8 @@ public class InventoryInteraction : MonoBehaviour
                             }
 
                         }
+                        AnalyticsOnEquip(slot);
+
                     }
 
 
@@ -227,7 +237,6 @@ public class InventoryInteraction : MonoBehaviour
 
                     InvDisplay.Inventory.AddItem(slot.Item, slot.Amount, slot.Durrability);
 
-                    //remove the fucker
                     EDisplay.ObjToEquipment.Remove(_target.gameObject);
                     EDisplay.EquipDisplayStorage.Remove(slot);
                     EDisplay.Equipment.Container[containerSlot].Item = null;
@@ -259,8 +268,8 @@ public class InventoryInteraction : MonoBehaviour
                     slot.Amount--;
                     PlayerAttributes.current.Slot = slot;
                     PlayerAttributes.current.ApplyBuff();
+                    AnalyticsOnConsume(slot);
                     if (slot.Amount <= 0) _slotOfTheObjHolder._occupied = false;
-
                 }
             }
 
@@ -453,6 +462,7 @@ public class InventoryInteraction : MonoBehaviour
             else if (_itsOnEquipment)
             {
                 //so its on equipment now, time to mess about and see what we hit
+                print("I kept it on equipment");
                 if (objToReplace.GetComponent<SlotComponent>()) //first check if its over an empty slot
                 {
                     //check which type the slot is
@@ -483,17 +493,37 @@ public class InventoryInteraction : MonoBehaviour
     void DragItemInEquipSlot(InventorySlot slot, int numOfSlot) //here is where we check what to do with the lot we are placing on
     {
         var containerSlot = EDisplay.Equipment.Container[numOfSlot];
+        int removeAlreadyIndex = 0;
 
-        if (slot.Item.EquipTypes == containerSlot.AllowedEquip[0])
+        if (slot.Item.EquipTypes == containerSlot.AllowedEquip)
         {
             if (containerSlot.Item == null) //if its empty
             {
+                //equip
+
+                for (int i = 0; i < EDisplay.Equipment.Container.Count; i++)
+                {
+                    if (slot == EDisplay.Equipment.Container[i])
+                    {
+                        removeAlreadyIndex = i;
+                        print("its already in equipment");
+                        print("Index object is " + _indexObject.name);
+                        EDisplay.ObjToEquipment.Remove(_indexObject);
+                        print(slot.Item.ItemName);
+                        EDisplay.EquipDisplayStorage.Remove(slot);
+
+                        Destroy(_indexObject);
+
+                    }
+                }
+
                 containerSlot.Item = slot.Item; //fill the equipment slot
                 containerSlot.Amount = slot.Amount;
                 containerSlot.Durrability = slot.Durrability;
             }
             else
             {
+                //equip
                 //remember the game object we are replacing
                 GameObject objToRemember = EDisplay.EquipDisplayStorage[containerSlot];
 
@@ -519,10 +549,15 @@ public class InventoryInteraction : MonoBehaviour
         //if it fits remove it from inventory
         if (equiped)
         {
+
+            AnalyticsOnEquip(slot);
+
             InvDisplay.ObjToItems.Remove(_indexObject);
             InvDisplay.ItemsDisplayed.Remove(slot);
             InvDisplay.Inventory.Container.Remove(slot);
             Destroy(_indexObject);
+            EDisplay.Equipment.Container[removeAlreadyIndex].Item = null;
+
         }
 
     }
@@ -570,6 +605,25 @@ public class InventoryInteraction : MonoBehaviour
         return false;
     }
 
+
+    void AnalyticsOnEquip(InventorySlot slot)
+    {
+        AnalyticsResult result = Analytics.CustomEvent("Items Equiped Up", new Dictionary<string, object>
+        {
+            { "Item Name", slot.Item.ItemName },
+            { "Item Slot", slot.Item.EquipTypes }
+        });
+
+    }
+    
+    void AnalyticsOnConsume(InventorySlot slot)
+    {
+        AnalyticsResult result = Analytics.CustomEvent("Items Consumed", new Dictionary<string,object>
+        {
+            { "Item Name", slot.Item.ItemName },
+            { "Item Type" ,slot.Item.Type }
+        });
+    }
 
     private GameObject GetObjectUnderMouse()
     {

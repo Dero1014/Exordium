@@ -30,8 +30,11 @@ public class InventoryInteractionMobile : MonoBehaviour
     private PlayerAttributes _pAttributes; //make a SO for attributes;
     private SlotComponent _slotOfTheObjHolder;
 
+    private GameObject _indexObject;
+
     private Image _objectToDragImage;
 
+    private Transform _playerPosition;
     private Transform _objectToDrag;
     private Transform _target;
 
@@ -39,11 +42,13 @@ public class InventoryInteractionMobile : MonoBehaviour
 
     private Vector2 _originalPosition;
 
+
     private bool _dragging = false;
     private bool _clicked = false; //clicked is used to have the ability to click and pickup or place an item in inventory
 
-    private Transform _playerPosition;
-    private GameObject _indexObject;
+
+
+
     private void Awake()
     {
         _playerPosition = GameObject.FindObjectOfType<PlayerInput>().gameObject.transform;
@@ -176,7 +181,7 @@ public class InventoryInteractionMobile : MonoBehaviour
                     //Move the item from inventory to equip
                     for (int i = 0; i < equipContainerCount; i++)
                     {
-                        var allowedType = EDisplay.Equipment.Container[i].AllowedEquip[0];
+                        var allowedType = EDisplay.Equipment.Container[i].AllowedEquip;
 
                         if (slot.Item.EquipTypes == allowedType)
                         {
@@ -488,7 +493,7 @@ public class InventoryInteractionMobile : MonoBehaviour
     {
         var containerSlot = EDisplay.Equipment.Container[numOfSlot];
 
-        if (slot.Item.EquipTypes == containerSlot.AllowedEquip[0])
+        if (slot.Item.EquipTypes == containerSlot.AllowedEquip)
         {
             if (containerSlot.Item == null) //if its empty
             {

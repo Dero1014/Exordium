@@ -91,7 +91,7 @@ public class InventorySlot
 {
 
     public ItemBaseObject Item;
-    public EquipType[] AllowedEquip;
+    public EquipType AllowedEquip;
     public int Amount;
     public int Durrability;
 

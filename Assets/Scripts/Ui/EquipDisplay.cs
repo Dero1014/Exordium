@@ -84,9 +84,6 @@ public class EquipDisplay : MonoBehaviour
                         Equipment.Container[i].Durrability = 0;
                         ObjToEquipment.Remove(obj);
                         Destroy(obj);
-                        print("destroyed");
-
-
                     }
                 }
             }

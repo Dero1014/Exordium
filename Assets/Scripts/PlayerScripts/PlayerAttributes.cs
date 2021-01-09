@@ -20,8 +20,8 @@ public class PlayerAttributes : MonoBehaviour
 
     [HideInInspector]public List<ItemBaseObject> PickedUpItems = new List<ItemBaseObject>();
 
-    public int[] Buffs = { 0, 0, 0, 0, 0 };
-    public int[] Attributes = {0, 0, 0, 0, 0}; //0- strength, 1- dexterity, 2- agility, 3- inteligence
+    public int[] Buffs;
+    public int[] Attributes;
     
     [Space(10)]
     public int Health;

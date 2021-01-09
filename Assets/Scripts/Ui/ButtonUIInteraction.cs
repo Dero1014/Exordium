@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Analytics;
 
 
 class Window
@@ -22,6 +23,24 @@ class Window
     public void OpenClose()
     {
         _window.SetActive(!_window.activeSelf);
+        WindowOpened(_window);
+    }
+
+    void WindowOpened(GameObject openedWindow)
+    {
+        if (openedWindow.activeSelf)
+        {
+            AnalyticsOnOpen(openedWindow);
+        }
+    }
+
+    void AnalyticsOnOpen(GameObject window)
+    {
+        AnalyticsResult result = Analytics.CustomEvent("Items Equiped Up", new Dictionary<string, object>
+        {
+            { "Window ", window.name },
+        });
+
     }
 
 }
@@ -92,6 +111,7 @@ public class ButtonUIInteraction : MonoBehaviour
         AttributeButton.SetActive(!AttributeButton.activeSelf);
     }
 
+    
     #endregion
 
 }
