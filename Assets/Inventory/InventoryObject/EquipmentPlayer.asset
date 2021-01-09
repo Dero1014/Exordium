@@ -15,30 +15,30 @@ MonoBehaviour:
   Capacity: 8
   Container:
   - Item: {fileID: 0}
-    AllowedEquip: 03000000
+    AllowedEquip: 3
     Amount: 1
-    Durrability: -347
+    Durrability: 0
   - Item: {fileID: 0}
-    AllowedEquip: 01000000
-    Amount: 0
-    Durrability: -247
-  - Item: {fileID: 0}
-    AllowedEquip: 02000000
+    AllowedEquip: 1
     Amount: 1
-    Durrability: -347
+    Durrability: 0
   - Item: {fileID: 0}
-    AllowedEquip: 05000000
-    Amount: 0
-    Durrability: -259
-  - Item: {fileID: 0}
-    AllowedEquip: 06000000
+    AllowedEquip: 2
     Amount: 1
-    Durrability: -260
+    Durrability: 0
   - Item: {fileID: 0}
-    AllowedEquip: 06000000
+    AllowedEquip: 5
     Amount: 1
-    Durrability: -260
+    Durrability: 0
   - Item: {fileID: 0}
-    AllowedEquip: 04000000
+    AllowedEquip: 6
     Amount: 1
-    Durrability: -260
+    Durrability: 0
+  - Item: {fileID: 0}
+    AllowedEquip: 6
+    Amount: 1
+    Durrability: 0
+  - Item: {fileID: 0}
+    AllowedEquip: 4
+    Amount: 1
+    Durrability: 0

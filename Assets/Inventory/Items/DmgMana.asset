@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 392315c38b323594ab6e6820f028ae68, type: 3}
-  m_Name: DmgPotion
+  m_Name: DmgMana
   m_EditorClassIdentifier: 
   ItemName: HealthPotion
-  Prefab: {fileID: 5553552032132086172, guid: a04cb4d31e4ca2a4180271947dd4f2b1, type: 3}
-  Sprite: {fileID: -6224836212712267137, guid: e041b464539813644b00790606d9358a, type: 3}
+  Prefab: {fileID: 5553552032132086172, guid: 6dfdf7aa730b886478dd541ed440d757, type: 3}
+  Sprite: {fileID: 3156651111650854973, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 1
   EquipTypes: 0
   Stack: 0
   MaxItemCount: 5
   Description: 
   Buffs:
-  - Attribute: 5
+  - Attribute: 6
     Value: -5
   HoldValue: 0
   HoldTime: 5

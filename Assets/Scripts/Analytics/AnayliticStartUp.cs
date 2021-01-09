@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEditor;
+using UnityEditor.Build;
+
 public class AnayliticStartUp : MonoBehaviour
 {
 
@@ -12,7 +15,7 @@ public class AnayliticStartUp : MonoBehaviour
             "GameStarted", 
             new Dictionary<string, object> {
 
-                { "Platform", GameStarted()},
+                { "Platform", EditorUserBuildSettings.activeBuildTarget},
                 { "Local Time", LocalTime()}
 
             }
@@ -20,11 +23,6 @@ public class AnayliticStartUp : MonoBehaviour
 
     }
    
-    BuildTarget GameStarted()
-    {
-        return EditorUserBuildSettings.activeBuildTarget;
-    }
-
     int LocalTime()
     {
         int hour = System.DateTime.Now.Hour;
@@ -32,3 +30,5 @@ public class AnayliticStartUp : MonoBehaviour
     }
 
 }
+
+#endif

@@ -412,28 +412,12 @@ public class InventoryInteractionMobile : MonoBehaviour
             }
             else if (_itsOnEquipment)
             {
-                //so its on equipment now, time to mess about and see what we hit
-                if (objToReplace.GetComponent<SlotComponent>()) //first check if its over an empty slot
-                {
-                    //check which type the slot is
-                    int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
+                int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
 
-                    //then compare it with the equip type
-                    InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
+                //then compare it with the equip type
+                InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
 
-                    DragItemInEquipSlot(slot, numOfSlot);
-
-                }
-                else
-                {
-                    //check which type the slot is
-                    int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
-
-                    //then compare it with the equip type
-                    InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
-
-                    DragItemInEquipSlot(slot, numOfSlot);
-                }
+                DragItemInEquipSlot(slot, numOfSlot);
             }
 
         }
@@ -464,28 +448,12 @@ public class InventoryInteractionMobile : MonoBehaviour
             }
             else if (_itsOnEquipment)
             {
-                //so its on equipment now, time to mess about and see what we hit
-                if (objToReplace.GetComponent<SlotComponent>()) //first check if its over an empty slot
-                {
-                    //check which type the slot is
-                    int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
+                int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
 
-                    //then compare it with the equip type
-                    InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
+                //then compare it with the equip type
+                InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
 
-                    DragItemInEquipSlot(slot, numOfSlot);
-
-                }
-                else
-                {
-                    //check which type the slot is
-                    int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
-
-                    //then compare it with the equip type
-                    InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
-
-                    DragItemInEquipSlot(slot, numOfSlot);
-                }
+                DragItemInEquipSlot(slot, numOfSlot);
             }
         }
 
@@ -494,6 +462,7 @@ public class InventoryInteractionMobile : MonoBehaviour
     void DragItemInEquipSlot(InventorySlot slot, int numOfSlot) //here is where we check what to do with the lot we are placing on
     {
         var containerSlot = EDisplay.Equipment.Container[numOfSlot];
+        var previousSlot = EDisplay.Equipment.Container.IndexOf(slot);
         int removeAlreadyIndex = -1;
 
         if (slot.Item.EquipTypes == containerSlot.AllowedEquip)
@@ -553,8 +522,13 @@ public class InventoryInteractionMobile : MonoBehaviour
             if (removeAlreadyIndex >= 0)
             {
                 EDisplay.Equipment.Container[removeAlreadyIndex].Item = null;
-
             }
+            if (_itsOnEquipment && EDisplay.ObjToEquipment.ContainsKey(_indexObject))
+            {
+                EDisplay.Equipment.Container[previousSlot].Item = null;
+                EDisplay.EquipDisplayStorage.Remove(EDisplay.ObjToEquipment[EDisplay.EquipDisplayStorage[EDisplay.Equipment.Container[previousSlot]]]);
+            }
+
         }
 
     }
