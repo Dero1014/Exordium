@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
 
 public class InventoryInteractionMobile : MonoBehaviour
 {
@@ -45,8 +46,6 @@ public class InventoryInteractionMobile : MonoBehaviour
 
     private bool _dragging = false;
     private bool _clicked = false; //clicked is used to have the ability to click and pickup or place an item in inventory
-
-
 
 
     private void Awake()
@@ -131,6 +130,7 @@ public class InventoryInteractionMobile : MonoBehaviour
                 {
                     ToolTip.Slot = null;
                 }
+                ToolTip.UpdateText();
 
                 //SPLIT STACK
                 if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -214,6 +214,8 @@ public class InventoryInteractionMobile : MonoBehaviour
                             }
 
                         }
+
+                        AnalyticsOnEquip(slot);
                     }
 
 
@@ -262,11 +264,12 @@ public class InventoryInteractionMobile : MonoBehaviour
                 InventorySlot slot;
                 slot = InvDisplay.ObjToItems[_target.gameObject];
 
-                if (slot.Item.Type == ItemType.Default && slot.Item.Buffs.Length > 0 && !PlayerAttributes.current.buffApplied)
+                if (slot.Item.Type == ItemType.Default && slot.Item.Buffs.Length > 0 && !PlayerAttributes.current._buffApplied)
                 {
                     slot.Amount--;
                     PlayerAttributes.current.Slot = slot;
                     PlayerAttributes.current.ApplyBuff();
+                    AnalyticsOnConsume(slot);
                     if (slot.Amount <= 0) _slotOfTheObjHolder._occupied = false;
 
                 }
@@ -324,6 +327,7 @@ public class InventoryInteractionMobile : MonoBehaviour
                     {
 
                         InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
+                        var indexOfContainer = EDisplay.Equipment.Container.IndexOf(slot);
 
                         GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
                         var itemComponent = clone.GetComponent<ItemComponent>();
@@ -336,7 +340,7 @@ public class InventoryInteractionMobile : MonoBehaviour
                         EDisplay.ObjToEquipment.Remove(_indexObject);
                         EDisplay.EquipDisplayStorage.Remove(slot);
                         Destroy(_indexObject);
-                        EDisplay.Equipment.Container.Remove(slot);
+                        EDisplay.Equipment.Container[indexOfContainer].Item =null;
 
                     }
                     else
@@ -424,7 +428,6 @@ public class InventoryInteractionMobile : MonoBehaviour
                 {
                     //check which type the slot is
                     int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
-                    print(numOfSlot);
 
                     //then compare it with the equip type
                     InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
@@ -477,7 +480,6 @@ public class InventoryInteractionMobile : MonoBehaviour
                 {
                     //check which type the slot is
                     int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
-                    print(numOfSlot);
 
                     //then compare it with the equip type
                     InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
@@ -492,11 +494,25 @@ public class InventoryInteractionMobile : MonoBehaviour
     void DragItemInEquipSlot(InventorySlot slot, int numOfSlot) //here is where we check what to do with the lot we are placing on
     {
         var containerSlot = EDisplay.Equipment.Container[numOfSlot];
+        int removeAlreadyIndex = -1;
 
         if (slot.Item.EquipTypes == containerSlot.AllowedEquip)
         {
             if (containerSlot.Item == null) //if its empty
             {
+                for (int i = 0; i < EDisplay.Equipment.Container.Count; i++)
+                {
+                    if (slot == EDisplay.Equipment.Container[i])
+                    {
+                        removeAlreadyIndex = i;
+                        EDisplay.ObjToEquipment.Remove(_indexObject);
+                        EDisplay.EquipDisplayStorage.Remove(slot);
+
+                        Destroy(_indexObject);
+
+                    }
+                }
+
                 containerSlot.Item = slot.Item; //fill the equipment slot
                 containerSlot.Amount = slot.Amount;
                 containerSlot.Durrability = slot.Durrability;
@@ -528,10 +544,17 @@ public class InventoryInteractionMobile : MonoBehaviour
         //if it fits remove it from inventory
         if (equiped)
         {
+            AnalyticsOnEquip(slot);
             InvDisplay.ObjToItems.Remove(_indexObject);
             InvDisplay.ItemsDisplayed.Remove(slot);
             InvDisplay.Inventory.Container.Remove(slot);
             Destroy(_indexObject);
+
+            if (removeAlreadyIndex >= 0)
+            {
+                EDisplay.Equipment.Container[removeAlreadyIndex].Item = null;
+
+            }
         }
 
     }
@@ -579,6 +602,25 @@ public class InventoryInteractionMobile : MonoBehaviour
         return false;
     }
 
+
+    void AnalyticsOnEquip(InventorySlot slot)
+    {
+        AnalyticsResult result = Analytics.CustomEvent("Items Equiped Up", new Dictionary<string, object>
+        {
+            { "Item Name", slot.Item.ItemName },
+            { "Item Slot", slot.Item.EquipTypes }
+        });
+
+    }
+
+    void AnalyticsOnConsume(InventorySlot slot)
+    {
+        AnalyticsResult result = Analytics.CustomEvent("Items Consumed", new Dictionary<string, object>
+        {
+            { "Item Name", slot.Item.ItemName },
+            { "Item Type" ,slot.Item.Type }
+        });
+    }
 
     private GameObject GetObjectUnderMouse()
     {

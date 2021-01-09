@@ -33,24 +33,16 @@ public class PlayerPickUp : MonoBehaviour
     {
         //pick type of pick up system
         if (Input.GetKeyDown(KeyCode.F1))
-        {
             SetPickUp(true, false, false, false);
-        }
 
         if (Input.GetKeyDown(KeyCode.F2))
-        {
             SetPickUp(false, true, false, false);
-        }
 
         if (Input.GetKeyDown(KeyCode.F3))
-        {
             SetPickUp(false, false, true, false);
-        }
 
         if (Input.GetKeyDown(KeyCode.F4))
-        {
             SetPickUp(false, false, false, true);
-        }
 
         if (Inventory.Container.Count >= Inventory.Capacity)
             Text.SetActive(true);
@@ -103,6 +95,10 @@ public class PlayerPickUp : MonoBehaviour
         //control equipment size
         Inventory.Container.Clear();
 
+        if (Equipment.Container.Count < 7)
+        {
+            Equipment.Container.Add(null);
+        }
 
         Equipment.Container[0].Item = null;
         Equipment.Container[0].Amount = 1;

@@ -46,7 +46,7 @@ public class InventoryInteraction : MonoBehaviour
 
     private bool _dragging = false;
     private bool _clicked = false; //clicked is used to have the ability to click and pickup or place an item in inventory
-
+    private bool _splitScreenActive = false;
 
     private void Awake()
     {
@@ -69,8 +69,16 @@ public class InventoryInteraction : MonoBehaviour
 
     void Update()
     {
-        //!!!!!! set somewhere in the code equipment over inventory and inventory over equipment when selected !!!!!!
         equiped = false;
+
+        if (SplitStack.Panel.activeSelf)
+        {
+            _splitScreenActive = true;
+        }
+        else
+        {
+            _splitScreenActive = false;
+        }
 
         //when all uis shutdown
         if (!UIs[0].activeSelf && !UIs[1].activeSelf && _objectToDrag != null)
@@ -113,7 +121,6 @@ public class InventoryInteraction : MonoBehaviour
 
             //TOOLTIP
             ToolTip.Panel.SetActive(true);
-
             if (InvDisplay.ObjToItems.ContainsKey(_target.gameObject))
             {
                 slot = InvDisplay.ObjToItems[_target.gameObject];
@@ -128,11 +135,12 @@ public class InventoryInteraction : MonoBehaviour
             {
                 ToolTip.Slot = null;
             }
+            ToolTip.UpdateText();
 
             //SPLIT STACK
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
-                SplitStack.Panel.SetActive(true);
+                SplitStack.Panel.SetActive(true);               
                 SplitStack.PositionWindow();
                 if (InvDisplay.ObjToItems.ContainsKey(_target.gameObject))
                 {
@@ -158,224 +166,228 @@ public class InventoryInteraction : MonoBehaviour
 
         #endregion
 
-        #region RightClick equip
-
-        if (Input.GetMouseButtonDown(1) && !_dragging)
+        if (!_splitScreenActive)
         {
-            //later try doing this with iDs
-            
-            _target = GetDraggableTransformUnderMouse();
-            InventorySlot slot;
 
+            #region RightClick equip
 
-            if (_target != null)
+            if (Input.GetMouseButtonDown(1) && !_dragging)
             {
-                if (InvDisplay.ObjToItems.ContainsKey(_target.gameObject))
+                //later try doing this with iDs
+
+                _target = GetDraggableTransformUnderMouse();
+                InventorySlot slot;
+
+
+                if (_target != null)
                 {
-                    var equipContainerCount = EDisplay.Equipment.Container.Count;
-                    slot = InvDisplay.ObjToItems[_target.gameObject];
-
-                    //Move the item from inventory to equip
-                    for (int i = 0; i < equipContainerCount; i++)
+                    if (InvDisplay.ObjToItems.ContainsKey(_target.gameObject))
                     {
-                        var allowedType = EDisplay.Equipment.Container[i].AllowedEquip;
+                        var equipContainerCount = EDisplay.Equipment.Container.Count;
+                        slot = InvDisplay.ObjToItems[_target.gameObject];
 
-                        if (slot.Item.EquipTypes == allowedType)
+                        //Move the item from inventory to equip
+                        for (int i = 0; i < equipContainerCount; i++)
                         {
-                            if (EDisplay.Equipment.Container[i].Item == null)
+                            var allowedType = EDisplay.Equipment.Container[i].AllowedEquip;
+
+                            if (slot.Item.EquipTypes == allowedType)
                             {
-                                //equip item
+                                if (EDisplay.Equipment.Container[i].Item == null)
+                                {
+                                    //equip item
 
-                                EDisplay.Equipment.Container[i].Item = slot.Item;
-                                EDisplay.Equipment.Container[i].Amount = slot.Amount;
-                                EDisplay.Equipment.Container[i].Durrability = slot.Durrability;
-                                equiped = true;
+                                    EDisplay.Equipment.Container[i].Item = slot.Item;
+                                    EDisplay.Equipment.Container[i].Amount = slot.Amount;
+                                    EDisplay.Equipment.Container[i].Durrability = slot.Durrability;
+                                    equiped = true;
 
-                                break;
+                                    break;
+                                }
+
+                                if (EDisplay.Equipment.Container[i].Item != null)
+                                {
+                                    //equip item
+
+                                    //remember the game object 
+                                    var containerSlot = EDisplay.Equipment.Container[i];
+                                    var objToRemember = EDisplay.EquipDisplayStorage[containerSlot];
+
+                                    EDisplay.EquipDisplayStorage.Remove(EDisplay.ObjToEquipment[objToRemember]);
+
+                                    InvDisplay.Inventory.AddItem(EDisplay.Equipment.Container[i].Item, EDisplay.Equipment.Container[i].Amount, EDisplay.Equipment.Container[i].Durrability);
+                                    Destroy(objToRemember);
+
+                                    EDisplay.Equipment.Container[i].Item = slot.Item;
+                                    EDisplay.Equipment.Container[i].Amount = slot.Amount;
+                                    EDisplay.Equipment.Container[i].Durrability = slot.Durrability;
+                                    break;
+                                }
+
                             }
-
-                            if (EDisplay.Equipment.Container[i].Item != null)
-                            {
-                                //equip item
-                            
-                                //remember the game object 
-                                var containerSlot = EDisplay.Equipment.Container[i];
-                                var objToRemember = EDisplay.EquipDisplayStorage[containerSlot];
-
-                                EDisplay.EquipDisplayStorage.Remove(EDisplay.ObjToEquipment[objToRemember]);
-
-                                InvDisplay.Inventory.AddItem(EDisplay.Equipment.Container[i].Item, EDisplay.Equipment.Container[i].Amount, EDisplay.Equipment.Container[i].Durrability);
-                                Destroy(objToRemember);
-
-                                EDisplay.Equipment.Container[i].Item = slot.Item;
-                                EDisplay.Equipment.Container[i].Amount = slot.Amount;
-                                EDisplay.Equipment.Container[i].Durrability = slot.Durrability;
-                                break;
-                            }
+                            AnalyticsOnEquip(slot);
 
                         }
-                        AnalyticsOnEquip(slot);
+
+
+                        //now remove that item from the inventory
+                        if (slot.Item.Type == ItemType.Equipable)
+                        {
+                            _slotOfTheObjHolder._occupied = false;
+                            InvDisplay.ObjToItems.Remove(_target.gameObject);
+                            InvDisplay.ItemsDisplayed.Remove(slot);
+                            InvDisplay.Inventory.Container.Remove(slot);
+                            Destroy(_target.gameObject);
+                        }
 
                     }
-
-
-                    //now remove that item from the inventory
-                    if (slot.Item.Type == ItemType.Equipable)
+                    else if (EDisplay.ObjToEquipment.ContainsKey(_target.gameObject))
                     {
-                        _slotOfTheObjHolder._occupied = false;
-                        InvDisplay.ObjToItems.Remove(_target.gameObject);
-                        InvDisplay.ItemsDisplayed.Remove(slot);
-                        InvDisplay.Inventory.Container.Remove(slot);
-                        Destroy(_target.gameObject);
-                    }
+                        slot = EDisplay.ObjToEquipment[_target.gameObject];
+                        var containerSlot = EDisplay.Equipment.Container.IndexOf(slot);
 
-                }
-                else if (EDisplay.ObjToEquipment.ContainsKey(_target.gameObject))
-                {
-                    slot = EDisplay.ObjToEquipment[_target.gameObject];
-                    var containerSlot = EDisplay.Equipment.Container.IndexOf(slot);
+                        InvDisplay.Inventory.AddItem(slot.Item, slot.Amount, slot.Durrability);
 
-                    InvDisplay.Inventory.AddItem(slot.Item, slot.Amount, slot.Durrability);
-
-                    EDisplay.ObjToEquipment.Remove(_target.gameObject);
-                    EDisplay.EquipDisplayStorage.Remove(slot);
-                    EDisplay.Equipment.Container[containerSlot].Item = null;
-                    EDisplay.Equipment.Container[containerSlot].Amount = 0;
-                    Destroy(_target.gameObject);
-
-                }
-
-            }
-            _updateAttributeValues();
-            _updateEquipLoadout();
-
-        }
-
-        #endregion
-
-        #region ConsumeItem
-
-        if (Input.GetMouseButtonDown(2))
-        {
-            _target = GetDraggableTransformUnderMouse();
-            if (_target != null)
-            {
-                InventorySlot slot;
-                slot = InvDisplay.ObjToItems[_target.gameObject];
-
-                if (slot.Item.Type == ItemType.Default && slot.Item.Buffs.Length > 0 && !PlayerAttributes.current.buffApplied)
-                {
-                    slot.Amount--;
-                    PlayerAttributes.current.Slot = slot;
-                    PlayerAttributes.current.ApplyBuff();
-                    AnalyticsOnConsume(slot);
-                    if (slot.Amount <= 0) _slotOfTheObjHolder._occupied = false;
-                }
-            }
-
-
-        }
-
-        #endregion
-
-        #region pick up and dragg
-        if (_dragging)
-        {
-            _objectToDrag.position = Input.mousePosition;
-            _clicked = true;
-        }
-
-        if (Input.GetMouseButtonDown(0) && !_dragging)
-        {
-            _objectToDrag = GetDraggableTransformUnderMouse();
-
-            if (_objectToDrag != null)
-            {
-                _itsOnInventory = OnInvDisplay();
-                _itsOnEquipment = OnEquipDisplay();
-
-                _dragging = true;
-
-                _objectToDrag.SetAsLastSibling();
-
-                _originalPosition = _objectToDrag.position;
-                _objectToDragImage = _objectToDrag.GetComponentInChildren<Image>();
-                _objectToDragImage.raycastTarget = false;
-                _slotOfTheObjHolder._occupied = false;
-            }
-        }
-
-
-
-        if (Input.GetMouseButtonDown(0) && _clicked)
-        {
-            if (_objectToDrag != null)
-            {
-                var objectToReplace = GetDraggableTransformUnderMouse();
-                _indexObject = _objectToDrag.gameObject;
-                //Found an object
-                if (objectToReplace != null)
-                {
-                    OrganizeItem(objectToReplace);
-                }
-                else
-                {
-                    if (EDisplay.ObjToEquipment.ContainsKey(_indexObject))
-                    {
-                        
-                        InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
-
-                        GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
-                        var itemComponent = clone.GetComponent<ItemComponent>();
-
-                        itemComponent.ItemObject = EDisplay.ObjToEquipment[_indexObject].Item;
-                        itemComponent.Amount = EDisplay.ObjToEquipment[_indexObject].Amount;
-                        itemComponent.Durrability = EDisplay.ObjToEquipment[_indexObject].Durrability;
-
-
-                        EDisplay.ObjToEquipment.Remove(_indexObject);
+                        EDisplay.ObjToEquipment.Remove(_target.gameObject);
                         EDisplay.EquipDisplayStorage.Remove(slot);
-                        Destroy(_indexObject);
-                        EDisplay.Equipment.Container.Remove(slot);
+                        EDisplay.Equipment.Container[containerSlot].Item = null;
+                        EDisplay.Equipment.Container[containerSlot].Amount = 0;
+                        Destroy(_target.gameObject);
 
+                    }
+
+                }
+                _updateAttributeValues();
+                _updateEquipLoadout();
+
+            }
+
+            #endregion
+
+            #region ConsumeItem
+
+            if (Input.GetMouseButtonDown(2))
+            {
+                _target = GetDraggableTransformUnderMouse();
+                if (_target != null)
+                {
+                    InventorySlot slot;
+                    slot = InvDisplay.ObjToItems[_target.gameObject];
+
+                    if (slot.Item.Type == ItemType.Default && slot.Item.Buffs.Length > 0 && !PlayerAttributes.current._buffApplied)
+                    {
+                        slot.Amount--;
+                        PlayerAttributes.current.Slot = slot;
+                        PlayerAttributes.current.ApplyBuff();
+                        AnalyticsOnConsume(slot);
+                        if (slot.Amount <= 0) _slotOfTheObjHolder._occupied = false;
+                    }
+                }
+
+
+            }
+
+            #endregion
+
+            #region pick up and dragg
+            if (_dragging)
+            {
+                _objectToDrag.position = Input.mousePosition;
+                _clicked = true;
+            }
+
+            if (Input.GetMouseButtonDown(0) && !_dragging)
+            {
+                _objectToDrag = GetDraggableTransformUnderMouse();
+
+                if (_objectToDrag != null)
+                {
+                    _itsOnInventory = OnInvDisplay();
+                    _itsOnEquipment = OnEquipDisplay();
+
+                    _dragging = true;
+
+                    _objectToDrag.SetAsLastSibling();
+
+                    _originalPosition = _objectToDrag.position;
+                    _objectToDragImage = _objectToDrag.GetComponentInChildren<Image>();
+                    _objectToDragImage.raycastTarget = false;
+                    _slotOfTheObjHolder._occupied = false;
+                }
+            }
+
+
+
+            if (Input.GetMouseButtonDown(0) && _clicked)
+            {
+                if (_objectToDrag != null)
+                {
+                    var objectToReplace = GetDraggableTransformUnderMouse();
+                    _indexObject = _objectToDrag.gameObject;
+                    //Found an object
+                    if (objectToReplace != null)
+                    {
+                        OrganizeItem(objectToReplace);
                     }
                     else
                     {
-                        InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
+                        if (EDisplay.ObjToEquipment.ContainsKey(_indexObject))
+                        {
 
-                        GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
-                        var itemComponent = clone.GetComponent<ItemComponent>();
-                        itemComponent.ItemObject = InvDisplay.ObjToItems[_indexObject].Item;
-                        itemComponent.Amount = InvDisplay.ObjToItems[_indexObject].Amount;
-                        itemComponent.Durrability = InvDisplay.ObjToItems[_indexObject].Durrability;
+                            InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
+                            var indexOfContainer = EDisplay.Equipment.Container.IndexOf(slot);
 
-                        InvDisplay.ObjToItems.Remove(_indexObject);
-                        InvDisplay.ItemsDisplayed.Remove(slot);
-                        Destroy(_indexObject);
-                        InvDisplay.Inventory.Container.Remove(slot);
+                            GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
+                            var itemComponent = clone.GetComponent<ItemComponent>();
+
+                            itemComponent.ItemObject = EDisplay.ObjToEquipment[_indexObject].Item;
+                            itemComponent.Amount = EDisplay.ObjToEquipment[_indexObject].Amount;
+                            itemComponent.Durrability = EDisplay.ObjToEquipment[_indexObject].Durrability;
+
+
+                            EDisplay.ObjToEquipment.Remove(_indexObject);
+                            EDisplay.EquipDisplayStorage.Remove(slot);
+                            Destroy(_indexObject);
+                            EDisplay.Equipment.Container[indexOfContainer].Item = null;
+
+                        }
+                        else
+                        {
+                            InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
+
+                            GameObject clone = Instantiate(Prefab, _playerPosition.position + new Vector3(0, -3, 0), Quaternion.identity);
+                            var itemComponent = clone.GetComponent<ItemComponent>();
+                            itemComponent.ItemObject = InvDisplay.ObjToItems[_indexObject].Item;
+                            itemComponent.Amount = InvDisplay.ObjToItems[_indexObject].Amount;
+                            itemComponent.Durrability = InvDisplay.ObjToItems[_indexObject].Durrability;
+
+                            InvDisplay.ObjToItems.Remove(_indexObject);
+                            InvDisplay.ItemsDisplayed.Remove(slot);
+                            Destroy(_indexObject);
+                            InvDisplay.Inventory.Container.Remove(slot);
+
+                        }
+
+                        _slotOfTheObjHolder._occupied = false;
+                        _slotOfTheObjHolder._occupied = false;
 
                     }
 
-                    _slotOfTheObjHolder._occupied = false;
-                    _slotOfTheObjHolder._occupied = false;
-
+                    _objectToDragImage.raycastTarget = true;
+                    _objectToDrag = null;
                 }
 
-                _objectToDragImage.raycastTarget = true;
-                _objectToDrag = null;
+                _dragging = false;
+                _clicked = false;
+                _updateEquipLoadout();
+                _updateAttributeValues();
             }
 
-            _dragging = false;
-            _clicked = false;
-            _updateEquipLoadout();
-            _updateAttributeValues();
+
+
+            #endregion
+
         }
-
-
-
-        #endregion
-
-
     }
 
    
@@ -424,7 +436,6 @@ public class InventoryInteraction : MonoBehaviour
                 {
                     //check which type the slot is
                     int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
-                    print(numOfSlot);
 
                     //then compare it with the equip type
                     InventorySlot slot = InvDisplay.ObjToItems[_indexObject];
@@ -462,7 +473,6 @@ public class InventoryInteraction : MonoBehaviour
             else if (_itsOnEquipment)
             {
                 //so its on equipment now, time to mess about and see what we hit
-                print("I kept it on equipment");
                 if (objToReplace.GetComponent<SlotComponent>()) //first check if its over an empty slot
                 {
                     //check which type the slot is
@@ -478,7 +488,6 @@ public class InventoryInteraction : MonoBehaviour
                 {
                     //check which type the slot is
                     int numOfSlot = EDisplay.EquipSlots.IndexOf(objToReplace.GetComponentInParent<SlotComponent>().transform); //first get the number of that slot
-                    print(numOfSlot);
 
                     //then compare it with the equip type
                     InventorySlot slot = EDisplay.ObjToEquipment[_indexObject];
@@ -493,8 +502,7 @@ public class InventoryInteraction : MonoBehaviour
     void DragItemInEquipSlot(InventorySlot slot, int numOfSlot) //here is where we check what to do with the lot we are placing on
     {
         var containerSlot = EDisplay.Equipment.Container[numOfSlot];
-        int removeAlreadyIndex = 0;
-
+        int removeAlreadyIndex = -1;
         if (slot.Item.EquipTypes == containerSlot.AllowedEquip)
         {
             if (containerSlot.Item == null) //if its empty
@@ -505,11 +513,9 @@ public class InventoryInteraction : MonoBehaviour
                 {
                     if (slot == EDisplay.Equipment.Container[i])
                     {
+                        
                         removeAlreadyIndex = i;
-                        print("its already in equipment");
-                        print("Index object is " + _indexObject.name);
                         EDisplay.ObjToEquipment.Remove(_indexObject);
-                        print(slot.Item.ItemName);
                         EDisplay.EquipDisplayStorage.Remove(slot);
 
                         Destroy(_indexObject);
@@ -556,7 +562,7 @@ public class InventoryInteraction : MonoBehaviour
             InvDisplay.ItemsDisplayed.Remove(slot);
             InvDisplay.Inventory.Container.Remove(slot);
             Destroy(_indexObject);
-            EDisplay.Equipment.Container[removeAlreadyIndex].Item = null;
+            
 
         }
 

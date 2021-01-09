@@ -39,6 +39,5 @@ public class AnalyticsMovementTracker : MonoBehaviour
     {
         AnalyticsResult result = Analytics.CustomEvent("Player Moved");
 
-        print(result);
     }
 }

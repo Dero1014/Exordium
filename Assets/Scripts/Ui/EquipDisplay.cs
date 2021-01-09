@@ -90,8 +90,6 @@ public class EquipDisplay : MonoBehaviour
             UpdateDisplay();
         }
 
-        
-
     }
 
 }

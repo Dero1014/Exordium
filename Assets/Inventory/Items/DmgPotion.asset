@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 392315c38b323594ab6e6820f028ae68, type: 3}
-  m_Name: HealthPotion 2
+  m_Name: DmgPotion
   m_EditorClassIdentifier: 
   ItemName: HealthPotion
   Prefab: {fileID: 921157191579248999, guid: 9aadc57c311680245acbfc10ca59560f, type: 3}
-  Sprite: {fileID: -2454215593733916435, guid: e041b464539813644b00790606d9358a, type: 3}
+  Sprite: {fileID: -6224836212712267137, guid: e041b464539813644b00790606d9358a, type: 3}
   Type: 1
   EquipTypes: 0
   Stack: 0
   MaxItemCount: 5
   Description: 
   Buffs:
-  - Attribute: 0
-    Value: 10
+  - Attribute: 5
+    Value: -5
   HoldValue: 0
   HoldTime: 5
-  RampValue: 1
+  RampValue: 0
   rampItUpTime: 2
-  ValueOverTime: 0
-  addValueOverTime: -10
+  ValueOverTime: 1
+  addValueOverTime: 5

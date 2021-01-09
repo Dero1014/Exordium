@@ -34,6 +34,12 @@ public class TooltipWindow : MonoBehaviour
             _panelRectTransform.position = Input.mousePosition + new Vector3(0, -60, 0);
         }
 
+        
+        
+    }
+
+    public void UpdateText()
+    {
         if (Slot != null && Panel.activeSelf)
         {
             if (Slot.Item != null)
@@ -67,7 +73,6 @@ public class TooltipWindow : MonoBehaviour
                 Buffs.text = null;
             }
         }
-        
     }
 
     public void Reposition()

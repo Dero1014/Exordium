@@ -21,8 +21,8 @@ MonoBehaviour:
   MaxItemCount: 5
   Description: 
   Buffs:
-  - Attribute: 0
-    Value: 10
+  - Attribute: 5
+    Value: 5
   HoldValue: 0
   HoldTime: 5
   RampValue: 0

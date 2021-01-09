@@ -23,7 +23,6 @@ public class InventoryDisplay : MonoBehaviour
     public int YSpaceBetweenSlots;
 
     //these are use to place slots and items into game objects so they don't clutter the inventory panel
-    //PS They always need to be in the middle
     public Transform SlotsParent;
     public Transform ItemsParent;
 

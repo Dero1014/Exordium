@@ -31,6 +31,11 @@ public class SpawnItem : MonoBehaviour
             }
 
 
+            if (item.ItemObject.Type == ItemType.Equipable)
+            {
+                item.Durrability = 100;
+            }
+
         }
     }
 }

@@ -74,8 +74,6 @@ public class JoystickScript : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            
-
             if (_objectToDrag != null)
             {
                 _distance = Vector2.zero;
@@ -114,9 +112,7 @@ public class JoystickScript : MonoBehaviour
 
         // get top level object hit
         if (clickedObject != null)
-        {
             return clickedObject.transform;
-        }
 
         return null;
     }

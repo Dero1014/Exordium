@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
             _directionMovement = _directionMovement * Speed * Time.deltaTime;  //apply speed to the direction
 
             PlayerRigidBody.velocity = _directionMovement;  //apply directional movement to the rigidbody of the player
-
         }
         else
         {

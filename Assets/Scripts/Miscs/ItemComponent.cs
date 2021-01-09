@@ -25,7 +25,6 @@ public class ItemComponent : MonoBehaviour
         {
             _amountText = gameObject.GetComponentInChildren<TextMeshPro>();
             _amountText.text = Amount.ToString();
-            
         }
        
     }

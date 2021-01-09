@@ -6,7 +6,6 @@ using UnityEngine;
 public class CustomEvents : MonoBehaviour
 {
     public static CustomEvents current;
-
    
     private void Awake()
     {

@@ -18,7 +18,6 @@ public class AnayliticStartUp : MonoBehaviour
             }
         );
 
-        print(result);
     }
    
     BuildTarget GameStarted()

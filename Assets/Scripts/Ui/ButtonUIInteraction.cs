@@ -72,19 +72,13 @@ public class ButtonUIInteraction : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown("i")) //input for inventory
-        {
             InventoryWindow();
-        }
 
         if (Input.GetKeyDown("e")) //input for equip
-        {
             EquipWindow();
-        }
 
         if (Input.GetKeyDown("c")) //input for equip
-        {
             AttributeWindow();
-        }
 
 
     }

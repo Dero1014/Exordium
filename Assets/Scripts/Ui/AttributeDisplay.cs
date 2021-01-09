@@ -6,8 +6,6 @@ public class AttributeDisplay : MonoBehaviour
 {
     public TextMeshProUGUI[] Attributes; //0- strength, 1- dexterity, 2- agility, 3- inteligence
 
-    private PlayerAttributes _pAttributes;
-
     void Start()
     {
         for (int i = 0; i < Attributes.Length; i++)
@@ -20,7 +18,6 @@ public class AttributeDisplay : MonoBehaviour
         CustomEvents.current.OnValueChangeAgi += UpdateTextAgi;
         CustomEvents.current.OnValueChangeInt += UpdateTextInt;
         CustomEvents.current.OnValueChangeLck += UpdateTextLck;
-        _pAttributes = GameObject.FindObjectOfType<PlayerAttributes>();
     }
 
     void UpdateTextStr(int newValues)

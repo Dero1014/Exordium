@@ -36,7 +36,6 @@ public class PredefinedSpatialProximity : MonoBehaviour
 
         if (hit.collider != null)
         {
-            print("Hit Something");
             if (hit.transform.GetComponent<ItemComponent>())
             {
                 _distanceFromClick = (Vector2)transform.position - (Vector2)hit.transform.position;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 
-
 public class AnalyticsCollisionTracker : MonoBehaviour
 {
     int _collisionTime;
@@ -15,7 +14,6 @@ public class AnalyticsCollisionTracker : MonoBehaviour
         {
             AnalyticsResult result = Analytics.CustomEvent("Collided");
             StartCoroutine(BetweenCollision());
-            print(result);
         }
         
     }

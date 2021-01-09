@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    //public
     public static PlayerInput current;
 
     public JoystickScript PJoystick;
@@ -36,22 +37,15 @@ public class PlayerInput : MonoBehaviour
         if (InputOn)
         {
             if (PJoystick != null)
-            {
                 _directionKeys = new Vector2(PJoystick.HorizontalValue, PJoystick.VerticalValue);
-
-            }
             else
-            {
                 _directionKeys = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            }
         }
         else
             _directionKeys = Vector2.zero;
 
         if (_directionKeys!=Vector2.zero)
-        {
             OnInputChange();
-        }
 
         _pAnimator.SetDirection(_directionKeys);
     }

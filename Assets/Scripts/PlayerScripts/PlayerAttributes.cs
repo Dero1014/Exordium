@@ -32,7 +32,7 @@ public class PlayerAttributes : MonoBehaviour
     private int _maxMana;
     private int _maxHp;
 
-    public bool buffApplied = false;
+    public bool _buffApplied = false;
 
     void Start()
     {
@@ -81,8 +81,6 @@ public class PlayerAttributes : MonoBehaviour
 
     public void UpdateAttributes()
     {
-        //apply the stats from equipment to the attributes
-        //add them with existing values of that attribute
 
         int[] atrNums = { 0, 0, 0, 0, 0, 0, 0 };
         
@@ -114,14 +112,16 @@ public class PlayerAttributes : MonoBehaviour
             Attributes[i] = atrNums[i];
         }
 
-        //health mana
-
 
         CustomEvents.current.StrValue = atrNums[0] + Buffs[0];
         CustomEvents.current.DexValue = atrNums[1] + Buffs[1];
         CustomEvents.current.AgiValue = atrNums[2] + Buffs[2];
         CustomEvents.current.IntValue = atrNums[3] + Buffs[3];
         CustomEvents.current.LckValue = atrNums[4] + Buffs[4];
+
+        //health mana
+        Health = _maxHp + Buffs[5];
+        Mana = _maxMana + Buffs[6];
 
         
     }
@@ -130,23 +130,17 @@ public class PlayerAttributes : MonoBehaviour
     {
         var item = Slot.Item;
         if (item.HoldValue)
-        {
             StartCoroutine(HoldValue(item.HoldTime, item.Buffs[0].Value, item.Buffs[0].Attribute));
-        }
         else if (item.RampValue)
-        {
             _ramp = true;
-        }
         else if (item.ValueOverTime)
-        {
             _overTime = true;
-        }
 
     }
 
     IEnumerator HoldValue(float timeSet, int buff, AttributesType type)
     {
-        buffApplied = true;
+        _buffApplied = true;
         Buffs[(int)type] += buff;
 
         UpdateAttributes();
@@ -155,7 +149,8 @@ public class PlayerAttributes : MonoBehaviour
         yield return new WaitForSeconds(timeSet);
 
         Buffs[(int)type] -= buff;
-        buffApplied = false;
+        _buffApplied = false;
+        Slot = null;
 
         UpdateAttributes();
 
@@ -166,6 +161,7 @@ public class PlayerAttributes : MonoBehaviour
     bool _oneShot = false;
     void RampValue(float holdTime, float timeSet, int buff, AttributesType type)
     {
+        _buffApplied = true;
         if (_timeRamp < timeSet)
         {
             if (!_oneShot)
@@ -173,8 +169,6 @@ public class PlayerAttributes : MonoBehaviour
                 _buffSave = Buffs[(int)type];
                 _oneShot = true;
             }
-
-           
 
             _timeRamp += Time.deltaTime;
             float value = (buff) * (_timeRamp / timeSet); 
@@ -191,16 +185,16 @@ public class PlayerAttributes : MonoBehaviour
 
     IEnumerator HoldValueRamp(float timeSet, int buff, AttributesType type)
     {
-        buffApplied = true;
         Buffs[(int)type] += buff;
 
         UpdateAttributes();
         _ramp = false;
 
         yield return new WaitForSeconds(timeSet);
-
+        _buffApplied = false;
         Buffs[(int)type] -= buff;
-        buffApplied = false;
+        _buffApplied = false;
+        Slot = null;
 
         UpdateAttributes();
 
@@ -210,6 +204,7 @@ public class PlayerAttributes : MonoBehaviour
     float _passedSeconds = 0;
     void OverTime(float timeSet, int buff, AttributesType type)
     {
+        _buffApplied = true;
         if (_timeOver < 1 && _passedSeconds<timeSet)
         {
             _timeOver += Time.deltaTime;
@@ -222,9 +217,13 @@ public class PlayerAttributes : MonoBehaviour
         }
         else
         {
+            _timeOver = 0;
+            _passedSeconds = 0;
+            _buffApplied = false;
             _overTime = false;
+            Slot = null;
         }
-       
+
 
     }
 

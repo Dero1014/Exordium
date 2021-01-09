@@ -69,7 +69,6 @@ public class PlayerAnimator : MonoBehaviour
             HumanAnimator.SetBool(_idRight, false);
             HumanAnimator.SetBool(_idUp, false);
             HumanAnimator.SetBool(_idDown, false);
-
         }
 
     }
