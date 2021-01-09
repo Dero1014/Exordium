@@ -67,5 +67,6 @@ AnalyticsCollisionTracker - sends out an event when a player colided with someth
 AnalyticsMovementTracker - tracks movement for 10 units it will only repeat 5 times in a single build
 AnayliticStartUp - tracks every time the game started
 
+Notice: This is my first time using analytics and since it takes time for the data to be uploded on Unity Dash board I don't know if it is working entirely as planned but hopefully the code proves it does
 
 Link to the repository https://github.com/Dero1014/Exordium
