@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c181bc9400aeda84d83fed04678f42a6, type: 3}
+  m_Name: Str
+  m_EditorClassIdentifier: 
+  ItemName: Strength Power Up
+  Prefab: {fileID: 3410364124583247844, guid: 94dbaac3c91a34c4e8298a47867397a4, type: 3}
+  Sprite: {fileID: 8948807650805991641, guid: e041b464539813644b00790606d9358a, type: 3}
+  Type: 2
+  EquipTypes: 0
+  Stack: 0
+  MaxItemCount: 1
+  Description: 
+  Buffs:
+  - Attribute: 0
+    Value: 5

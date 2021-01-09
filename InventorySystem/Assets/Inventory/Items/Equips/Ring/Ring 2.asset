@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04302ff9170ac7c4aa3aee26192c72a5, type: 3}
+  m_Name: Ring 2
+  m_EditorClassIdentifier: 
+  ItemName: Ring2
+  Prefab: {fileID: 6858298716477844230, guid: d9ec2cba42515d34a9e63e9b5b75a1f2, type: 3}
+  Sprite: {fileID: 7622277309764017006, guid: e041b464539813644b00790606d9358a, type: 3}
+  Type: 0
+  EquipTypes: 6
+  Stack: 0
+  MaxItemCount: 1
+  MaxDurrability: 100
+  Description: 
+  Buffs:
+  - Attribute: 2
+    Value: 5
